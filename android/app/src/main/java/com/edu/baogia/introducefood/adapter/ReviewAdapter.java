@@ -87,7 +87,7 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ViewHolder
             tvTime=itemView.findViewById(R.id.tvTime);
             tvDesc=itemView.findViewById(R.id.tvDesc);
             moreImg=itemView.findViewById(R.id.moreImg);
-            imgRV=imageView.findViewById(R.id.imgRV);
+            imgRV=itemView.findViewById(R.id.imgRV);
         }
     }
 }
