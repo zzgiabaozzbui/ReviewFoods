@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+        <LinearLayout
+            android:orientation="vertical"
+            android:padding="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:padding="6dp"
+                android:textSize="20dp"
+                android:textColor="#FF0000"
+                android:layout_gravity="center"
+                android:textStyle="bold"
+                android:text="Gửi câu hỏi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+            </TextView>
+            <TextView
+                android:padding="6dp"
+                android:textSize="16dp"
+                android:layout_gravity="center"
+                android:text="Hãy nhập nội dung câu hỏi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+            </TextView>
+            <EditText
+                android:layout_marginTop="20dp"
+                android:padding="16dp"
+                android:id="@+id/edtTitle"
+                android:hint="Hãy nhập câu hỏi ....."
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            </EditText>
+        </LinearLayout>
+</LinearLayout>
