@@ -1,11 +1,13 @@
 package com.edu.baogia.introducefood.model.mySQL;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.util.Log;
 
 import androidx.annotation.Nullable;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -15,11 +17,15 @@ import com.android.volley.toolbox.Volley;
 import com.edu.baogia.introducefood.interfaces.BooleanCallback;
 import com.edu.baogia.introducefood.interfaces.ListReviewCallback;
 import com.edu.baogia.introducefood.interfaces.ReviewMVP;
+import com.edu.baogia.introducefood.interfaces.StringCallback;
 import com.edu.baogia.introducefood.model.object.Review;
+import com.edu.baogia.introducefood.util.VolleyMultipartRequest;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -65,6 +71,7 @@ public class ReviewModel implements ReviewMVP.Model {
                 map.put("Desc",review.getText());
                 map.put("Key",review.getKey()+"");
                 map.put("Time",review.getTime());
+                map.put("Img",review.getImg());
                 return map;
             }
         };
@@ -99,6 +106,7 @@ public class ReviewModel implements ReviewMVP.Model {
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String,String> map=new HashMap<>();
                 map.put("Desc",review.getText());
+                map.put("Img",review.getImg());
                 map.put("KeyReview",review.getKeyReview()+"");
                 return map;
             }
@@ -168,6 +176,7 @@ public class ReviewModel implements ReviewMVP.Model {
                         review.setKey(jsonObject.getInt("keyFood"));
                         review.setText(jsonObject.getString("content"));
                         review.setTime(jsonObject.getString("timeRV"));
+                        review.setImg(jsonObject.getString("img"));
                         reviewList.add(review);
 
                     }
@@ -195,5 +204,45 @@ public class ReviewModel implements ReviewMVP.Model {
             }
         };
         requestQueue.add(stringRequest);
+    }
+
+    @Override
+    public void uploadImg(Bitmap filePath, StringCallback callback) {
+        String url=QuestModel.IP+"/Webservice/KTPM/fileUpload.php";
+        VolleyMultipartRequest volleyMultipartRequest = new VolleyMultipartRequest(Request.Method.POST, url,
+                new Response.Listener<NetworkResponse>() {
+                    @Override
+                    public void onResponse(NetworkResponse response) {
+                        try {
+                            JSONObject obj = new JSONObject(new String(response.data));
+                            String filename=""+obj.getString("file_name");
+                            callback.getString(filename);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        callback.getString(null);
+                    }
+                }) {
+            @Override
+            protected Map<String, DataPart> getByteData() {
+                Map<String, DataPart> params = new HashMap<>();
+                long imagename = System.currentTimeMillis();
+                params.put("image", new DataPart(imagename + ".png", getFileDataFromDrawable(filePath)));
+                return params;
+            }
+        };
+        //adding the request to volley
+        Volley.newRequestQueue(context).add(volleyMultipartRequest);
+    }
+
+    public byte[] getFileDataFromDrawable(Bitmap bitmap) {
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 80, byteArrayOutputStream);
+        return byteArrayOutputStream.toByteArray();
     }
 }

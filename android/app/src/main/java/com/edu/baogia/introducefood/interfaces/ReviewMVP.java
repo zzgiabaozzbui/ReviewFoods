@@ -1,5 +1,7 @@
 package com.edu.baogia.introducefood.interfaces;
 
+import android.graphics.Bitmap;
+
 import com.edu.baogia.introducefood.model.object.Review;
 
 
@@ -23,11 +25,11 @@ public interface ReviewMVP {
     }
     interface Presenter
     {
-        void updateReview(Review review);
+        void updateReview(Review review,Bitmap bitmap);
         void deleteReview(Review review);
         String getAccount();
         void getListReview(int key);
-        void addReview(String account,int key,String text);
+        void addReview(String account, int key, String text, Bitmap bitmap);
     }
     interface Model
     {
@@ -35,6 +37,7 @@ public interface ReviewMVP {
         void updateReview(Review review,BooleanCallback booleanCallback);
         void deleteReview(Review review,BooleanCallback booleanCallback);
         String getUid();
+        void uploadImg(Bitmap bitmap,StringCallback stringCallback);
         void getListReview(int key, ListReviewCallback callback);
 
     }

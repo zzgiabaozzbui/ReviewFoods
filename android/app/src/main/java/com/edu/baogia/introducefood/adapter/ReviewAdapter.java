@@ -53,6 +53,14 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ViewHolder
             });
         }
         Glide.with(this.mContext).load(mList.get(position).getAva()).into(holder.imageView);
+        if(mList.get(position).getImg()!=null||!mList.get(position).getImg().trim().equals(""))
+        {
+            Glide.with(this.mContext).load(mList.get(position).getImg()).into(holder.imgRV);
+        }
+        else
+        {
+            holder.imgRV.setVisibility(View.GONE);
+        }
         holder.tvName.setText(mList.get(position).getName());
         holder.tvTime.setText(mList.get(position).getTime());
         holder.tvDesc.setText(mList.get(position).getText());
@@ -68,7 +76,7 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ViewHolder
     public class ViewHolder extends RecyclerView.ViewHolder
     {
 
-        ImageView imageView,moreImg;
+        ImageView imageView,moreImg,imgRV;
         TextView tvName;
         TextView tvTime;
         TextView tvDesc;
@@ -79,6 +87,7 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ViewHolder
             tvTime=itemView.findViewById(R.id.tvTime);
             tvDesc=itemView.findViewById(R.id.tvDesc);
             moreImg=itemView.findViewById(R.id.moreImg);
+            imgRV=imageView.findViewById(R.id.imgRV);
         }
     }
 }

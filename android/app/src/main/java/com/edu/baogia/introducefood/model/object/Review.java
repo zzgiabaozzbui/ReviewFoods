@@ -8,8 +8,9 @@ public class Review {
     private int key;
     private String text;
     private String time;
+    private String img;
 
-    public Review(int keyReview, String account, String name, String ava, int key, String text, String time) {
+    public Review(int keyReview, String account, String name, String ava, int key, String text, String time, String img) {
         this.keyReview = keyReview;
         this.account = account;
         this.name = name;
@@ -17,6 +18,7 @@ public class Review {
         this.key = key;
         this.text = text;
         this.time = time;
+        this.img = img;
     }
 
     public String getName() {
@@ -76,5 +78,13 @@ public class Review {
 
     public void setTime(String time) {
         this.time = time;
+    }
+
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
     }
 }

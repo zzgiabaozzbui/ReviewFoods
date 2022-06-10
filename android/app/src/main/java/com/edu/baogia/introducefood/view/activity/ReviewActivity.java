@@ -1,13 +1,18 @@
 package com.edu.baogia.introducefood.view.activity;
 
+import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.TextView;
@@ -20,15 +25,24 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 
+import com.bumptech.glide.Glide;
 import com.edu.baogia.introducefood.R;
 import com.edu.baogia.introducefood.adapter.ReviewAdapter;
+import com.edu.baogia.introducefood.interfaces.BitmapCallback;
 import com.edu.baogia.introducefood.interfaces.ItemClickListenerReview;
 import com.edu.baogia.introducefood.interfaces.ReviewMVP;
 import com.edu.baogia.introducefood.model.mySQL.ReviewModel;
 import com.edu.baogia.introducefood.model.object.Review;
 import com.edu.baogia.introducefood.presenter.ReviewPresenter;
+import com.gun0912.tedpermission.PermissionListener;
+import com.gun0912.tedpermission.normal.TedPermission;
 
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.util.List;
+
+import gun0912.tedbottompicker.TedBottomPicker;
+import gun0912.tedbottompicker.TedBottomSheetDialogFragment;
 
 public class ReviewActivity extends AppCompatActivity implements ReviewMVP.View{
     RecyclerView recyclerView;
@@ -39,6 +53,10 @@ public class ReviewActivity extends AppCompatActivity implements ReviewMVP.View{
     LinearLayout layoutAdd;
     AlertDialog alertDialog;
     EditText editText,edtUpdate;
+    ImageView imageViewAdd;
+    ImageView imageViewUpdate;
+    Bitmap imgAdd;
+    Bitmap imgUpdate;
     int id;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -142,7 +160,7 @@ public class ReviewActivity extends AppCompatActivity implements ReviewMVP.View{
     @Override
     public void onAddSuccess() {
         Toast.makeText(getApplicationContext(), "Đăng tải thành công", Toast.LENGTH_SHORT).show();
-        presenter.getListReview(-1);
+        presenter.getListReview(id);
     }
 
     @Override
@@ -154,7 +172,7 @@ public class ReviewActivity extends AppCompatActivity implements ReviewMVP.View{
     @Override
     public void onUpdateSuccess() {
         Toast.makeText(getApplicationContext(), "Cập nhật thành công", Toast.LENGTH_SHORT).show();
-        presenter.getListReview(-1);
+        presenter.getListReview(id);
     }
 
     @Override
@@ -166,10 +184,11 @@ public class ReviewActivity extends AppCompatActivity implements ReviewMVP.View{
     @Override
     public void onDeleteSuccess() {
         Toast.makeText(getApplicationContext(), "Xóa thành công", Toast.LENGTH_SHORT).show();
-        presenter.getListReview(-1);
+        presenter.getListReview(id);
     }
 
     private void popUp() {
+        imgAdd=null;
         LayoutInflater layoutInflater=getLayoutInflater();
         View view= layoutInflater.inflate(R.layout.popup_review,null);
         AlertDialog.Builder builder=new AlertDialog.Builder(ReviewActivity.this);
@@ -197,7 +216,7 @@ public class ReviewActivity extends AppCompatActivity implements ReviewMVP.View{
                         {
                             alertDialog.dismiss();
                             progressDialog.show();
-                            presenter.addReview(presenter.getAccount(),-1,editText.getText().toString());
+                            presenter.addReview(presenter.getAccount(),id,editText.getText().toString(),imgAdd);
                         }
                     }
                 });
@@ -207,6 +226,29 @@ public class ReviewActivity extends AppCompatActivity implements ReviewMVP.View{
         alertDialog.setCanceledOnTouchOutside(false);
         alertDialog.show();
         editText=view.findViewById(R.id.editTextTextMultiLine3);
+        imageViewAdd=view.findViewById(R.id.imageView2);
+        imageViewAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                PermissionListener permissionlistener = new PermissionListener() {
+                    @Override
+                    public void onPermissionGranted() {
+                        pickImgAdd();
+                    }
+
+                    @Override
+                    public void onPermissionDenied(List<String> deniedPermissions) {
+                        Toast.makeText(getApplicationContext(), "Permission Denied\n" + deniedPermissions.toString(), Toast.LENGTH_SHORT).show();
+                    }
+
+                };
+                TedPermission.create()
+                        .setPermissionListener(permissionlistener)
+                        .setDeniedMessage("Nếu bạn từ chối quyền, bạn không thể sử dụng dịch vụ này\n\nVui lòng bật quyền tại [Setting]> [Permission]")
+                        .setPermissions(Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                        .check();
+            }
+        });
 
     }
 
@@ -217,6 +259,7 @@ public class ReviewActivity extends AppCompatActivity implements ReviewMVP.View{
     }
 
     private void popUpUpdate(Review userReview) {
+            imgUpdate=null;
             LayoutInflater layoutInflater=getLayoutInflater();
             View view= layoutInflater.inflate(R.layout.popup_update_review,null);
             AlertDialog.Builder builder=new AlertDialog.Builder(ReviewActivity.this);
@@ -243,7 +286,7 @@ public class ReviewActivity extends AppCompatActivity implements ReviewMVP.View{
                             else
                             {
                                 userReview.setText(edtUpdate.getText().toString());
-                                presenter.updateReview(userReview);
+                                presenter.updateReview(userReview,imgUpdate);
                                 progressDialog.show();
                                 alertDialog.dismiss();
                             }
@@ -257,6 +300,37 @@ public class ReviewActivity extends AppCompatActivity implements ReviewMVP.View{
             alertDialog.show();
             edtUpdate=view.findViewById(R.id.editTextTextMultiLine3);
             edtUpdate.setText(userReview.getText());
+            imageViewUpdate=view.findViewById(R.id.imageView3);
+            if(userReview.getImg()!=null||!userReview.getImg().trim().equals(""))
+            {
+                Glide.with(this).load(userReview.getImg()).into(imageViewUpdate);
+            }
+            else
+            {
+                imageViewUpdate.setImageResource(R.drawable.notselec);
+            }
+            imageViewUpdate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                PermissionListener permissionlistener = new PermissionListener() {
+                    @Override
+                    public void onPermissionGranted() {
+                        pickImgUpdate();
+                    }
+
+                    @Override
+                    public void onPermissionDenied(List<String> deniedPermissions) {
+                        Toast.makeText(getApplicationContext(), "Permission Denied\n" + deniedPermissions.toString(), Toast.LENGTH_SHORT).show();
+                    }
+
+                };
+                TedPermission.create()
+                        .setPermissionListener(permissionlistener)
+                        .setDeniedMessage("Nếu bạn từ chối quyền, bạn không thể sử dụng dịch vụ này\n\nVui lòng bật quyền tại [Setting]> [Permission]")
+                        .setPermissions(Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                        .check();
+            }
+        });
     }
     public void delete(Review userReview)
     {
@@ -278,5 +352,42 @@ public class ReviewActivity extends AppCompatActivity implements ReviewMVP.View{
         dialog.show();
     }
 
+    private void pickImgAdd() {
+        TedBottomPicker.with(ReviewActivity.this)
+                .show(new TedBottomSheetDialogFragment.OnImageSelectedListener() {
+                    @Override
+                    public void onImageSelected(Uri uri) {
+                        try {
+                            InputStream inputStream = getContentResolver().openInputStream(uri);
+                            Bitmap b = BitmapFactory.decodeStream(inputStream);
+                            imageViewAdd.setImageBitmap(b);
+                            imgAdd=b;
+                        } catch (FileNotFoundException e) {
+                            e.printStackTrace();
+                        }
 
+                    }
+                });
+
+    }
+
+    private void pickImgUpdate() {
+        TedBottomPicker.with(ReviewActivity.this)
+                .show(new TedBottomSheetDialogFragment.OnImageSelectedListener() {
+                    @Override
+                    public void onImageSelected(Uri uri) {
+                        try {
+                            InputStream inputStream = getContentResolver().openInputStream(uri);
+                            Bitmap b = BitmapFactory.decodeStream(inputStream);
+                            imageViewUpdate.setImageBitmap(b);
+                            imgUpdate=b;
+
+                        } catch (FileNotFoundException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                });
+
+    }
 }

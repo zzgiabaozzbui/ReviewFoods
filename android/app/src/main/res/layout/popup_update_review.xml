@@ -31,8 +31,8 @@
 
     <EditText
         android:id="@+id/editTextTextMultiLine3"
-        android:layout_width="315dp"
-        android:layout_height="wrap_content"
+        android:layout_width="333dp"
+        android:layout_height="89dp"
         android:layout_marginTop="16dp"
         android:inputType="textMultiLine"
         android:minHeight="48dp"
@@ -40,5 +40,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView11"
         tools:ignore="SpeakableTextPresentCheck" />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="244dp"
+        android:layout_height="205dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextTextMultiLine3"
+        app:layout_constraintVertical_bias="0.0"
+        tools:srcCompat="@tools:sample/avatars" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
