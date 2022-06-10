@@ -29,8 +29,6 @@ android {
 }
 
 dependencies {
-    implementation 'io.github.ParkSangGwon:tedpermission-normal:3.3.0'
-    implementation 'io.github.ParkSangGwon:tedbottompicker:2.0.1'
     implementation "com.github.bumptech.glide:glide:4.8.0"
     implementation 'org.jsoup:jsoup:1.13.1'
     implementation 'androidx.appcompat:appcompat:1.4.2'
@@ -54,7 +52,8 @@ dependencies {
     //Import
     implementation 'gun0912.ted:tedbottompicker:2.0.1'
     //Permission
-    implementation 'gun0912.ted:tedpermission:2.2.3'
+
+    implementation 'io.github.ParkSangGwon:tedpermission-normal:3.3.0'
 
     //Barcode
     implementation 'me.dm7.barcodescanner:zxing:1.9.8'

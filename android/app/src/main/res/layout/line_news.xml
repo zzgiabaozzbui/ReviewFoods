@@ -5,7 +5,7 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:elevation="4dp"
-    android:background="@drawable/background"
+    android:background="@drawable/background_radius5"
     android:layout_marginLeft="12dp"
     android:layout_marginRight="12dp"
     android:layout_marginTop="12dp">

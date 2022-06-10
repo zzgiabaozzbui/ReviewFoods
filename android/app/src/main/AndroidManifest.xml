@@ -52,6 +52,17 @@
         <activity
             android:name=".view.activity.DanhMucMonAnView"
             android:exported="true" />
+        <activity
+            android:name=".view.activity.NewsInfoActivity"
+            android:exported="true" /><activity
+        android:name=".view.activity.ReportActivity"
+        android:exported="true" /><activity
+        android:name=".view.activity.ReviewActivity"
+        android:exported="true" /><activity
+        android:name=".view.activity.QuestActivity"
+        android:exported="true" /><activity
+        android:name=".view.activity.QuestInfoActivity"
+        android:exported="true" />
     </application>
 
 </manifest>

@@ -34,9 +34,10 @@ public class FoodActivity extends AppCompatActivity implements FoodView{
     ViewPager viewPager;
     TextView txtName,txtCate;
     ImageView imgAnh,imgAnh2;
-    Button btnThemGH;
+    Button btnBinhLuan;
     FoodPresenter foodPresenter;
     private Food fd;
+    int id;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,7 +50,7 @@ public class FoodActivity extends AppCompatActivity implements FoodView{
         tablayout();
         click();
         Intent intent = getIntent();
-        int id=intent.getIntExtra("idFood",0);
+        id = intent.getIntExtra("idFood",0);
         loadFood(id);
     }
 
@@ -61,10 +62,12 @@ public class FoodActivity extends AppCompatActivity implements FoodView{
 
 
     private void click() {
-        btnThemGH.setOnClickListener(new View.OnClickListener() {
+        btnBinhLuan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent intent = new Intent(FoodActivity.this,ReviewActivity.class);
+                intent.putExtra("idfood",id);
+                startActivity(intent);
             }
         });
     }
@@ -115,7 +118,7 @@ public class FoodActivity extends AppCompatActivity implements FoodView{
         txtCate = findViewById(R.id.txtCate);
         imgAnh = findViewById(R.id.imgAnh);
         imgAnh2 = findViewById(R.id.imgAnh2);
-        btnThemGH = findViewById(R.id.btnThemGH);
+        btnBinhLuan = findViewById(R.id.btnBinhLuan);
     }
 
     private void addInfor() {

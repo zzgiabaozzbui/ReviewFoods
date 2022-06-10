@@ -157,12 +157,12 @@
 
 
                     <Button
-                        android:id="@+id/btnThemGH"
+                        android:id="@+id/btnBinhLuan"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:backgroundTint="@color/blu"
-                        android:text="Đánh dấu"
+                        android:text="Bình Luận"
                         android:textColor="@color/white"
                         android:textStyle="bold"></Button>
                 </LinearLayout>

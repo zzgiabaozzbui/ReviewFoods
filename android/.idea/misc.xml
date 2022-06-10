@@ -10,6 +10,7 @@
         <entry key="..\:/XAMPP/htdocs/ReviewFoods/android/app/src/main/res/layout/activity_re_pass_word.xml" value="0.21875" />
         <entry key="..\:/XAMPP/htdocs/ReviewFoods/android/app/src/main/res/menu/add_quest.xml" value="0.25416666666666665" />
         <entry key="..\:/xampp/htdocs/ReviewFoods/android/app/src/main/res/drawable-v24/btn_login_background.xml" value="0.2" />
+        <entry key="..\:/xampp/htdocs/ReviewFoods/android/app/src/main/res/drawable/background_radius5.xml" value="0.1215" />
         <entry key="..\:/xampp/htdocs/ReviewFoods/android/app/src/main/res/drawable/backnew.xml" value="0.2" />
         <entry key="..\:/xampp/htdocs/ReviewFoods/android/app/src/main/res/drawable/borderimg.xml" value="0.2" />
         <entry key="..\:/xampp/htdocs/ReviewFoods/android/app/src/main/res/drawable/btndo.xml" value="0.2" />
@@ -28,9 +29,11 @@
         <entry key="..\:/xampp/htdocs/ReviewFoods/android/app/src/main/res/layout/activity_simple_scanner.xml" value="0.24583333333333332" />
         <entry key="..\:/xampp/htdocs/ReviewFoods/android/app/src/main/res/layout/food.xml" value="0.24583333333333332" />
         <entry key="..\:/xampp/htdocs/ReviewFoods/android/app/src/main/res/layout/food_new.xml" value="0.24583333333333332" />
+        <entry key="..\:/xampp/htdocs/ReviewFoods/android/app/src/main/res/layout/fragment_news.xml" value="0.264" />
         <entry key="..\:/xampp/htdocs/ReviewFoods/android/app/src/main/res/layout/fragment_review.xml" value="0.24583333333333332" />
         <entry key="..\:/xampp/htdocs/ReviewFoods/android/app/src/main/res/layout/line_list_review.xml" value="0.11041666666666666" />
         <entry key="..\:/xampp/htdocs/ReviewFoods/android/app/src/main/res/layout/line_news.xml" value="0.11041666666666666" />
+        <entry key="..\:/xampp/htdocs/ReviewFoods/android/app/src/main/res/menu/add_quest.xml" value="0.11041666666666666" />
         <entry key="..\:/xampp/htdocs/ReviewFoods/android/app/src/main/res/menu/navigation.xml" value="0.24583333333333332" />
         <entry key="..\:/xampp/htdocs/ReviewFoods/android/app/src/main/res/menu/search_menu.xml" value="0.11041666666666666" />
       </map>

@@ -2,10 +2,13 @@ package com.edu.baogia.introducefood.view.fragment;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -36,10 +39,17 @@ public class FragmentNews extends Fragment implements NewsMVP.View {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.fragment_news,container,false);
+        //innit
         recyclerView=view.findViewById(R.id.listNews);
         searchView=view.findViewById(R.id.searchView);
-        searchView.setMaxWidth(Integer.MAX_VALUE
-        );
+
+        EditText txtSearch = ((EditText)searchView.findViewById(androidx.appcompat.R.id.search_src_text));
+        txtSearch.setTextColor(Color.WHITE);
+
+        ImageView icon = searchView.findViewById(androidx.appcompat.R.id.search_button);
+        icon.setColorFilter(Color.WHITE);
+
+        searchView.setMaxWidth(Integer.MAX_VALUE);
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager=new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false);
         recyclerView.setLayoutManager(linearLayoutManager);

@@ -58,7 +58,7 @@ public class TabLayoutFoodAdapter extends FragmentPagerAdapter {
             case 1:
                 return "Công thức";
             case 2:
-                return "Bình luận";
+                return "Đánh giá";
         }
         return null;
     }

@@ -39,6 +39,7 @@ public class ReviewActivity extends AppCompatActivity implements ReviewMVP.View{
     LinearLayout layoutAdd;
     AlertDialog alertDialog;
     EditText editText,edtUpdate;
+    int id;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,6 +48,9 @@ public class ReviewActivity extends AppCompatActivity implements ReviewMVP.View{
         tvNoReview=findViewById(R.id.tvNoReview);
         layoutAdd=findViewById(R.id.layoutAdd);
         toolbar=findViewById(R.id.toolBar);
+
+        id = getIntent().getIntExtra("idfood", 0);
+
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Review");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -85,7 +89,7 @@ public class ReviewActivity extends AppCompatActivity implements ReviewMVP.View{
         progressDialog.setMessage("Loading");
         progressDialog.show();
         presenter=new ReviewPresenter(this,new ReviewModel(this));
-        presenter.getListReview(-1);
+        presenter.getListReview(id);
 
     }
 
