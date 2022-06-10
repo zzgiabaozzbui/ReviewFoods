@@ -143,8 +143,8 @@ public class HomeFragment extends Fragment implements HomeFragmentView{
         txtCateNew.setText(""+listDemo.get(0).getCate());
         txtNameNew.setText(""+listDemo.get(0).getName());
         txtDesNew.setText(""+listDemo.get(0).getDes());
-        Picasso.with(getContext()).load(""+listDemo.get(0).getImg()).into(imgNew);
-        Picasso.with(getContext()).load(""+listDemo.get(0).getImg()).into(imageAlpha);
+        Picasso.get().load(""+listDemo.get(0).getImg()).into(imgNew);
+        Picasso.get().load(""+listDemo.get(0).getImg()).into(imageAlpha);
     }
 
     @Override

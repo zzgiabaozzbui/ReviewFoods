@@ -42,7 +42,7 @@ public class RcyNewAdapter extends RecyclerView.Adapter<RcyNewAdapter.ViewHolder
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
-        Picasso.with(context).load(""+list.get(position).getImg()).into(holder.imgNew);
+        Picasso.get().load(""+list.get(position).getImg()).into(holder.imgNew);
 
         holder.setItemClickListener(new ItemClickListener() {
             @Override
@@ -62,8 +62,8 @@ public class RcyNewAdapter extends RecyclerView.Adapter<RcyNewAdapter.ViewHolder
                     homeFragment.getTxtidNew().setText(""+list.get(position).getId());
                     Log.d("AAA", "onClick: "+list.get(position).getCate());
 
-                    Picasso.with(context).load(""+list.get(position).getImg()).into(homeFragment.getImgNew());
-                    Picasso.with(context).load(""+list.get(position).getImg()).into(homeFragment.getImageAlpha());
+                    Picasso.get().load(""+list.get(position).getImg()).into(homeFragment.getImgNew());
+                    Picasso.get().load(""+list.get(position).getImg()).into(homeFragment.getImageAlpha());
 
                 }
 

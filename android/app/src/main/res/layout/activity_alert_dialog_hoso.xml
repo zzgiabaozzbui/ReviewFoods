@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="30dp">
+    <TextView
+        android:id="@+id/txtTitleHoSo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Nội dung"
+        android:textSize="25dp"
+        android:textStyle="bold"
+        android:layout_gravity="center"></TextView>
+    <EditText
+        android:id="@+id/txtContentHoSo"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:background="@drawable/edittext_ho_so"
+        android:backgroundTint="#E8EBEB"
+        android:textColor="@color/black"
+        android:paddingLeft="14dp"
+        ></EditText>
+    <LinearLayout
+        android:weightSum="100"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:orientation="horizontal">
+        <Button
+            android:id="@+id/btnHuyAlertHoSo"
+            android:layout_weight="48"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:textColor="@color/black"
+            android:padding="5dp"
+            android:textSize="12sp"
+            android:backgroundTint="#E8EBEB"
+            android:text="Hủy"></Button>
+        <LinearLayout
+            android:layout_weight="4"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"></LinearLayout>
+        <Button
+            android:id="@+id/btnXacNhanAlertHoSo"
+            android:layout_weight="48"
+            android:layout_width="0dp"
+            android:textSize="12sp"
+            android:padding="5dp"
+            android:layout_height="match_parent"
+            android:text="Xác nhận"></Button>
+    </LinearLayout>
+
+</LinearLayout>

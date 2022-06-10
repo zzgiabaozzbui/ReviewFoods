@@ -157,8 +157,8 @@ public class FoodActivity extends AppCompatActivity implements FoodView{
         txtName.setText(""+food.getName());
         txtCate.setText(""+food.getCate());
 
-        Picasso.with(this).load(""+food.getImg()).into(imgAnh);
-        Picasso.with(this).load(""+food.getImg()).into(imgAnh2);
+        Picasso.get().load(""+food.getImg()).into(imgAnh);
+        Picasso.get().load(""+food.getImg()).into(imgAnh2);
         Log.d("AAA", "getFood: "+food.toString());
     }
 

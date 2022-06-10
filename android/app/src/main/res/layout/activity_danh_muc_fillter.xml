@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="#F5F5F5"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="100">
+
+        <LinearLayout
+            android:layout_weight="90"
+            android:padding="20dp"
+            android:background="@color/white"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="0dp">
+            <TextView
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Bộ lọc tìm kiếm"
+                android:layout_marginBottom="10dp"
+                android:textColor="@color/black"
+                android:textSize="25sp"
+                android:textStyle="bold">
+            </TextView>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Danh mục món ăn"
+                android:textFontWeight="900"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold">
+            </TextView>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rcvDanhMucFillter"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                </androidx.recyclerview.widget.RecyclerView>
+        </LinearLayout>
+
+    <LinearLayout
+        android:layout_weight="10"
+        android:layout_gravity="bottom"
+        android:gravity="right|bottom"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:layout_marginBottom="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="0dp">
+        <Button
+            android:id="@+id/btnResetFillter"
+            android:backgroundTint="@color/white"
+            android:textColor="#ff0000"
+            android:layout_marginRight="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="10sp"
+            android:text="Thiết lập lại"></Button>
+        <Button
+            android:id="@+id/btnApDungFillter"
+            android:backgroundTint="#ff0000"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="10sp"
+            android:text="Áp dụng"></Button>
+    </LinearLayout>
+
+
+</LinearLayout>

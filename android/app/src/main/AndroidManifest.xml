@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.edu.baogia.introducefood">
-
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -45,6 +45,12 @@
             android:exported="true" />
         <activity
             android:name=".view.activity.SimpleScannerActivity"
+            android:exported="true" />
+        <activity
+            android:name=".view.activity.HoSoView"
+            android:exported="true" />
+        <activity
+            android:name=".view.activity.DanhMucMonAnView"
             android:exported="true" />
     </application>
 

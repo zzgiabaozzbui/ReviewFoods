@@ -48,7 +48,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
         holder.txtCate.setText("Loại: "+book.getCate());
         holder.txtDes.setText("Mô tả: "+book.getDes());
 
-        Picasso.with(context).load(""+book.getImg()).into(holder.imgAnh);
+        Picasso.get().load(""+book.getImg()).into(holder.imgAnh);
 
         holder.setItemClickListener(new ItemClickListener() {
             @Override
