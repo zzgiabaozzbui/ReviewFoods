@@ -42,7 +42,7 @@ public class ReviewModel implements ReviewMVP.Model {
 
     @Override
     public void addReview(Review review, BooleanCallback callback) {
-        String url= QuestModel.IP+"/Webservice/KTPM/insertReview.php";
+        String url= QuestModel.IP+QuestModel.FOLDER+"insertReview.php";
         StringRequest stringRequest=new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -81,7 +81,7 @@ public class ReviewModel implements ReviewMVP.Model {
 
     @Override
     public void updateReview(Review review, BooleanCallback booleanCallback) {
-        String url= QuestModel.IP+"/Webservice/KTPM/updateReview.php";
+        String url= QuestModel.IP+QuestModel.FOLDER+"updateReview.php";
         StringRequest stringRequest=new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -117,7 +117,7 @@ public class ReviewModel implements ReviewMVP.Model {
 
     @Override
     public void deleteReview(Review review, BooleanCallback booleanCallback) {
-        String url= QuestModel.IP+"/Webservice/KTPM/deleteReview.php";
+        String url= QuestModel.IP+QuestModel.FOLDER+"deleteReview.php";
         StringRequest stringRequest=new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -157,7 +157,7 @@ public class ReviewModel implements ReviewMVP.Model {
     @Override
     public void getListReview(int key, ListReviewCallback callback) {
         RequestQueue requestQueue= Volley.newRequestQueue(context);
-        String url=QuestModel.IP+"/Webservice/KTPM/selectReview.php";
+        String url=QuestModel.IP+QuestModel.FOLDER+"selectReview.php";
         StringRequest stringRequest=new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
             public  void onResponse(String response) {
@@ -176,7 +176,7 @@ public class ReviewModel implements ReviewMVP.Model {
                         review.setKey(jsonObject.getInt("keyFood"));
                         review.setText(jsonObject.getString("content"));
                         review.setTime(jsonObject.getString("timeRV"));
-                        review.setImg(jsonObject.getString("img"));
+                        review.setImg(QuestModel.IP+QuestModel.FOLDER+jsonObject.getString("img"));
                         reviewList.add(review);
 
                     }
@@ -208,7 +208,7 @@ public class ReviewModel implements ReviewMVP.Model {
 
     @Override
     public void uploadImg(Bitmap filePath, StringCallback callback) {
-        String url=QuestModel.IP+"/Webservice/KTPM/fileUpload.php";
+        String url=QuestModel.IP+QuestModel.FOLDER+"fileUpload.php";
         VolleyMultipartRequest volleyMultipartRequest = new VolleyMultipartRequest(Request.Method.POST, url,
                 new Response.Listener<NetworkResponse>() {
                     @Override

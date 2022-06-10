@@ -38,7 +38,7 @@ public class ReportModel implements ReportMVP.Model {
 
     @Override
     public void addReport(Report report, BooleanCallback callback) {
-        String url= QuestModel.IP+"/Webservice/KTPM/insertReport.php";
+        String url= QuestModel.IP+QuestModel.FOLDER+"insertReport.php";
         StringRequest stringRequest=new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -79,7 +79,7 @@ public class ReportModel implements ReportMVP.Model {
 
     @Override
     public void uploadImg(Bitmap filePath, StringCallback callback) {
-        String url=QuestModel.IP+"/Webservice/KTPM/fileUpload.php";
+        String url=QuestModel.IP+QuestModel.FOLDER+"fileUpload.php";
         VolleyMultipartRequest volleyMultipartRequest = new VolleyMultipartRequest(Request.Method.POST, url,
                 new Response.Listener<NetworkResponse>() {
                     @Override

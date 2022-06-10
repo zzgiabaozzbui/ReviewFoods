@@ -31,6 +31,7 @@ import java.util.Map;
 public class QuestModel implements QuestMVP.Model {
     Context context;
     public static final String IP="http://192.168.1.7";
+    public static final String FOLDER="/Webservice/KTPM/";
     public QuestModel(Context context) {
         this.context = context;
     }
@@ -38,7 +39,7 @@ public class QuestModel implements QuestMVP.Model {
     @Override
     public void addQuest(Quest quest, BooleanCallback callback) {
 
-        String url=IP+"/Webservice/KTPM/insertQuest.php";
+        String url=IP+FOLDER+"insertQuest.php";
         StringRequest stringRequest=new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -75,7 +76,7 @@ public class QuestModel implements QuestMVP.Model {
 
     @Override
     public void deleteQuest(Quest quest, BooleanCallback callback) {
-        String url=IP+"/Webservice/KTPM/deleteQuest.php";
+        String url=IP+FOLDER+"deleteQuest.php";
         StringRequest stringRequest=new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -111,7 +112,7 @@ public class QuestModel implements QuestMVP.Model {
     @Override
     public void getListQuest(String keyUser, ListQuestCallback callback) {
         RequestQueue requestQueue= Volley.newRequestQueue(context);
-        String url=IP+"/Webservice/KTPM/selectQuest.php";
+        String url=IP+FOLDER+"selectQuest.php";
         Log.d("AAA",url);
         JsonArrayRequest jsonArrayRequest=new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
             @Override

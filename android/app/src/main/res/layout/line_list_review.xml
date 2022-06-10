@@ -44,10 +44,10 @@
             </ImageView>
     </LinearLayout>
     <TextView
+        android:layout_marginBottom="10dp"
         android:layout_marginTop="10dp"
         android:layout_marginRight="10dp"
         android:layout_marginLeft="20dp"
-        android:layout_marginBottom="20dp"
         android:id="@+id/tvDesc"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -55,8 +55,7 @@
     <ImageView
         android:id="@+id/imgRV"
         android:layout_gravity="center"
-        android:src="@drawable/user"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content">
     </ImageView>
 </LinearLayout>
