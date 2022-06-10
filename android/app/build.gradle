@@ -56,7 +56,7 @@ dependencies {
     //Permission
     implementation 'gun0912.ted:tedpermission:2.2.3'
 
-
+    //Barcode
     implementation 'me.dm7.barcodescanner:zxing:1.9.8'
     implementation 'com.karumi:dexter:5.0.0' // Hỗ trợ xin quyền truy cập camera
 
@@ -65,9 +65,12 @@ dependencies {
     implementation 'commons-codec:commons-codec:1.14'
 
     //Picasso
-    implementation 'com.squareup.picasso:picasso:2.8'
+     implementation 'com.squareup.picasso:picasso:2.8'
 
-    //Bo tròn ảnh
+    //Bo tròn ảnh (Bảo)
     implementation 'de.hdodenhof:circleimageview:1.2.1'
+
+    //Bo tròn ảnh (mạnh)
+    implementation 'com.mikhaellopez:circularimageview:4.3.0'
 
 }
