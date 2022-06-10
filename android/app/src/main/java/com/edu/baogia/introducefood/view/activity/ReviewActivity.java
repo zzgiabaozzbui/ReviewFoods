@@ -31,6 +31,7 @@ import com.edu.baogia.introducefood.adapter.ReviewAdapter;
 import com.edu.baogia.introducefood.interfaces.BitmapCallback;
 import com.edu.baogia.introducefood.interfaces.ItemClickListenerReview;
 import com.edu.baogia.introducefood.interfaces.ReviewMVP;
+import com.edu.baogia.introducefood.model.mySQL.QuestModel;
 import com.edu.baogia.introducefood.model.mySQL.ReviewModel;
 import com.edu.baogia.introducefood.model.object.Review;
 import com.edu.baogia.introducefood.presenter.ReviewPresenter;
@@ -303,7 +304,7 @@ public class ReviewActivity extends AppCompatActivity implements ReviewMVP.View{
             imageViewUpdate=view.findViewById(R.id.imageView3);
             if(userReview.getImg()!=null||!userReview.getImg().trim().equals(""))
             {
-                Glide.with(this).load(userReview.getImg()).into(imageViewUpdate);
+                Glide.with(this).load(QuestModel.IP+QuestModel.FOLDER+userReview.getImg()).into(imageViewUpdate);
             }
             else
             {

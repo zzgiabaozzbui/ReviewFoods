@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.edu.baogia.introducefood.R;
 import com.edu.baogia.introducefood.interfaces.ItemClickListenerReview;
+import com.edu.baogia.introducefood.model.mySQL.QuestModel;
 import com.edu.baogia.introducefood.model.object.Review;
 
 
@@ -55,7 +56,7 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ViewHolder
         Glide.with(this.mContext).load(mList.get(position).getAva()).into(holder.imageView);
         if(mList.get(position).getImg()!=null&&!mList.get(position).getImg().trim().equals(""))
         {
-            Glide.with(this.mContext).load(mList.get(position).getImg()).into(holder.imgRV);
+            Glide.with(this.mContext).load(QuestModel.IP+QuestModel.FOLDER+mList.get(position).getImg()).into(holder.imgRV);
         }
         else
         {

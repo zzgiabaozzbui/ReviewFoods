@@ -179,7 +179,7 @@ public class ReviewModel implements ReviewMVP.Model {
                         review.setKey(jsonObject.getInt("keyFood"));
                         review.setText(jsonObject.getString("content"));
                         review.setTime(jsonObject.getString("timeRV"));
-                        review.setImg(QuestModel.IP+QuestModel.FOLDER+jsonObject.getString("img"));
+                        review.setImg(jsonObject.getString("img"));
                         reviewList.add(review);
 
                     }
