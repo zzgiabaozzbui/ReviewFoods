@@ -53,7 +53,7 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ViewHolder
             });
         }
         Glide.with(this.mContext).load(mList.get(position).getAva()).into(holder.imageView);
-        if(mList.get(position).getImg()!=null||!mList.get(position).getImg().trim().equals(""))
+        if(mList.get(position).getImg()!=null&&!mList.get(position).getImg().trim().equals(""))
         {
             Glide.with(this.mContext).load(mList.get(position).getImg()).into(holder.imgRV);
         }
