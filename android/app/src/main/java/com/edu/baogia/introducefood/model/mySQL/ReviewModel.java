@@ -71,7 +71,10 @@ public class ReviewModel implements ReviewMVP.Model {
                 map.put("Desc",review.getText());
                 map.put("Key",review.getKey()+"");
                 map.put("Time",review.getTime());
-                map.put("Img",review.getImg());
+                if(review.getImg()!=null)
+                {
+                    map.put("Img",review.getImg());
+                }
                 return map;
             }
         };
