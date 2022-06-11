@@ -30,6 +30,7 @@ import com.edu.baogia.introducefood.presenter.HomePresenter;
 import com.edu.baogia.introducefood.presenter.HomePresenterIm;
 import com.edu.baogia.introducefood.view.activity.FoodActivity;
 import com.edu.baogia.introducefood.view.activity.SearchMainActivity;
+import com.edu.baogia.introducefood.view.activity.SimpleScannerActivity;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -37,7 +38,7 @@ import java.util.List;
 
 public class HomeFragment extends Fragment implements HomeFragmentView{
     TextView txtCateNew, txtDesNew, txtNameNew, txtidNew, txtSearch;
-    Button btnNewFood;
+    Button btnNewFood,btnScanQrcode;
     ImageView imgNew, imageAlpha;
     private static final int REQUEST_CODE_EXAMPLE = 0x9345;
     ViewFlipper vfSlide;
@@ -81,6 +82,13 @@ public class HomeFragment extends Fragment implements HomeFragmentView{
             }
         });
 
+        btnScanQrcode.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), SimpleScannerActivity.class);
+                startActivityForResult(intent, 9345);
+            }
+        });
     }
 
 
@@ -110,6 +118,7 @@ public class HomeFragment extends Fragment implements HomeFragmentView{
         btnNewFood= root.findViewById(R.id.btnNewFood);
         imgNew = root.findViewById(R.id.imgNew);
         imageAlpha = root.findViewById(R.id.imageAlpha);
+        btnScanQrcode = root.findViewById(R.id.btnScanQrcode);
 
 
     }

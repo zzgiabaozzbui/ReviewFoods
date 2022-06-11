@@ -156,15 +156,31 @@
                     </LinearLayout>
 
 
-                    <Button
-                        android:id="@+id/btnBinhLuan"
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:backgroundTint="@color/blu"
-                        android:text="Bình Luận"
-                        android:textColor="@color/white"
-                        android:textStyle="bold"></Button>
+                        android:orientation="horizontal">
+
+                        <Button
+                            android:id="@+id/btnCreateQr"
+                            android:layout_width="40dp"
+                            android:layout_height="45dp"
+                            android:layout_gravity="center"
+                            android:background="#00FFFFFF"
+                            android:drawableEnd="@drawable/qr30"
+                            android:textColor="@color/white"
+                            android:textStyle="bold"></Button>
+                        <Button
+                            android:id="@+id/btnBinhLuan"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:backgroundTint="@color/blu"
+                            android:text="Bình Luận"
+                            android:textColor="@color/white"
+                            android:textStyle="bold"></Button>
+
+                    </LinearLayout>
                 </LinearLayout>
 
             </LinearLayout>

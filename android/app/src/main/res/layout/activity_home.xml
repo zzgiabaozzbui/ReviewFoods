@@ -124,6 +124,7 @@
                     app:layout_constraintVertical_bias="0.72">
 
                     <Button
+                        android:id="@+id/btnScanQrcode"
                         android:layout_width="40dp"
                         android:layout_height="40dp"
                         android:layout_gravity="center|left"

@@ -1,7 +1,9 @@
 package com.edu.baogia.introducefood.view.activity;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -9,8 +11,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -23,6 +27,7 @@ import com.edu.baogia.introducefood.adapter.TabLayoutFoodAdapter;
 import com.edu.baogia.introducefood.model.object.Food;
 import com.edu.baogia.introducefood.presenter.FoodPresenter;
 import com.edu.baogia.introducefood.presenter.FoodPresenterIm;
+import com.edu.baogia.introducefood.util.QrCode;
 import com.google.android.material.tabs.TabLayout;
 import com.squareup.picasso.Picasso;
 
@@ -33,9 +38,10 @@ public class FoodActivity extends AppCompatActivity implements FoodView{
     TabLayout tabLayout;
     ViewPager viewPager;
     TextView txtName,txtCate;
-    ImageView imgAnh,imgAnh2;
-    Button btnBinhLuan;
+    ImageView imgAnh,imgAnh2,imgim;
+    Button btnBinhLuan, btnCreateQr;
     FoodPresenter foodPresenter;
+    LinearLayout lndia;
     private Food fd;
     int id;
     @Override
@@ -68,6 +74,19 @@ public class FoodActivity extends AppCompatActivity implements FoodView{
                 Intent intent = new Intent(FoodActivity.this,ReviewActivity.class);
                 intent.putExtra("idfood",id);
                 startActivity(intent);
+            }
+        });
+        btnCreateQr.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Dialog dialog = new Dialog(FoodActivity.this);
+                dialog.setContentView(R.layout.activity_dialog);
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                imgim = dialog.findViewById(R.id.imgim);
+                lndia = dialog.findViewById(R.id.lndia);
+                imgim.setImageBitmap(new QrCode().createQrcode(String.valueOf(getIntent().getIntExtra("idFood",0))));
+                lndia.startAnimation(AnimationUtils.loadAnimation(FoodActivity.this,R.anim.movebtnface));
+                dialog.show();
             }
         });
     }
@@ -119,6 +138,7 @@ public class FoodActivity extends AppCompatActivity implements FoodView{
         imgAnh = findViewById(R.id.imgAnh);
         imgAnh2 = findViewById(R.id.imgAnh2);
         btnBinhLuan = findViewById(R.id.btnBinhLuan);
+        btnCreateQr = findViewById(R.id.btnCreateQr);
     }
 
     private void addInfor() {
