@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.edu.baogia.introducefood.model.object.AccountRemember;
+import com.edu.baogia.introducefood.model.object.Users;
 
 
 public class MySharedPreferences {
@@ -14,12 +15,22 @@ public class MySharedPreferences {
         editor.putString("username", ""+account.getUsername());
         editor.putString("password", ""+ account.getPassword());
         editor.putInt("idnguoidung", account.getIduser());
+        if (account.getCheck()==null){
+            account.setCheck(false);
+        }
         editor.putBoolean("remember", account.getCheck());
         editor.commit();
 //        commit()trả về true nếu giá trị được lưu thành công khác false. Nó lưu các giá trị vào
 //        SharedPreferences một cách đồng bộ.
 //        apply()đã được thêm vào 2.3 và không trả lại bất kỳ giá trị nào dù thành công hay thất bại.
 //        Nó lưu các giá trị vào SharedPreferences ngay lập tức nhưng bắt đầu một cam kết không đồng bộ .
+    }
+    public void signInAppLk(Context context, String applk){
+//      sharedPref được lưu tại DATA/data/[application package name]/shared_prefs/shared_preferences_name.xml
+        SharedPreferences sharedPref =  context.getSharedPreferences("MyPreferences",Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putString("applk", applk);
+        editor.commit();
     }
 
     public AccountRemember getRememberAcc(Context context){
@@ -30,5 +41,10 @@ public class MySharedPreferences {
         boolean remember = sharedPref.getBoolean("remember", false);
         AccountRemember accountRemember = new AccountRemember(username,password,idnguoidung,remember);
         return accountRemember;
+    }
+    public String getApplk(Context context){
+        SharedPreferences sharedPref = context.getSharedPreferences("MyPreferences", Context.MODE_PRIVATE);
+        String applk = sharedPref.getString("applk", "-1");
+        return applk;
     }
 }

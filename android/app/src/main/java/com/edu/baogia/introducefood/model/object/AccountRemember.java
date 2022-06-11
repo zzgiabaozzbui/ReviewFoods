@@ -47,4 +47,14 @@ public class AccountRemember {
     public void setCheck(Boolean check) {
         this.check = check;
     }
+
+    @Override
+    public String toString() {
+        return "AccountRemember{" +
+                "username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", iduser=" + iduser +
+                ", check=" + check +
+                '}';
+    }
 }

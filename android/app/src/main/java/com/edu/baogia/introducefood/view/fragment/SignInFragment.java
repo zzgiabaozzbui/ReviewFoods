@@ -20,8 +20,8 @@ import com.edu.baogia.introducefood.view.activity.FogetActivity;
 import com.edu.baogia.introducefood.R;
 import com.edu.baogia.introducefood.model.object.Account;
 import com.edu.baogia.introducefood.model.object.AccountRemember;
-import com.edu.baogia.introducefood.presenter.LoginPresenter;
-import com.edu.baogia.introducefood.presenter.LoginPresenterIml;
+import com.edu.baogia.introducefood.presenter.SignInPresenter;
+import com.edu.baogia.introducefood.presenter.SignInPresenterIml;
 import com.edu.baogia.introducefood.util.MySharedPreferences;
 import com.edu.baogia.introducefood.view.activity.MainActivity;
 
@@ -32,7 +32,7 @@ public class SignInFragment extends Fragment  implements SignInView {
     EditText edtNumberPhone,edtPass;
     Button btnSignIn;
     TextView forget;
-    LoginPresenter loginPresenter;
+    SignInPresenter loginPresenter;
     CheckBox remember;
     @Nullable
     @Override
@@ -99,7 +99,7 @@ public class SignInFragment extends Fragment  implements SignInView {
         btnSignIn = root.findViewById(R.id.btnSignIn);
         remember = root.findViewById(R.id.remember);
         forget = root.findViewById(R.id.forget);
-        loginPresenter = new LoginPresenterIml(this);
+        loginPresenter = new SignInPresenterIml(this);
     }
 
     @Override

@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">IntroduceFood</string>
+    <string name="facebook_app_id">1131949774017656</string>
+    <string name="fb_login_protocol_scheme">fb1234</string>
+    <string name="facebook_client_token">b7ee2ac1475a0d10b9543eda7bc9f154</string>
 </resources>

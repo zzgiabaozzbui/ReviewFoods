@@ -2,10 +2,19 @@
 
     include 'conect.php';
     include 'dowImg.php';
+    include 'Account.php';
 
-
+    
     $id = $_POST["id"];
-    $tentaikhoan = "fb"+$id;
+
+    $app = $_POST["applk"];
+    if ($app =="0"){
+        $tentaikhoan = "fb".$id;
+        $app = "fb";
+    }else{
+        $tentaikhoan = "gg".$id;
+    }
+
 
     $name = $_POST["name"];
     $email = $_POST["email"];;
@@ -26,7 +35,7 @@
             $row = $result->fetch_assoc();
             // echo $sql;
             $idnguoidung = $row["id"];
-            $sql = "INSERT INTO taikhoan VALUES ('".$tentaikhoan."','abcd',".$idnguoidung.",1)";
+            $sql = "INSERT INTO taikhoan VALUES ('".$tentaikhoan."','11',".$idnguoidung.",1)";
             $result = $conn->query($sql);
             
             if ($result=== TRUE) {     

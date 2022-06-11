@@ -1,75 +1,62 @@
 package com.edu.baogia.introducefood.presenter;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
 import com.edu.baogia.introducefood.model.mySQL.AccountInterface;
 import com.edu.baogia.introducefood.model.mySQL.AccountModel;
+import com.edu.baogia.introducefood.model.mySQL.UserInterface;
+import com.edu.baogia.introducefood.model.mySQL.UserModel;
 import com.edu.baogia.introducefood.model.object.Account;
 import com.edu.baogia.introducefood.model.object.AccountRemember;
+import com.edu.baogia.introducefood.model.object.NguoiDung;
+import com.edu.baogia.introducefood.model.object.Users;
 import com.edu.baogia.introducefood.util.MySharedPreferences;
+import com.edu.baogia.introducefood.view.activity.LoginActivity;
+import com.edu.baogia.introducefood.view.activity.LoginView;
 import com.edu.baogia.introducefood.view.fragment.SignInView;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
+import com.facebook.login.LoginManager;
+import com.facebook.login.LoginResult;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.Arrays;
 
 
+public class LoginPresenterIml implements LoginPresenter, UserInterface {
+    LoginView loginView;
+    UserModel userModel;
+    Context context;
 
-public class LoginPresenterIml implements LoginPresenter, AccountInterface {
-    SignInView loginView;
-    AccountModel accountModel;
-
-    public LoginPresenterIml(SignInView loginView) {
+    public LoginPresenterIml(LoginView loginView) {
+        this.context = (Context) loginView;
         this.loginView = loginView;
-        this.accountModel = new AccountModel(this, (Fragment) loginView);
-    }
-
-    @Override
-    public void checkAccount(Account account, Boolean check) {
-        accountModel.isAccountName(account, check);
+        this.userModel = new UserModel(this, (Context) loginView);
     }
 
 
+
     @Override
-    public void onAccountMessage(String message,Account account,Boolean check) {
-//        0: không tồn tại tài khoản
-//        1: có tài khoản nhưng sai mật khẩu
-//        2: đúng tài khoản và mật khẩu
-//        Còn lại đăng nhập thất bại
-        Log.d("AAA", "onAccountMessage: "+message);
-        if(message.equals("0")){
-            loginView.userNameFalse();
-        }else if(message.equals("1")){
-            loginView.passNameFalse();
-        }else if(message.equals("2")){
-            accountModel.getAcc(account,check);
-        }else {
-            loginView.loginFail();
-        }
+    public void signInface(Users users, String applk) {
+        Log.d("AAA", "signInface: ");
+        new MySharedPreferences().signInAppLk(context,applk);
+        userModel.insertUser(users,applk);
     }
 
     @Override
-    public void getAccount(Context context, AccountRemember account) {
-        new MySharedPreferences().rememberPass(context,account);
+    public void checkUserSuces(AccountRemember accountRemember) {
+        accountRemember.setCheck(false);
+        new MySharedPreferences().rememberPass(context,accountRemember);
         loginView.goHome();
-    }
-
-    @Override
-    public void registerAccSuces(AccountRemember account) {
-
-    }
-
-    @Override
-    public void updatePassSuces(AccountRemember account) {
-
-    }
-
-    @Override
-    public void checkAccSuces(Boolean b) {
-
-    }
-
-    @Override
-    public void checkAccSuces2(Boolean b) {
-
     }
 }
