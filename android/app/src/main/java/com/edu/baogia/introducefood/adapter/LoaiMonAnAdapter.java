@@ -1,6 +1,7 @@
 package com.edu.baogia.introducefood.adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,6 +31,8 @@ public class LoaiMonAnAdapter extends RecyclerView.Adapter<LoaiMonAnAdapter.Doan
     List<MaterialCheckBox> listCheck = new ArrayList<>();
     List<LinearLayout> listLinner = new ArrayList<>();
     List<String> idFillter = new ArrayList<>();
+    DoanhMucViewHolder holderDanhMuc;
+
 
     public LoaiMonAnAdapter(Context context) {
         this.context = context;
@@ -37,6 +40,10 @@ public class LoaiMonAnAdapter extends RecyclerView.Adapter<LoaiMonAnAdapter.Doan
 
     public void setData(List<LoaiMonAn> listLoaiMonAn) {
         this.list = listLoaiMonAn;
+        notifyDataSetChanged();
+    }
+    public void addCondition(String id){
+        idFillter.add(id);
         notifyDataSetChanged();
     }
 
@@ -62,7 +69,20 @@ public class LoaiMonAnAdapter extends RecyclerView.Adapter<LoaiMonAnAdapter.Doan
         setOnclickChecked(holder, position);
         resetFillter(holder);
         addFillter(holder, position);
+        holderDanhMuc=holder;
     }
+
+//    private void getCurrentFillter(String idLoaiMonAn) {
+//        for (String id:idFillter) {
+//            if(id.equalsIgnoreCase(idLoaiMonAn)){
+//                Log.d("pdt", "getCurrentFillter: "+idLoaiMonAn);
+//                holderDanhMuc.ckoFillter.setBackgroundResource(R.drawable.checked_fillter);
+//                holderDanhMuc.ckoFillter.setChecked(true);
+//                holderDanhMuc.lnlChecked.setVisibility(View.VISIBLE);
+//            }
+//        }
+//    }
+
 
     private void addFillter(DoanhMucViewHolder holder, int position) {
         DanhMucMonAnView monAnView = (DanhMucMonAnView) context;
@@ -74,8 +94,6 @@ public class LoaiMonAnAdapter extends RecyclerView.Adapter<LoaiMonAnAdapter.Doan
                 for (String id : idFillter) {
                     idAll += id + ",";
                 }
-
-
                 List<String> conditions = new ArrayList<>();
                 conditions.addAll(getCondition());
                 MonAnAdapter monAnAdapter = monAnView.getMonAnAdapter();

@@ -1,6 +1,7 @@
 package com.edu.baogia.introducefood.view.fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 
 import com.edu.baogia.introducefood.R;
+import com.edu.baogia.introducefood.adapter.LoaiMonAnAdapter;
 import com.edu.baogia.introducefood.adapter.MonAnAdapter;
 import com.edu.baogia.introducefood.interfaces.FoodFillterInterface;
 import com.edu.baogia.introducefood.model.object.MonAn;
@@ -26,6 +28,7 @@ import java.util.List;
 public class Fragment_MonAn extends Fragment implements FoodFillterInterface {
 
     Context context;
+    Intent i;
     RecyclerView rcvDoanhMuc;
     List<MonAn> list;
     MonAnAdapter adapter;
@@ -36,8 +39,9 @@ public class Fragment_MonAn extends Fragment implements FoodFillterInterface {
         return adapter;
     }
 
-    public Fragment_MonAn(Context context) {
+    public Fragment_MonAn(Context context,Intent i) {
         this.context = context;
+        this.i=i;
     }
 
     @Nullable
@@ -65,6 +69,7 @@ public class Fragment_MonAn extends Fragment implements FoodFillterInterface {
             public void onSuccessFood(List<MonAn> callBackFood) {
                 list.addAll(callBackFood);
                 adapter.setData(list);
+                setIntentTypeFood();
             }
 
             @Override
@@ -74,7 +79,17 @@ public class Fragment_MonAn extends Fragment implements FoodFillterInterface {
         });
         rcvDoanhMuc=view.findViewById(R.id.rcvDoanhMuc);
     }
+    private void setIntentTypeFood() {
+        Intent intent=i;
+        if(i.getIntExtra("idLoaiMonAn",-1)!=-1){
+            int id=i.getIntExtra("idLoaiMonAn",-1);
+            List<String> conditions = new LoaiMonAnAdapter(context).getCondition();
+            conditions.add(1+"");
+            MonAnAdapter monAnAdapter = getAdapter();
+            int check = monAnAdapter.filter("", conditions);
+        }
 
+    }
     @Override
     public void getListFoodFillter(MonAn.CallBackFood callBackFood) {
         new MonAn().getListFoodDanhMuc(callBackFood,getContext());

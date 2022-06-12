@@ -58,33 +58,26 @@ public class DanhMucMonAnView extends AppCompatActivity implements NavigationVie
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mon_an);
+
         mapping();
+
         setMyToolbar();
         setRecyclerViewLoaiMonAn();
-//        setIntentTK();
-        setIntentSearch();
+
     }
 
-    private boolean setIntentSearch() {
+    private void setIntentSearch()  {
         Intent i=getIntent();
-        if(i.getStringExtra("timkiem")==null){
-
-            return false;
+        if(i.getStringExtra("timkiem")!=null){
+            String timkiem=i.getStringExtra("timkiem");
+            List<String> conditions = adapter.getCondition();
+            MonAnAdapter monAnAdapter = fragment_monAn.getAdapter();
+            int check = monAnAdapter.filter("", conditions);
         }
-        String timkiem=i.getStringExtra("timkiem");
-        List<String> conditions = adapter.getCondition();
-        MonAnAdapter monAnAdapter = fragment_monAn.getAdapter();
-        int check = monAnAdapter.filter(timkiem, conditions);
-        return true;
+
     }
 
-    private boolean setIntentTK() {
-        Intent i=getIntent();
-        if(i.getStringExtra("tentaikhoan")==null){
-            return false;
-        }
-        return true;
-    }
+
 
     public MonAnAdapter getMonAnAdapter() {
         return fragment_monAn.getAdapter();
@@ -109,7 +102,6 @@ public class DanhMucMonAnView extends AppCompatActivity implements NavigationVie
 
         list = new ArrayList<>();
         typeFoodFillterPresenter.getListFoodFillter(new LoaiMonAn.CallBackTypeFood() {
-
             @Override
             public void onSuccessTypeFood(List<LoaiMonAn> callBackTypeFood) {
                 list.addAll(callBackTypeFood);
@@ -136,7 +128,7 @@ public class DanhMucMonAnView extends AppCompatActivity implements NavigationVie
         btnApDungFillter = getNav(R.id.navDanhMuc).findViewById(R.id.btnApDungFillter);
         drrDoanhMuc = findViewById(R.id.drrDoanhMuc);
         tbrDoanhMuc = findViewById(R.id.tbrDoanhMuc);
-        fragment_monAn = new Fragment_MonAn(DanhMucMonAnView.this);
+        fragment_monAn = new Fragment_MonAn(DanhMucMonAnView.this,getIntent());
         replaceFragment(fragment_monAn);
 
     }
@@ -160,6 +152,9 @@ public class DanhMucMonAnView extends AppCompatActivity implements NavigationVie
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_doanh_muc, menu);
         onChangeSearchView(menu);
+//        setIntentTypeFood();
+        setIntentSearch();
+
         return super.onCreateOptionsMenu(menu);
     }
 
