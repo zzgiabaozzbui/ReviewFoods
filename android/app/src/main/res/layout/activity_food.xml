@@ -110,40 +110,15 @@
                         android:layout_marginTop="5dp"
                         android:layout_marginBottom="5dp">
 
-                        <ImageView
-                            android:layout_width="10dp"
-                            android:layout_height="10dp"
-                            android:src="@drawable/star">
+                        <RatingBar
+                            android:id="@+id/ratingFood"
+                            android:rating="5"
+                            android:progressTint="#F7FFCC32"
+                            style="?android:attr/ratingBarStyleSmall"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
 
-                        </ImageView>
-
-                        <ImageView
-                            android:layout_width="10dp"
-                            android:layout_height="10dp"
-                            android:src="@drawable/star">
-
-                        </ImageView>
-
-                        <ImageView
-                            android:layout_width="10dp"
-                            android:layout_height="10dp"
-                            android:src="@drawable/star">
-
-                        </ImageView>
-
-                        <ImageView
-                            android:layout_width="10dp"
-                            android:layout_height="10dp"
-                            android:src="@drawable/star">
-
-                        </ImageView>
-
-                        <ImageView
-                            android:layout_width="10dp"
-                            android:layout_height="10dp"
-                            android:src="@drawable/star">
-
-                        </ImageView>
+                        </RatingBar>
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"

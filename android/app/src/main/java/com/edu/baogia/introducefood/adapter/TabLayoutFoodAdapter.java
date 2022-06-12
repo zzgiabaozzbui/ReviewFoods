@@ -10,6 +10,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
+import com.edu.baogia.introducefood.view.fragment.FragmentRating;
 import com.edu.baogia.introducefood.view.fragment.HomeFragment;
 import com.edu.baogia.introducefood.view.fragment.MakingFragment;
 import com.edu.baogia.introducefood.view.fragment.ReviewFragment;
@@ -48,8 +49,8 @@ public class TabLayoutFoodAdapter extends FragmentPagerAdapter {
                 MakingFragment fragment = new MakingFragment(id);
                 return fragment;
             case 2:
-                HomeFragment reviewFragment3 = new HomeFragment();
-                return reviewFragment3;
+                FragmentRating fragmentRating = new FragmentRating();
+                return fragmentRating;
             default:
                 return null;
         }
