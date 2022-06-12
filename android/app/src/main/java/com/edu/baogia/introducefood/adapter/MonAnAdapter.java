@@ -62,7 +62,7 @@ public class MonAnAdapter extends RecyclerView.Adapter<MonAnAdapter.MonAnViewHol
                 danhDaus.addAll(danhDauList);
                 Boolean check=false;
                 for (DanhDau danhDau:danhDaus) {
-                    Log.d("pdt", "onBindViewHolder: "+danhDau.getIdMonAn());
+
                     if(monAn.getId()==danhDau.getIdMonAn()){
                         check=true;
                         break;
@@ -74,7 +74,7 @@ public class MonAnAdapter extends RecyclerView.Adapter<MonAnAdapter.MonAnViewHol
                     holder.ckoMonAn_DM.setChecked(true);
                     holder.ckoMonAn_DM.setButtonDrawable(R.drawable.ic_tim);
                 }
-                Log.d("pdt", "onSuccessCheckedFood: "+holder.ckoMonAn_DM.isChecked() +"|"+ monAn.getId());
+
             }
 
             @Override

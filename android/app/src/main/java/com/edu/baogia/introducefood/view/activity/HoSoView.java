@@ -51,7 +51,7 @@ public class HoSoView extends AppCompatActivity implements HoSoInterface {
 
     final int CODE_GALLERY_REQUEST=999;
 
-    public String tenTK="thangyb27";
+    public String tenTK="";
 
     HoSoPresenter hoSoPresenter=new HoSoPresenter(this);
     @Override
@@ -63,6 +63,15 @@ public class HoSoView extends AppCompatActivity implements HoSoInterface {
         getDataHoSoCurrent();
         acceptChangeData();
         setAvatar();
+//        setIntentTK();
+    }
+    private boolean setIntentTK() {
+        Intent i=getIntent();
+        if(i.getStringExtra("tentaikhoan")==null){
+            return false;
+        }
+        tenTK=i.getStringExtra("tentaikhoan");
+        return true;
     }
 
     private void setAvatar() {

@@ -1,5 +1,6 @@
 package com.edu.baogia.introducefood.view.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -60,6 +61,29 @@ public class DanhMucMonAnView extends AppCompatActivity implements NavigationVie
         mapping();
         setMyToolbar();
         setRecyclerViewLoaiMonAn();
+//        setIntentTK();
+        setIntentSearch();
+    }
+
+    private boolean setIntentSearch() {
+        Intent i=getIntent();
+        if(i.getStringExtra("timkiem")==null){
+
+            return false;
+        }
+        String timkiem=i.getStringExtra("timkiem");
+        List<String> conditions = adapter.getCondition();
+        MonAnAdapter monAnAdapter = fragment_monAn.getAdapter();
+        int check = monAnAdapter.filter(timkiem, conditions);
+        return true;
+    }
+
+    private boolean setIntentTK() {
+        Intent i=getIntent();
+        if(i.getStringExtra("tentaikhoan")==null){
+            return false;
+        }
+        return true;
     }
 
     public MonAnAdapter getMonAnAdapter() {
@@ -175,7 +199,7 @@ public class DanhMucMonAnView extends AppCompatActivity implements NavigationVie
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        Log.d("PDT", "onNavigationItemSelected: " + item);
+
         return false;
     }
 

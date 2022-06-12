@@ -78,7 +78,6 @@ public class LoaiMonAn {
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, urlGetTypeFood, null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
-                Log.d("pdt", "onResponse: "+response.toString());
                 JSONObject jsonObject;
                 for (int i = 0; i < response.length(); i++) {
                     try {
