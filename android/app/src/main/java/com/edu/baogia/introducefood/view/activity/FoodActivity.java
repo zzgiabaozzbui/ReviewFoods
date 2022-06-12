@@ -49,16 +49,17 @@ public class FoodActivity extends AppCompatActivity implements FoodView{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_food);
 
+        Intent intent = getIntent();
+        id = intent.getIntExtra("idFood",0);
         innit();
 
         toolbar();
         addInfor();
         tablayout();
         click();
-        Intent intent = getIntent();
-        id = intent.getIntExtra("idFood",0);
         loadFood(id);
     }
+
 
     private void loadFood(int id) {
         foodPresenter = new FoodPresenterIm(this);
@@ -95,7 +96,7 @@ public class FoodActivity extends AppCompatActivity implements FoodView{
         tabLayout.addTab(tabLayout.newTab());
         tabLayout.addTab(tabLayout.newTab());
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
-        adapter = new TabLayoutFoodAdapter(getSupportFragmentManager(),this,tabLayout.getTabCount());
+        adapter = new TabLayoutFoodAdapter(getSupportFragmentManager(),this,tabLayout.getTabCount(),id);
         viewPager.setAdapter(adapter);
         adapter.notifyDataSetChanged();
         tabLayout.setupWithViewPager(viewPager);
@@ -167,8 +168,6 @@ public class FoodActivity extends AppCompatActivity implements FoodView{
             case android.R.id.home:
                 finish();
                 break;
-
-
         }
 
         return super.onOptionsItemSelected(item);

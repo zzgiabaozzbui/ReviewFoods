@@ -1,5 +1,6 @@
 package com.edu.baogia.introducefood.view.fragment;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
@@ -13,6 +14,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ViewFlipper;
 
 import androidx.annotation.NonNull;
@@ -85,12 +87,11 @@ public class HomeFragment extends Fragment implements HomeFragmentView{
         btnScanQrcode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), SimpleScannerActivity.class);
+                Intent intent = new Intent(getContext(), SimpleScannerActivity.class);
                 startActivityForResult(intent, 9345);
             }
         });
     }
-
 
     private void addNavButton() {
 
@@ -156,6 +157,7 @@ public class HomeFragment extends Fragment implements HomeFragmentView{
         Picasso.get().load(""+listDemo.get(0).getImg()).into(imageAlpha);
     }
 
+
     @Override
     public void listRcy(List<Food> listDemo) {
         setrcAdapter(listDemo);
@@ -183,5 +185,27 @@ public class HomeFragment extends Fragment implements HomeFragmentView{
 
     public TextView getTxtidNew() {
         return txtidNew;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+//        Nếu muốn chuyển kết quả cho activity thì dùng thên super
+//        super.onActivityResult(requestCode, resultCode, data);
+        // Kiểm tra requestCode có trùng với REQUEST_CODE vừa dùng
+        if(requestCode == 9345) {
+
+            // resultCode được set bởi DetailActivity
+            // RESULT_OK chỉ ra rằng kết quả này đã thành công
+            if(resultCode == Activity.RESULT_OK) {
+                // Nhận dữ liệu từ Intent trả về
+                String result = data.getStringExtra("idfood");
+
+                // Sử dụng kết quả result bằng cách hiện Toast
+                Toast.makeText(getContext(), "Result: " + result, Toast.LENGTH_LONG).show();
+                Log.d("AAA", "onActivityResult2: "+result);
+            } else {
+                // DetailActivity không thành công, không có data trả về.
+            }
+        }
     }
 }

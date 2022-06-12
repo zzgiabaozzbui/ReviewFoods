@@ -18,6 +18,7 @@ public class FoodPresenterIm implements FoodPresenter, LoadFoodListener {
     private FoodView foodView;
     private ReviewFragmentView reviewFragmentView;
 
+
     public FoodPresenterIm(ReviewFragmentView reviewFragmentView) {
         this.reviewFragmentView = (ReviewFragmentView) reviewFragmentView;
         foodInterator = new FoodInterator(this,(Fragment) reviewFragmentView);

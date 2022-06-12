@@ -209,7 +209,6 @@ public class FoodInterator {
 
         requestQueue.add(jsonArrayRequest);
     }
-
     //Xử lý tạo dữ liệu
     public void createListNewTop8(){
         List<Food> listFood = new ArrayList<>();

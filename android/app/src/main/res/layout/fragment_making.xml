@@ -6,9 +6,11 @@
     android:paddingLeft="20dp"
     android:paddingRight="20dp"
     android:paddingTop="20dp">
+
+
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="350dp">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -17,7 +19,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Giới thiệu món ăn:"
+                android:text="Công thức nấu ăn:"
                 android:textColor="@color/black"
                 android:textSize="20dp"
                 android:textStyle="bold"
@@ -33,4 +35,15 @@
             </TextView>
         </LinearLayout>
     </ScrollView>
+    <Button
+        android:id="@+id/btnyoutube"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="15dp"
+        android:paddingRight="20dp"
+        android:background="@drawable/btn_youtube"
+        android:textColor="#000000"
+        android:drawableStart="@drawable/yt2"
+        android:text="  Video hướng dẫn"></Button>
 </LinearLayout>

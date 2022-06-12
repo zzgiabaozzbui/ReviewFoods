@@ -2,8 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.edu.baogia.introducefood">
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <application
         android:allowBackup="true"
@@ -17,6 +19,9 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".YouTubeActivity"
+            android:exported="false" />
+        <activity
             android:name=".view.activity.LoginActivity"
             android:exported="true">
             <intent-filter>
@@ -25,10 +30,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
-        <meta-data android:name="com.facebook.sdk.ClientToken" android:value="@string/facebook_client_token"/>
 
-
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
+        <meta-data
+            android:name="com.facebook.sdk.ClientToken"
+            android:value="@string/facebook_client_token" />
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />
@@ -46,9 +54,9 @@
         <activity
             android:name=".view.activity.EnterOTPActivity"
             android:exported="true" />
-        <activity
-            android:name=".view.activity.FoodActivity"
-            android:exported="true" />
+         <activity
+         android:name=".view.activity.FoodActivity"
+         android:exported="true" />
         <activity
             android:name=".view.activity.RePassWordActivity"
             android:exported="true" />
@@ -69,15 +77,19 @@
             android:exported="true" />
         <activity
             android:name=".view.activity.NewsInfoActivity"
-            android:exported="true" /><activity
-        android:name=".view.activity.ReportActivity"
-        android:exported="true" /><activity
-        android:name=".view.activity.ReviewActivity"
-        android:exported="true" /><activity
-        android:name=".view.activity.QuestActivity"
-        android:exported="true" /><activity
-        android:name=".view.activity.QuestInfoActivity"
-        android:exported="true" />
+            android:exported="true" />
+        <activity
+            android:name=".view.activity.ReportActivity"
+            android:exported="true" />
+        <activity
+            android:name=".view.activity.ReviewActivity"
+            android:exported="true" />
+        <activity
+            android:name=".view.activity.QuestActivity"
+            android:exported="true" />
+        <activity
+            android:name=".view.activity.QuestInfoActivity"
+            android:exported="true" />
     </application>
 
 </manifest>

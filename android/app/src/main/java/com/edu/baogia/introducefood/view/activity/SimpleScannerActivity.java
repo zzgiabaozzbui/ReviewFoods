@@ -4,6 +4,7 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.edu.baogia.introducefood.R;
@@ -55,7 +56,7 @@ public class SimpleScannerActivity extends Activity implements ZXingScannerView.
     public void handleResult(Result rawResult) {
 //        Toast.makeText(SimpleScannerActivity.this, "handleResult: "+rawResult.getText(), Toast.LENGTH_SHORT).show();
 //        // Do something with the result here
-//        Log.d("AAA", rawResult.getText()); // Prints scan results
+        Log.d("AAA", rawResult.getText()); // Prints scan results
 //        Log.d("AAA", rawResult.getBarcodeFormat().toString()); // Prints the scan format (qrcode, pdf417 etc.)
 
         // Nếu bạn muốn tiếp tục quét, hãy gọi phương pháp này bên dưới:
@@ -72,6 +73,7 @@ public class SimpleScannerActivity extends Activity implements ZXingScannerView.
         // Truyền data vào intent
         data.putExtra(EXTRA_DATA, rawResult.getText());
 
+        Log.d("AAA", "Swap: "+data.toString());
         // Đặt resultCode là Activity.RESULT_OK to
         // thể hiện đã thành công và có chứa kết quả trả về
         setResult(Activity.RESULT_OK, data);

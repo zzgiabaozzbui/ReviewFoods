@@ -1,14 +1,11 @@
 package com.edu.baogia.introducefood.view.activity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
@@ -35,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
         loadFragment(fragment);
 
     }
+
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -74,25 +72,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        // Kiểm tra requestCode có trùng với REQUEST_CODE vừa dùng
-        if(requestCode == 9345) {
 
-            // resultCode được set bởi DetailActivity
-            // RESULT_OK chỉ ra rằng kết quả này đã thành công
-            if(resultCode == Activity.RESULT_OK) {
-                // Nhận dữ liệu từ Intent trả về
-                String result = data.getStringExtra(SimpleScannerActivity.EXTRA_DATA);
-
-                // Sử dụng kết quả result bằng cách hiện Toast
-                Toast.makeText(this, "Result: " + result, Toast.LENGTH_LONG).show();
-                Log.d("AAA", "onActivityResult: "+result);
-            } else {
-                // DetailActivity không thành công, không có data trả về.
-            }
-        }
-    }
 
 }

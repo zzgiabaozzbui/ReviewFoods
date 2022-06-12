@@ -79,4 +79,8 @@ dependencies {
     //Login với gg
     implementation 'com.google.android.gms:play-services-auth:20.2.0'
 
+
+    //Youtube
+    implementation files('libs/YouTubeAndroidPlayerApi.jar')
+
 }
