@@ -1,6 +1,7 @@
 package com.edu.baogia.introducefood.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +19,8 @@ import com.edu.baogia.introducefood.R;
 import com.edu.baogia.introducefood.interfaces.ItemClickRecycleListener;
 import com.edu.baogia.introducefood.model.object.DanhDau;
 import com.edu.baogia.introducefood.model.object.MonAn;
+import com.edu.baogia.introducefood.view.activity.LoginActivity;
+import com.edu.baogia.introducefood.view.activity.LoginView;
 import com.google.android.material.checkbox.MaterialCheckBox;
 import com.squareup.picasso.Picasso;
 
@@ -103,7 +106,8 @@ public class MonAnAdapter extends RecyclerView.Adapter<MonAnAdapter.MonAnViewHol
 
     private void setTim(MaterialCheckBox ckoMonAn_DM, int id) {
         if(tenTK.equalsIgnoreCase("")){
-            Toast.makeText(view.getContext(), "Bạn chưa đăng nhập", Toast.LENGTH_SHORT).show();
+            Intent intent=new Intent(view.getContext(), LoginActivity.class);
+            view.getContext().startActivity(intent);
         }else {
             ckoMonAn_DM.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override

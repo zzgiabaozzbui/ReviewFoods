@@ -62,11 +62,13 @@ public class Fragment_MonAn extends Fragment implements FoodFillterInterface {
 
     private void setRecyclerViewMonAn() {
         adapter=new MonAnAdapter();
+        adapter.setTK(TK);
         GridLayoutManager gridLayoutManager=new GridLayoutManager(getActivity(),1);
         rcvDoanhMuc.setLayoutManager(gridLayoutManager);
         rcvDoanhMuc.setFocusable(false);
         rcvDoanhMuc.setNestedScrollingEnabled(false);
         rcvDoanhMuc.setAdapter(adapter);
+
     }
 
     public void mapping() {

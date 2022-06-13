@@ -30,6 +30,7 @@ import com.edu.baogia.introducefood.adapter.MonAnAdapter;
 import com.edu.baogia.introducefood.interfaces.TypeFoodFillterInterface;
 import com.edu.baogia.introducefood.model.object.LoaiMonAn;
 import com.edu.baogia.introducefood.presenter.TypeFoodFillterPresenter;
+import com.edu.baogia.introducefood.util.MySharedPreferences;
 import com.edu.baogia.introducefood.view.fragment.Fragment_MonAn;
 import com.google.android.material.navigation.NavigationView;
 
@@ -45,6 +46,7 @@ public class DanhMucMonAnView extends AppCompatActivity implements NavigationVie
     DrawerLayout drrDoanhMuc;
     Toolbar tbrDoanhMuc;
     Button btnResetFillter, btnApDungFillter;
+    String tenTK=new MySharedPreferences().getRememberAcc(DanhMucMonAnView.this).getUsername();
 
     TypeFoodFillterPresenter typeFoodFillterPresenter = new TypeFoodFillterPresenter(this);
 
@@ -117,7 +119,8 @@ public class DanhMucMonAnView extends AppCompatActivity implements NavigationVie
         drrDoanhMuc = findViewById(R.id.drrDoanhMuc);
         tbrDoanhMuc = findViewById(R.id.tbrDoanhMuc);
 //        Thêm tên tài khoản vào thuộc tính Fragment_MonAn
-        fragment_monAn = new Fragment_MonAn(DanhMucMonAnView.this,getIntent());
+
+        fragment_monAn = new Fragment_MonAn(DanhMucMonAnView.this,getIntent(),tenTK);
         replaceFragment(fragment_monAn);
 
     }
