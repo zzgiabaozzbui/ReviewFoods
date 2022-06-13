@@ -9,6 +9,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 import com.edu.baogia.introducefood.util.UrlVolley;
+import com.edu.baogia.introducefood.util.idwifi;
 
 
 import org.json.JSONArray;
@@ -114,7 +115,7 @@ public class MonAn {
     public void getListFoodDanhMuc(CallBackFood callBackFood, Context context){
         List<MonAn> monAnList = new ArrayList<>();
         UrlVolley urlVolley = new UrlVolley();
-        String urlGetFood = urlVolley.url + "getAllFood.php";
+        String urlGetFood = new idwifi().urlThang + "getAllFood.php";
         RequestQueue requestQueue = Volley.newRequestQueue(context);
         JsonArrayRequest jsonArrayRequest =new JsonArrayRequest(Request.Method.GET, urlGetFood, null, new Response.Listener<JSONArray>() {
             @Override

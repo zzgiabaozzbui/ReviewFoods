@@ -15,6 +15,7 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.edu.baogia.introducefood.util.UrlVolley;
+import com.edu.baogia.introducefood.util.idwifi;
 
 
 import org.json.JSONArray;
@@ -58,7 +59,7 @@ public class DanhDau {
         if(idMonAn<0 || tenTaiKhoan==null){
             return;
         }
-        String urlThem= new UrlVolley().url+"themDanhDau.php";
+        String urlThem= new idwifi().urlThang+"themDanhDau.php";
         RequestQueue requestQueue= Volley.newRequestQueue(context);
         StringRequest stringRequest=new StringRequest(Request.Method.POST, urlThem, new Response.Listener<String>() {
             @Override
@@ -89,7 +90,7 @@ public class DanhDau {
             if(idMonAn<0 || tenTaiKhoan==null){
                 return;
             }
-        String urlXoa= new UrlVolley().url+"xoaDanhDau.php";
+        String urlXoa= new idwifi().urlThang+"xoaDanhDau.php";
         RequestQueue requestQueue= Volley.newRequestQueue(context);
         StringRequest stringRequest=new StringRequest(Request.Method.POST, urlXoa, new Response.Listener<String>() {
             @Override
@@ -117,8 +118,8 @@ public class DanhDau {
     }
     public void getCheckedFood(CallBackCheckedFood callBackCheckedFood, Context context){
         List<DanhDau> danhDauList = new ArrayList<>();
-        UrlVolley urlVolley = new UrlVolley();
-        String urlGetCheckedFood = urlVolley.url + "getCheckedDanhDau.php";
+
+        String urlGetCheckedFood = new idwifi().urlThang + "getCheckedDanhDau.php";
         RequestQueue requestQueue = Volley.newRequestQueue(context);
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, urlGetCheckedFood, null, new Response.Listener<JSONArray>() {
             @Override

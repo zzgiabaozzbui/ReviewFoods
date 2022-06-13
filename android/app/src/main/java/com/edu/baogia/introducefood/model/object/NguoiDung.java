@@ -17,6 +17,7 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.edu.baogia.introducefood.util.UrlVolley;
+import com.edu.baogia.introducefood.util.idwifi;
 
 
 import org.json.JSONArray;
@@ -119,8 +120,8 @@ public class NguoiDung {
     }
     public void getNguoiDung(Context context,CallBackHoSo callBackHoSo,String tenTK){
         NguoiDung nguoiDung=new NguoiDung();
-        UrlVolley urlVolley = new UrlVolley();
-        String urlGetTypeFood = urlVolley.url + "getHoSo.php";
+
+        String urlGetTypeFood = new idwifi().urlThang + "getHoSo.php";
         RequestQueue requestQueue = Volley.newRequestQueue(context);
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.POST, urlGetTypeFood, null, new Response.Listener<JSONArray>() {
             @Override
@@ -161,7 +162,7 @@ public class NguoiDung {
         requestQueue.add(jsonArrayRequest);
     }
     public void updateHoSo(Context context, NguoiDung nd, Bitmap isCheckBitMap){
-        String urlUpdate= new UrlVolley().url+"updateHoSo.php";
+        String urlUpdate= new idwifi().urlThang+"updateHoSo.php";
         RequestQueue requestQueue= Volley.newRequestQueue(context);
         StringRequest stringRequest=new StringRequest(Request.Method.POST, urlUpdate, new Response.Listener<String>() {
             @Override

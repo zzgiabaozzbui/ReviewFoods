@@ -11,6 +11,7 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 
 import com.edu.baogia.introducefood.util.UrlVolley;
+import com.edu.baogia.introducefood.util.idwifi;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -71,8 +72,8 @@ public class LoaiMonAn {
     }
     public void getTypeFood(CallBackTypeFood callBackTypeFood, Context context){
         List<LoaiMonAn> loaiMonAns = new ArrayList<>();
-        UrlVolley urlVolley = new UrlVolley();
-        String urlGetTypeFood = urlVolley.url + "getAllTypeFood.php";
+
+        String urlGetTypeFood = new idwifi().urlThang + "getAllTypeFood.php";
 
         RequestQueue requestQueue = Volley.newRequestQueue(context);
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, urlGetTypeFood, null, new Response.Listener<JSONArray>() {
