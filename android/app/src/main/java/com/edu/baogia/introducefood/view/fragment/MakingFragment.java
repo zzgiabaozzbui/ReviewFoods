@@ -58,7 +58,7 @@ public class MakingFragment extends Fragment implements MakingFragmentView {
 
     @Override
     public void getDesFood(Food food) {
-        txtReview.setText(""+ food);
+        txtReview.setText(""+ food.getMaking());
         this.food = food;
     }
 

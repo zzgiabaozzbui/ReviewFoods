@@ -58,7 +58,7 @@ public class HomeFragment extends Fragment implements HomeFragmentView{
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        ViewGroup root = (ViewGroup) inflater.inflate(R.layout.activity_home,container,false);
+        ViewGroup root = (ViewGroup) inflater.inflate(R.layout.fragment_home,container,false);
         innit(root);
         slide();
         addNavButton();
@@ -130,6 +130,7 @@ public class HomeFragment extends Fragment implements HomeFragmentView{
         homePresenter.loadData();
     }
     private void setrcAdapter(List<Food> listDemo) {
+        listrcy2.clear();
         for (int i=0; i < 8; i++){
             listrcy2.add(listDemo.get(i));
         }

@@ -15,6 +15,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -37,9 +38,10 @@ public class FoodActivity extends AppCompatActivity implements FoodView{
     TabLayoutFoodAdapter adapter;
     TabLayout tabLayout;
     ViewPager viewPager;
-    TextView txtName,txtCate;
+    TextView txtName,txtCate,txtRate,txtCountRate;
     ImageView imgAnh,imgAnh2,imgim;
     Button btnBinhLuan, btnCreateQr;
+    RatingBar ratingFood;
     FoodPresenter foodPresenter;
     LinearLayout lndia;
     private Food fd;
@@ -57,13 +59,19 @@ public class FoodActivity extends AppCompatActivity implements FoodView{
         addInfor();
         tablayout();
         click();
+        foodPresenter = new FoodPresenterIm(this);
         loadFood(id);
+        loadrate(id);
+    }
+
+    private void loadFood(int id) {
+        foodPresenter.loadFoodData(id);
+
     }
 
 
-    private void loadFood(int id) {
-        foodPresenter = new FoodPresenterIm(this);
-        foodPresenter.loadFoodData(id);
+    private void loadrate(int id) {
+        foodPresenter.loadRate(id);
 
     }
 
@@ -140,12 +148,16 @@ public class FoodActivity extends AppCompatActivity implements FoodView{
         imgAnh2 = findViewById(R.id.imgAnh2);
         btnBinhLuan = findViewById(R.id.btnBinhLuan);
         btnCreateQr = findViewById(R.id.btnCreateQr);
+
+        ratingFood = findViewById(R.id.ratingFood);
+        txtRate = findViewById(R.id.txtRate);
+        txtCountRate = findViewById(R.id.txtCountRate);
+
     }
 
     private void addInfor() {
 
-        Intent intent = getIntent();
-        int id = intent.getIntExtra("id",0);
+
 
     }
 
@@ -181,11 +193,19 @@ public class FoodActivity extends AppCompatActivity implements FoodView{
 
         Picasso.get().load(""+food.getImg()).into(imgAnh);
         Picasso.get().load(""+food.getImg()).into(imgAnh2);
-        Log.d("AAA", "getFood: "+food.toString());
+    }
+
+    @Override
+    public void setRate(Float rate, String countRate) {
+        ratingFood.setRating(rate);
+        txtRate.setText(String.valueOf(rate));
+        txtCountRate.setText("("+countRate+" đánh giá)");
+    }
+
+    @Override
+    public void ReRate() {
+        loadrate(id);
     }
 
 
-    public Food getFd() {
-        return fd;
-    }
 }

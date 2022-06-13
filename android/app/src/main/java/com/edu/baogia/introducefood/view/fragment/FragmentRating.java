@@ -38,13 +38,14 @@ public class FragmentRating extends Fragment  implements FragmentRatingView{
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         ViewGroup root = (ViewGroup) inflater.inflate(R.layout.fragment_rating, container, false);
         innit(root);
-        AccountRemember accountRemember = new MySharedPreferences().getRememberAcc(getContext());
 
+
+        AccountRemember accountRemember = new MySharedPreferences().getRememberAcc(getContext());
         foodRatingPresenter.getRating(id,accountRemember.getUsername());
         btnrate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                float getrating = rateFood .getRating ();
+                float getrating = rateFood.getRating();
                 Log.d("AAA", "onCreateView: " + getrating );
                 foodRatingPresenter.setRating(getrating,id,accountRemember.getUsername());
             }
@@ -64,12 +65,13 @@ public class FragmentRating extends Fragment  implements FragmentRatingView{
         if (mess.equals("1")){
             Toast.makeText(getActivity(), "Đánh giá hoàn tất", Toast.LENGTH_SHORT).show();
         }else if (mess.equals("0")){
-            Toast.makeText(getActivity(), "Đánh giá bị lỗi", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "Đánh giá thất bại", Toast.LENGTH_SHORT).show();
         }
     }
 
     @Override
     public void ratenow(float rate) {
+        Log.d("AAA", "ratenow: "+rate);
         rateFood.setRating(rate);
     }
 

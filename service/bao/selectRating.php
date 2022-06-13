@@ -4,9 +4,8 @@
 
     $taikhoan = $_POST['username'];
     $idfood = $_POST['idfood'];
-    $rating = $_POST['rate'];
 
-    $sql = "SELECT * FROM danhgia where tentaikhoan = '$taikhoan' and idmonan = '$idfood'";
+    $sql = "SELECT * FROM danhgia where tentaikhoan = '$taikhoan' and idmonan = $idfood";
     $result = $conn->query($sql);
 
     if ($result->num_rows > 0) {

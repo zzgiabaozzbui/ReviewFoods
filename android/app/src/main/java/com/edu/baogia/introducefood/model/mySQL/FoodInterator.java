@@ -152,6 +152,42 @@ public class FoodInterator {
         requestQueue.add(jsonArrayRequest);
     }
 
+    public void getRate(int id){
+        RequestQueue requestQueue = Volley.newRequestQueue(context);
+        String url = "http://" + ipWifi + "/ReviewFoods/service/bao/selectAllRate.php";
+        StringRequest jsonArrayRequest = new StringRequest(Request.Method.POST,url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONObject object = new JSONObject(response);
+
+                            Float rate = Float.parseFloat(object.getString("rate"));
+                            String count = object.getString("count");
+                            listener.onLoadRateSuccess(rate,count);
+                        } catch (Exception e) {
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d("AAA", "onErrorResponse65: "+error.toString());
+
+                        listener.onLoadFoodFailure(error.toString());
+                    }
+                }){
+            @Nullable
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String,String> params = new HashMap<String, String>();
+                params.put("id", ""+id);
+                return params;
+            }
+        };
+
+        requestQueue.add(jsonArrayRequest);
+    }
     public void getDesFood(int id){
         List<Food> listFood = new ArrayList<>();
         RequestQueue requestQueue = Volley.newRequestQueue(fragment.getContext());
@@ -206,58 +242,6 @@ public class FoodInterator {
                 return params;
             }
         };
-
-        requestQueue.add(jsonArrayRequest);
-    }
-    //Xử lý tạo dữ liệu
-    public void createListNewTop8(){
-        List<Food> listFood = new ArrayList<>();
-        RequestQueue requestQueue = Volley.newRequestQueue(context);
-        String url = "http://" + ipWifi + "/ReviewFoods/service/bao/selectNew.php";
-        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null,
-                new Response.Listener<JSONArray>() {
-                    @Override
-                    public void onResponse(JSONArray response) {
-                        try {
-                            JSONObject object;
-                            String name = "";
-                            Food us;
-                            int id;
-                            String nam;
-                            String avatar;
-                            String video;
-                            String des;
-                            String permiss;
-                            String location;
-                            int cateid;
-                            for (int i = 0; i < response.length(); i++) {
-                                object = response.getJSONObject(i);
-                                id = object.getInt("id");
-                                name = object.getString("name");
-                                avatar = object.getString("img");
-                                video = object.getString("video");
-                                des = object.getString("des");
-                                permiss = object.getString("permiss");
-                                location = object.getString("location");
-                                cateid = object.getInt("idcate");
-
-                                us = new Food(id, name, avatar,video, des,permiss,location, cateid);
-                                listFood.add(us);
-                            }
-
-                            listener.onLoadFoodSuccess(listFood);
-                        } catch (Exception e) {
-                        }
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.d("AAA", "onErrorResponse65: "+error.toString());
-
-                        listener.onLoadFoodFailure(error.toString());
-                    }
-                });
 
         requestQueue.add(jsonArrayRequest);
     }

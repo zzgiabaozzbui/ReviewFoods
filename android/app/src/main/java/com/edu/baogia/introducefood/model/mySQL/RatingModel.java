@@ -64,7 +64,7 @@ public class RatingModel {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        listener.onRateMessage(response);
+                        listener.onGetRateMessage(response);
                     }
                 },
                 new Response.ErrorListener() {
@@ -83,4 +83,5 @@ public class RatingModel {
 
         requestQueue.add(stringRequest);
     }
+
 }

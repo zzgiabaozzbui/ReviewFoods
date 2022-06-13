@@ -8,6 +8,7 @@ import com.edu.baogia.introducefood.model.mySQL.RatingModel;
 import com.edu.baogia.introducefood.model.mySQL.VideoInterator;
 import com.edu.baogia.introducefood.model.object.Danhgia;
 import com.edu.baogia.introducefood.model.object.Food;
+import com.edu.baogia.introducefood.view.activity.FoodView;
 import com.edu.baogia.introducefood.view.fragment.FragmentRating;
 import com.edu.baogia.introducefood.view.fragment.FragmentRatingView;
 import com.edu.baogia.introducefood.view.fragment.MakingFragmentView;
@@ -15,11 +16,13 @@ import com.edu.baogia.introducefood.view.fragment.MakingFragmentView;
 public class FoodRatingPresenterIm implements FoodRatingPresenter, RatignInterface {
     private RatingModel ratingModel;
     private FragmentRatingView fragmentRating;
+    FoodView foodView;
 
 
     public FoodRatingPresenterIm(FragmentRating fragmentRating) {
         this.fragmentRating = (FragmentRating) fragmentRating;
         ratingModel = new RatingModel(this,(Fragment) fragmentRating);
+        foodView = (FoodView) fragmentRating.getActivity();
     }
 
 
@@ -39,6 +42,9 @@ public class FoodRatingPresenterIm implements FoodRatingPresenter, RatignInterfa
     @Override
     public void onRateMessage(String mess) {
             fragmentRating.rate(mess);
+            if (mess.equals("1")){
+                foodView.ReRate();
+            }
     }
 
     @Override
@@ -48,5 +54,10 @@ public class FoodRatingPresenterIm implements FoodRatingPresenter, RatignInterfa
         }else {
             fragmentRating.ratenow(Float.parseFloat(mess));
         }
+    }
+
+    @Override
+    public void getAllRateSuccess(String mess) {
+
     }
 }

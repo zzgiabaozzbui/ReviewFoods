@@ -5,13 +5,6 @@
       <map>
         <entry key="..\:/Github/ReviewFoods/android/app/src/main/res/drawable/border_bottom_textview.xml" value="0.1545" />
         <entry key="..\:/Github/ReviewFoods/android/app/src/main/res/layout/activity_alert_dialog_hoso.xml" value="0.25416666666666665" />
-<<<<<<< Updated upstream
-=======
-        <entry key="..\:/Github/ReviewFoods/android/app/src/main/res/layout/activity_line_fillter.xml" value="0.25416666666666665" />
-        <entry key="..\:/Github/ReviewFoods/android/app/src/main/res/layout/activity_mon_an.xml" value="0.11302083333333333" />
-        <entry key="..\:/Github/ReviewFoods/android/app/src/main/res/layout/fragment_loai_mon_an.xml" value="0.24351851851851852" />
-        <entry key="..\:/Github/ReviewFoods/android/app/src/main/res/layout/test.xml" value="0.25416666666666665" />
->>>>>>> Stashed changes
         <entry key="..\:/Github/ReviewFoods/android/app/src/main/res/menu/menu_doanh_muc.xml" value="0.25416666666666665" />
         <entry key="..\:/XAMPP/htdocs/ReviewFoods/android/app/src/main/res/layout/activity_list_quest.xml" value="0.21875" />
         <entry key="..\:/XAMPP/htdocs/ReviewFoods/android/app/src/main/res/layout/activity_re_pass_word.xml" value="0.21875" />
@@ -19,6 +12,7 @@
         <entry key="..\:/xampp/htdocs/ReviewFoods/android/app/src/main/res/drawable-v24/btn_login_background.xml" value="0.2" />
         <entry key="..\:/xampp/htdocs/ReviewFoods/android/app/src/main/res/drawable-v24/btn_youtube.xml" value="0.203" />
         <entry key="..\:/xampp/htdocs/ReviewFoods/android/app/src/main/res/drawable-v24/login_backgroung.xml" value="0.203" />
+        <entry key="..\:/xampp/htdocs/ReviewFoods/android/app/src/main/res/drawable/backgrounbottomnavigation.xml" value="0.203" />
         <entry key="..\:/xampp/htdocs/ReviewFoods/android/app/src/main/res/drawable/background_radius5.xml" value="0.1215" />
         <entry key="..\:/xampp/htdocs/ReviewFoods/android/app/src/main/res/drawable/backgrounddia.xml" value="0.203" />
         <entry key="..\:/xampp/htdocs/ReviewFoods/android/app/src/main/res/drawable/backnew.xml" value="0.2" />
@@ -27,13 +21,16 @@
         <entry key="..\:/xampp/htdocs/ReviewFoods/android/app/src/main/res/drawable/delete_danhdaufood.xml" value="0.2985" />
         <entry key="..\:/xampp/htdocs/ReviewFoods/android/app/src/main/res/drawable/drawface.xml" value="0.1885" />
         <entry key="..\:/xampp/htdocs/ReviewFoods/android/app/src/main/res/drawable/radiussmall.xml" value="0.2" />
+        <entry key="..\:/xampp/htdocs/ReviewFoods/android/app/src/main/res/layout/activity_acc.xml" value="0.25" />
+        <entry key="..\:/xampp/htdocs/ReviewFoods/android/app/src/main/res/layout/activity_alert_dialog_hoso.xml" value="0.25" />
         <entry key="..\:/xampp/htdocs/ReviewFoods/android/app/src/main/res/layout/activity_alert_dialog_hoso_gioitinh.xml" value="0.1" />
         <entry key="..\:/xampp/htdocs/ReviewFoods/android/app/src/main/res/layout/activity_danh_muc_fillter.xml" value="0.1" />
         <entry key="..\:/xampp/htdocs/ReviewFoods/android/app/src/main/res/layout/activity_danhdauview.xml" value="0.25" />
         <entry key="..\:/xampp/htdocs/ReviewFoods/android/app/src/main/res/layout/activity_dialog.xml" value="0.25" />
         <entry key="..\:/xampp/htdocs/ReviewFoods/android/app/src/main/res/layout/activity_enter_otpactivity.xml" value="0.24583333333333332" />
         <entry key="..\:/xampp/htdocs/ReviewFoods/android/app/src/main/res/layout/activity_foget.xml" value="0.10729166666666666" />
-        <entry key="..\:/xampp/htdocs/ReviewFoods/android/app/src/main/res/layout/activity_food.xml" value="0.24583333333333332" />
+        <entry key="..\:/xampp/htdocs/ReviewFoods/android/app/src/main/res/layout/activity_food.xml" value="0.6" />
+        <entry key="..\:/xampp/htdocs/ReviewFoods/android/app/src/main/res/layout/activity_ho_so.xml" value="0.25" />
         <entry key="..\:/xampp/htdocs/ReviewFoods/android/app/src/main/res/layout/activity_home.xml" value="0.24583333333333332" />
         <entry key="..\:/xampp/htdocs/ReviewFoods/android/app/src/main/res/layout/activity_line_fillter.xml" value="0.1" />
         <entry key="..\:/xampp/htdocs/ReviewFoods/android/app/src/main/res/layout/activity_login.xml" value="0.24583333333333332" />
@@ -52,6 +49,7 @@
         <entry key="..\:/xampp/htdocs/ReviewFoods/android/app/src/main/res/layout/activity_you_tube.xml" value="0.25" />
         <entry key="..\:/xampp/htdocs/ReviewFoods/android/app/src/main/res/layout/food.xml" value="0.24583333333333332" />
         <entry key="..\:/xampp/htdocs/ReviewFoods/android/app/src/main/res/layout/food_new.xml" value="0.24583333333333332" />
+        <entry key="..\:/xampp/htdocs/ReviewFoods/android/app/src/main/res/layout/fragment_acc.xml" value="0.25" />
         <entry key="..\:/xampp/htdocs/ReviewFoods/android/app/src/main/res/layout/fragment_loai_mon_an.xml" value="0.1" />
         <entry key="..\:/xampp/htdocs/ReviewFoods/android/app/src/main/res/layout/fragment_making.xml" value="0.264" />
         <entry key="..\:/xampp/htdocs/ReviewFoods/android/app/src/main/res/layout/fragment_news.xml" value="0.264" />

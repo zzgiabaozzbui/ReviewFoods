@@ -60,7 +60,7 @@
                 android:orientation="horizontal">
 
                 <androidx.cardview.widget.CardView
-                    android:layout_margin="20dp"
+                    android:layout_margin="10dp"
                     app:cardCornerRadius="10dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
@@ -106,10 +106,41 @@
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="22dp"
+                        android:orientation="horizontal"
+                        android:gravity="center|left"
                         android:layout_marginTop="5dp"
                         android:layout_marginBottom="5dp">
 
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingRight="5dp"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/txtRate"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/white"
+                                android:textAlignment="center"
+                                android:textSize="8dp"
+                                android:layout_marginLeft="5dp"
+                                android:text="4.8">
+
+                            </TextView>
+                            <TextView
+                                android:id="@+id/txtCountRate"
+                                android:layout_width="70dp"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/white"
+                                android:textAlignment="center"
+                                android:textSize="8dp"
+                                android:layout_marginLeft="5dp"
+                                android:text="(177 đánh giá)">
+
+                            </TextView>
+                        </LinearLayout>
                         <RatingBar
                             android:id="@+id/ratingFood"
                             android:rating="5"
@@ -119,15 +150,7 @@
                             android:layout_height="wrap_content">
 
                         </RatingBar>
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:textColor="@color/white"
-                            android:textSize="8dp"
-                            android:layout_marginLeft="5dp"
-                            android:text="4.8 (17 đánh giá)">
 
-                        </TextView>
                     </LinearLayout>
 
 
@@ -138,11 +161,12 @@
 
                         <Button
                             android:id="@+id/btnCreateQr"
-                            android:layout_width="40dp"
+                            android:layout_width="45dp"
                             android:layout_height="45dp"
                             android:layout_gravity="center"
                             android:background="#00FFFFFF"
                             android:drawableEnd="@drawable/qr30"
+                            android:layout_marginRight="5dp"
                             android:textColor="@color/white"
                             android:textStyle="bold"></Button>
                         <Button

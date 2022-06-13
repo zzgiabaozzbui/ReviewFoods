@@ -12,6 +12,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.edu.baogia.introducefood.R;
 import com.edu.baogia.introducefood.model.object.Food;
+import com.edu.baogia.introducefood.view.fragment.FragmentAcc;
 import com.edu.baogia.introducefood.view.fragment.FragmentNews;
 import com.edu.baogia.introducefood.view.fragment.HomeFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -52,8 +53,8 @@ public class MainActivity extends AppCompatActivity {
                     loadFragment(fragment);
                     return true;
                 case R.id.navigation_account:
-//                    fragment = new CartFragment();
-//                    loadFragment(fragment);
+                    fragment = new FragmentAcc();
+                    loadFragment(fragment);
                     return true;
             }
 

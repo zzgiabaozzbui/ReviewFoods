@@ -42,4 +42,9 @@ public class HomePresenterIm implements LoadFoodListener, HomePresenter {
     public void onLoadFoodFailure(String message) {
 
     }
+
+    @Override
+    public void onLoadRateSuccess(Float rate, String countRate) {
+
+    }
 }

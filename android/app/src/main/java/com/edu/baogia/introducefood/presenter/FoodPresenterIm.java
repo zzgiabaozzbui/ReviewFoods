@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment;
 
 import com.edu.baogia.introducefood.model.mySQL.FoodInterator;
 import com.edu.baogia.introducefood.model.mySQL.LoadFoodListener;
+import com.edu.baogia.introducefood.model.mySQL.RatignInterface;
 import com.edu.baogia.introducefood.model.object.Food;
 import com.edu.baogia.introducefood.view.activity.FoodView;
 import com.edu.baogia.introducefood.view.fragment.ReviewFragmentView;
@@ -30,7 +31,11 @@ public class FoodPresenterIm implements FoodPresenter, LoadFoodListener {
     @Override
     public void loadFoodData(int id) {
         foodInterator.getFood(id);
-        Log.d("AAA", "loadData: ");
+    }
+
+    @Override
+    public void loadRate(int id) {
+        foodInterator.getRate(id);
     }
 
     @Override
@@ -57,4 +62,10 @@ public class FoodPresenterIm implements FoodPresenter, LoadFoodListener {
     public void onLoadFoodFailure(String message) {
 
     }
+
+    @Override
+    public void onLoadRateSuccess(Float rate, String countRate) {
+        foodView.setRate(rate, countRate);
+    }
+
 }
