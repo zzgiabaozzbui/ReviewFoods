@@ -10,6 +10,7 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.InputType;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -28,8 +29,10 @@ import androidx.core.app.ActivityCompat;
 
 import com.edu.baogia.introducefood.R;
 import com.edu.baogia.introducefood.interfaces.HoSoInterface;
+import com.edu.baogia.introducefood.model.object.AccountRemember;
 import com.edu.baogia.introducefood.model.object.NguoiDung;
 import com.edu.baogia.introducefood.presenter.HoSoPresenter;
+import com.edu.baogia.introducefood.util.MySharedPreferences;
 import com.edu.baogia.introducefood.util.UrlVolley;
 import com.squareup.picasso.Picasso;
 
@@ -57,16 +60,23 @@ public class HoSoView extends AppCompatActivity implements HoSoInterface {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTenTaiKhoan();
         setContentView(R.layout.activity_ho_so);
         mapping();
         seederTime();
         getDataHoSoCurrent();
         acceptChangeData();
         setAvatar();
-        setIntentTK();
-    }
-    private void setIntentTK() {
 
+    }
+    private void setTenTaiKhoan() {
+        try {
+            AccountRemember accountRemember=new  MySharedPreferences().getRememberAcc(HoSoView.this);
+            Log.d("pdt", "setTenTaiKhoan: "+accountRemember.getUsername());
+            tenTK=accountRemember.getUsername();
+        }catch (Exception e){
+
+        }
     }
 
     private void setAvatar() {
@@ -121,6 +131,11 @@ public class HoSoView extends AppCompatActivity implements HoSoInterface {
     }
 
     private void getDataHoSoCurrent() {
+        if(tenTK.equalsIgnoreCase("")){
+            Intent intent=new Intent(HoSoView.this,LoginActivity.class);
+            Toast.makeText(HoSoView.this, "Bạn chưa đăng nhập", Toast.LENGTH_SHORT).show();
+            startActivity(intent);
+        }
         hoSoPresenter.getDataHoSo(new NguoiDung.CallBackHoSo() {
             @Override
             public void onSuccessHoSo(NguoiDung nguoiDung) {
@@ -283,6 +298,11 @@ public class HoSoView extends AppCompatActivity implements HoSoInterface {
     @Override
     public void getHoSo(NguoiDung.CallBackHoSo callBackHoSo) {
         NguoiDung nguoiDung=new NguoiDung();
+        if(tenTK.equalsIgnoreCase("")){
+            Intent intent=new Intent(HoSoView.this,LoginActivity.class);
+            startActivity(intent);
+        }
+        else
         nguoiDung.getNguoiDung(HoSoView.this,callBackHoSo,tenTK);
     }
 

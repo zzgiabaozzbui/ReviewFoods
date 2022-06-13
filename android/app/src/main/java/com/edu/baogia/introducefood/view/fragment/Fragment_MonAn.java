@@ -78,7 +78,6 @@ public class Fragment_MonAn extends Fragment implements FoodFillterInterface {
             public void onSuccessFood(List<MonAn> callBackFood) {
                 list.addAll(callBackFood);
                 adapter.setData(list);
-                adapter.setTK(TK);
                 setIntent();
             }
 

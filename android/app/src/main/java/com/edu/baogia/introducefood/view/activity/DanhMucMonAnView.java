@@ -28,6 +28,7 @@ import com.edu.baogia.introducefood.R;
 import com.edu.baogia.introducefood.adapter.LoaiMonAnAdapter;
 import com.edu.baogia.introducefood.adapter.MonAnAdapter;
 import com.edu.baogia.introducefood.interfaces.TypeFoodFillterInterface;
+import com.edu.baogia.introducefood.model.object.AccountRemember;
 import com.edu.baogia.introducefood.model.object.LoaiMonAn;
 import com.edu.baogia.introducefood.presenter.TypeFoodFillterPresenter;
 import com.edu.baogia.introducefood.util.MySharedPreferences;
@@ -46,7 +47,7 @@ public class DanhMucMonAnView extends AppCompatActivity implements NavigationVie
     DrawerLayout drrDoanhMuc;
     Toolbar tbrDoanhMuc;
     Button btnResetFillter, btnApDungFillter;
-    String tenTK=new MySharedPreferences().getRememberAcc(DanhMucMonAnView.this).getUsername();
+    String tenTK="";
 
     TypeFoodFillterPresenter typeFoodFillterPresenter = new TypeFoodFillterPresenter(this);
 
@@ -60,13 +61,23 @@ public class DanhMucMonAnView extends AppCompatActivity implements NavigationVie
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mon_an);
+        setTenTaiKhoan();
         mapping();
         setMyToolbar();
         setRecyclerViewLoaiMonAn();
 
     }
 
+    private void setTenTaiKhoan() {
+        try {
+            AccountRemember accountRemember=new  MySharedPreferences().getRememberAcc(DanhMucMonAnView.this);
+            Log.d("pdt", "setTenTaiKhoan: "+accountRemember.getUsername());
+            tenTK=accountRemember.getUsername();
+        }catch (Exception e){
 
+        }
+
+    }
 
 
     public MonAnAdapter getMonAnAdapter() {

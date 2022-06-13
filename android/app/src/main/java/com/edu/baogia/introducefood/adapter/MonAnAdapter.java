@@ -69,7 +69,6 @@ public class MonAnAdapter extends RecyclerView.Adapter<MonAnAdapter.MonAnViewHol
                 danhDaus.addAll(danhDauList);
                 Boolean check=false;
                 for (DanhDau danhDau:danhDaus) {
-
                     if(monAn.getId()==danhDau.getIdMonAn()){
                         check=true;
                         break;
@@ -105,10 +104,17 @@ public class MonAnAdapter extends RecyclerView.Adapter<MonAnAdapter.MonAnViewHol
 
 
     private void setTim(MaterialCheckBox ckoMonAn_DM, int id) {
-        if(tenTK.equalsIgnoreCase("")){
-            Intent intent=new Intent(view.getContext(), LoginActivity.class);
-            view.getContext().startActivity(intent);
-        }else {
+        ckoMonAn_DM.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(tenTK.equalsIgnoreCase("")){
+                    Toast.makeText(view.getContext(), "Bạn chưa đăng nhập", Toast.LENGTH_SHORT).show();
+                    Intent intent=new Intent(view.getContext(), LoginActivity.class);
+                    view.getContext().startActivity(intent);
+                }
+            }
+        });
+        if(!tenTK.equalsIgnoreCase("")){
             ckoMonAn_DM.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
@@ -122,6 +128,8 @@ public class MonAnAdapter extends RecyclerView.Adapter<MonAnAdapter.MonAnViewHol
                 }
             });
         }
+
+
 
     }
 
