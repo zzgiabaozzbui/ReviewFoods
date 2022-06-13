@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:weightSum="100"
+    android:padding="5dp"
+    android:gravity="center"
+    >
+    <ImageView
+        android:id="@+id/imgFood"
+        android:layout_width="0dp"
+        android:layout_weight="30"
+        android:layout_height="40dp"
+
+        >
+
+    </ImageView>
+    <TextView
+        android:id="@+id/txtNameFood"
+        android:layout_weight="60"
+        android:layout_width="0dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:text="aaaaaaaaaaaaaaa"
+        android:textSize="11sp"
+        android:layout_height="wrap_content"></TextView>
+    <ImageView
+        android:id="@+id/btnDelete"
+        android:layout_weight="10"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:src="@drawable/delete_danhdaufood"
+
+        ></ImageView>
+
+
+
+</LinearLayout>
