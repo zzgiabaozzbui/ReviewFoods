@@ -55,7 +55,6 @@ public class Fragment_MonAn extends Fragment implements FoodFillterInterface {
         view=inflater.inflate(R.layout.fragment_loai_mon_an,container,false);
         mapping();
         setRecyclerViewMonAn();
-
         return view;
     }
 // ---------------hàm xét tài khoản ở đây --------------------------
@@ -105,7 +104,6 @@ public class Fragment_MonAn extends Fragment implements FoodFillterInterface {
             int check = monAnAdapter.filter(timkiem, conditions);
         }
     }
-
 
     @Override
     public void getListFoodFillter(MonAn.CallBackFood callBackFood) {
