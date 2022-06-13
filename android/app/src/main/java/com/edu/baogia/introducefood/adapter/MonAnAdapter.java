@@ -1,5 +1,6 @@
 package com.edu.baogia.introducefood.adapter;
 
+import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,13 +31,16 @@ public class MonAnAdapter extends RecyclerView.Adapter<MonAnAdapter.MonAnViewHol
     private List<MonAn> listPhu;
     List<DanhDau> danhDaus=new ArrayList<>();
     View view;
-    public String tenTK="thangyb27";
+    public String tenTK="";
 
     public void setData(List<MonAn> listMonAn) {
         this.list = listMonAn;
         this.listPhu = new ArrayList<>();
         this.listPhu.addAll(list);
         notifyDataSetChanged();
+    }
+    public void setTK(String taikhoan){
+        this.tenTK=taikhoan;
     }
 
     @NonNull
@@ -98,18 +102,23 @@ public class MonAnAdapter extends RecyclerView.Adapter<MonAnAdapter.MonAnViewHol
 
 
     private void setTim(MaterialCheckBox ckoMonAn_DM, int id) {
-        ckoMonAn_DM.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if (b) {
-                    ckoMonAn_DM.setButtonDrawable(R.drawable.ic_tim);
-                    new DanhDau(id,tenTK).themDanhDau(view.getContext());
-                }else{
-                    ckoMonAn_DM.setButtonDrawable(R.drawable.ic_kh_tim);
-                    new DanhDau(id,tenTK).xoaDanhdau(view.getContext());
+        if(tenTK.equalsIgnoreCase("")){
+            Toast.makeText(view.getContext(), "Bạn chưa đăng nhập", Toast.LENGTH_SHORT).show();
+        }else {
+            ckoMonAn_DM.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                    if (b) {
+                        ckoMonAn_DM.setButtonDrawable(R.drawable.ic_tim);
+                        new DanhDau(id,tenTK).themDanhDau(view.getContext());
+                    }else{
+                        ckoMonAn_DM.setButtonDrawable(R.drawable.ic_kh_tim);
+                        new DanhDau(id,tenTK).xoaDanhdau(view.getContext());
+                    }
                 }
-            }
-        });
+            });
+        }
+
     }
 
     public int filter(String s, List<String> condition) {
@@ -148,11 +157,11 @@ public class MonAnAdapter extends RecyclerView.Adapter<MonAnAdapter.MonAnViewHol
             }
         }
 
-
-
         notifyDataSetChanged();
-        if (list.size() == 0)
+        if (list.size() == 0){
             return 0;
+        }
+
         else return 1;
     }
 
