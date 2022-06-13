@@ -8,22 +8,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.edu.baogia.introducefood.R;
-import com.edu.baogia.introducefood.YouTubeActivity;
+import com.edu.baogia.introducefood.view.activity.YouTubeActivity;
 import com.edu.baogia.introducefood.model.object.Food;
 import com.edu.baogia.introducefood.presenter.FoodMakingPresenter;
 import com.edu.baogia.introducefood.presenter.FoodMakingPresenterIm;
-import com.edu.baogia.introducefood.presenter.FoodPresenter;
-import com.edu.baogia.introducefood.presenter.FoodPresenterIm;
-import com.google.android.youtube.player.YouTubeInitializationResult;
-import com.google.android.youtube.player.YouTubePlayer;
-import com.google.android.youtube.player.YouTubePlayerView;
 
 
 public class MakingFragment extends Fragment implements MakingFragmentView {

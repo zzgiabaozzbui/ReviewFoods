@@ -18,21 +18,10 @@
         android:theme="@style/Theme.AppCompat.Light.NoActionBar"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
-<<<<<<< Updated upstream
-        <activity
-            android:name=".YouTubeActivity"
-            android:exported="false" />
-        <activity
-<<<<<<< Updated upstream
-            android:name=".view.activity.LoginActivity"
-=======
         <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
         <meta-data android:name="com.facebook.sdk.ClientToken" android:value="@string/facebook_client_token"/>
-        <activity android:name=".view.activity.LoginActivity"
->>>>>>> Stashed changes
-=======
-            android:name=".view.activity.DanhDauView"
->>>>>>> Stashed changes
+        <activity
+            android:name=".view.activity.LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"></action>
@@ -40,23 +29,9 @@
             </intent-filter>
         </activity>
 
-        <meta-data
-            android:name="com.facebook.sdk.ApplicationId"
-            android:value="@string/facebook_app_id" />
-        <meta-data
-            android:name="com.facebook.sdk.ClientToken"
-            android:value="@string/facebook_client_token" />
-        <meta-data
-            android:name="com.facebook.sdk.ApplicationId"
-            android:value="@string/facebook_app_id" />
-        <meta-data
-            android:name="com.facebook.sdk.ClientToken"
-            android:value="@string/facebook_client_token" />
-
-<!--        <activity-->
-<!--            android:name="com.facebook.FacebookActivity"-->
-<!--            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"-->
-<!--            android:label="@string/app_name" />-->
+        <activity
+            android:name=".view.activity.YouTubeActivity"
+            android:exported="true" />
         <activity
             android:name=".view.activity.DanhMucMonAnView"
             android:exported="true" />
@@ -84,9 +59,6 @@
         <activity
             android:name=".view.activity.HoSoView"
             android:exported="true" />
-<!--        <activity-->
-<!--            android:name=".view.activity.DanhMucMonAnView"-->
-<!--            android:exported="true" />-->
         <activity
             android:name=".view.activity.NewsInfoActivity"
             android:exported="true" />
