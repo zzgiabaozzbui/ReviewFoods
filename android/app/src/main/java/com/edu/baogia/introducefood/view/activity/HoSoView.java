@@ -63,15 +63,10 @@ public class HoSoView extends AppCompatActivity implements HoSoInterface {
         getDataHoSoCurrent();
         acceptChangeData();
         setAvatar();
-//        setIntentTK();
+        setIntentTK();
     }
-    private boolean setIntentTK() {
-        Intent i=getIntent();
-        if(i.getStringExtra("tentaikhoan")==null){
-            return false;
-        }
-        tenTK=i.getStringExtra("tentaikhoan");
-        return true;
+    private void setIntentTK() {
+
     }
 
     private void setAvatar() {

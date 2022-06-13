@@ -73,6 +73,8 @@ public class LoaiMonAn {
     public void getTypeFood(CallBackTypeFood callBackTypeFood, Context context){
         List<LoaiMonAn> loaiMonAns = new ArrayList<>();
 
+
+
         String urlGetTypeFood = new idwifi().urlThang + "getAllTypeFood.php";
 
         RequestQueue requestQueue = Volley.newRequestQueue(context);

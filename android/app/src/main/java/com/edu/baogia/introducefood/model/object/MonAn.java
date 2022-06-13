@@ -114,7 +114,9 @@ public class MonAn {
 
     public void getListFoodDanhMuc(CallBackFood callBackFood, Context context){
         List<MonAn> monAnList = new ArrayList<>();
-        UrlVolley urlVolley = new UrlVolley();
+
+    
+
         String urlGetFood = new idwifi().urlThang + "getAllFood.php";
         RequestQueue requestQueue = Volley.newRequestQueue(context);
         JsonArrayRequest jsonArrayRequest =new JsonArrayRequest(Request.Method.GET, urlGetFood, null, new Response.Listener<JSONArray>() {
