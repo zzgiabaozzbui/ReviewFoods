@@ -1,5 +1,7 @@
 package com.edu.baogia.introducefood.model.mySQL;
 
+import static com.edu.baogia.introducefood.util.idwifi.ipWifi;
+
 import android.content.Context;
 import android.util.Log;
 
@@ -30,7 +32,7 @@ import java.util.Map;
 
 public class QuestModel implements QuestMVP.Model {
     Context context;
-    public static final String IP="http://192.168.1.7";
+    public static final String IP=ipWifi;
     public static final String FOLDER="/ReviewFoods/service/manh/KTPM/";
     public QuestModel(Context context) {
         this.context = context;
