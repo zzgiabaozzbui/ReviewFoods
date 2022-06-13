@@ -49,7 +49,7 @@ public class TabLayoutFoodAdapter extends FragmentPagerAdapter {
                 MakingFragment fragment = new MakingFragment(id);
                 return fragment;
             case 2:
-                FragmentRating fragmentRating = new FragmentRating();
+                FragmentRating fragmentRating = new FragmentRating(id);
                 return fragmentRating;
             default:
                 return null;
