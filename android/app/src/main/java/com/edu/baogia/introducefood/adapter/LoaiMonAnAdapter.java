@@ -1,6 +1,7 @@
 package com.edu.baogia.introducefood.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,8 +33,12 @@ public class LoaiMonAnAdapter extends RecyclerView.Adapter<LoaiMonAnAdapter.Doan
     List<LinearLayout> listLinner = new ArrayList<>();
     List<String> idFillter = new ArrayList<>();
     DoanhMucViewHolder holderDanhMuc;
+    Intent intent;
 
-
+    public LoaiMonAnAdapter(Context context, Intent intent) {
+        this.context = context;
+        this.intent=intent;
+    }
     public LoaiMonAnAdapter(Context context) {
         this.context = context;
     }
@@ -70,18 +75,23 @@ public class LoaiMonAnAdapter extends RecyclerView.Adapter<LoaiMonAnAdapter.Doan
         resetFillter(holder);
         addFillter(holder, position);
         holderDanhMuc=holder;
+        if(intent!=null)
+        getCurrentFillter(loaiMonAn.getId()+"");
     }
 
-//    private void getCurrentFillter(String idLoaiMonAn) {
-//        for (String id:idFillter) {
-//            if(id.equalsIgnoreCase(idLoaiMonAn)){
-//                Log.d("pdt", "getCurrentFillter: "+idLoaiMonAn);
-//                holderDanhMuc.ckoFillter.setBackgroundResource(R.drawable.checked_fillter);
-//                holderDanhMuc.ckoFillter.setChecked(true);
-//                holderDanhMuc.lnlChecked.setVisibility(View.VISIBLE);
-//            }
-//        }
-//    }
+    private void getCurrentFillter(String idLoaiMonAn) {
+        try{
+            String id=intent.getStringExtra("idLoaiMonAn");
+            if(id.equalsIgnoreCase(idLoaiMonAn)){
+                Log.d("pdt", "getCurrentFillter: "+idLoaiMonAn);
+                holderDanhMuc.ckoFillter.setBackgroundResource(R.drawable.checked_fillter);
+                holderDanhMuc.ckoFillter.setChecked(true);
+                holderDanhMuc.lnlChecked.setVisibility(View.VISIBLE);
+            }
+        }catch (Exception e){
+
+        }
+    }
 
 
     private void addFillter(DoanhMucViewHolder holder, int position) {

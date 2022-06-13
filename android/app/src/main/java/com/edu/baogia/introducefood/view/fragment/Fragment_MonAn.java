@@ -34,7 +34,7 @@ public class Fragment_MonAn extends Fragment implements FoodFillterInterface {
     MonAnAdapter adapter;
     View view;
     FoodFillterPresenter foodFillterPresenter=new FoodFillterPresenter(this);
-
+    String TK="";
     public MonAnAdapter getAdapter(){
         return adapter;
     }
@@ -43,6 +43,11 @@ public class Fragment_MonAn extends Fragment implements FoodFillterInterface {
         this.context = context;
         this.i=i;
     }
+    public Fragment_MonAn(Context context,Intent i,String taikhoan) {
+        this.context = context;
+        this.i=i;
+        this.TK=taikhoan;
+    }
 
     @Nullable
     @Override
@@ -50,8 +55,11 @@ public class Fragment_MonAn extends Fragment implements FoodFillterInterface {
         view=inflater.inflate(R.layout.fragment_loai_mon_an,container,false);
         mapping();
         setRecyclerViewMonAn();
+
         return view;
     }
+// ---------------hàm xét tài khoản ở đây --------------------------
+
 
     private void setRecyclerViewMonAn() {
         adapter=new MonAnAdapter();
@@ -69,7 +77,8 @@ public class Fragment_MonAn extends Fragment implements FoodFillterInterface {
             public void onSuccessFood(List<MonAn> callBackFood) {
                 list.addAll(callBackFood);
                 adapter.setData(list);
-                setIntentTypeFood();
+                adapter.setTK(TK);
+                setIntent();
             }
 
             @Override
@@ -79,17 +88,25 @@ public class Fragment_MonAn extends Fragment implements FoodFillterInterface {
         });
         rcvDoanhMuc=view.findViewById(R.id.rcvDoanhMuc);
     }
-    private void setIntentTypeFood() {
+    private void setIntent() {
         Intent intent=i;
-        if(i.getIntExtra("idLoaiMonAn",-1)!=-1){
-            int id=i.getIntExtra("idLoaiMonAn",-1);
-            List<String> conditions = new LoaiMonAnAdapter(context).getCondition();
-            conditions.add(1+"");
+        if(i.getStringExtra("idLoaiMonAn")!=null){
+            String id=i.getStringExtra("idLoaiMonAn");
+            List<String> conditions = new LoaiMonAnAdapter(context,intent).getCondition();
+            conditions.add(id+"");
             MonAnAdapter monAnAdapter = getAdapter();
             int check = monAnAdapter.filter("", conditions);
         }
-
+        // hàm tìm kiếm từ phía trang chủ -----------------------
+        if(i.getStringExtra("timkiem")!=null){
+            String timkiem=i.getStringExtra("timkiem");
+            List<String> conditions = new LoaiMonAnAdapter(context).getCondition();
+            MonAnAdapter monAnAdapter = getAdapter();
+            int check = monAnAdapter.filter(timkiem, conditions);
+        }
     }
+
+
     @Override
     public void getListFoodFillter(MonAn.CallBackFood callBackFood) {
         new MonAn().getListFoodDanhMuc(callBackFood,getContext());

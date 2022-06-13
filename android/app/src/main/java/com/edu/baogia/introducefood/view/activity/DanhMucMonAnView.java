@@ -58,24 +58,12 @@ public class DanhMucMonAnView extends AppCompatActivity implements NavigationVie
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mon_an);
-
         mapping();
-
         setMyToolbar();
         setRecyclerViewLoaiMonAn();
 
     }
 
-    private void setIntentSearch()  {
-        Intent i=getIntent();
-        if(i.getStringExtra("timkiem")!=null){
-            String timkiem=i.getStringExtra("timkiem");
-            List<String> conditions = adapter.getCondition();
-            MonAnAdapter monAnAdapter = fragment_monAn.getAdapter();
-            int check = monAnAdapter.filter("", conditions);
-        }
-
-    }
 
 
 
@@ -115,7 +103,7 @@ public class DanhMucMonAnView extends AppCompatActivity implements NavigationVie
         });
 
 
-        adapter = new LoaiMonAnAdapter(DanhMucMonAnView.this);
+        adapter = new LoaiMonAnAdapter(DanhMucMonAnView.this,getIntent());
         GridLayoutManager gridLayoutManager = new GridLayoutManager(DanhMucMonAnView.this, 2);
         rcvDanhMucFillter.setLayoutManager(gridLayoutManager);
         rcvDanhMucFillter.setFocusable(false);
@@ -128,6 +116,7 @@ public class DanhMucMonAnView extends AppCompatActivity implements NavigationVie
         btnApDungFillter = getNav(R.id.navDanhMuc).findViewById(R.id.btnApDungFillter);
         drrDoanhMuc = findViewById(R.id.drrDoanhMuc);
         tbrDoanhMuc = findViewById(R.id.tbrDoanhMuc);
+//        Thêm tên tài khoản vào thuộc tính Fragment_MonAn
         fragment_monAn = new Fragment_MonAn(DanhMucMonAnView.this,getIntent());
         replaceFragment(fragment_monAn);
 
@@ -152,8 +141,7 @@ public class DanhMucMonAnView extends AppCompatActivity implements NavigationVie
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_doanh_muc, menu);
         onChangeSearchView(menu);
-//        setIntentTypeFood();
-        setIntentSearch();
+
 
         return super.onCreateOptionsMenu(menu);
     }
