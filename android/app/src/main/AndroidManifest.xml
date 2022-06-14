@@ -21,14 +21,16 @@
         <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
         <meta-data android:name="com.facebook.sdk.ClientToken" android:value="@string/facebook_client_token"/>
         <activity
-            android:name=".view.activity.DanhDauView"
+            android:name=".view.activity.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"></action>
                 <category android:name="android.intent.category.LAUNCHER"></category>
             </intent-filter>
         </activity>
-
+        <activity
+            android:name=".view.activity.DanhDauView"
+            android:exported="true" />
         <activity
             android:name=".view.activity.YouTubeActivity"
             android:exported="true" />
