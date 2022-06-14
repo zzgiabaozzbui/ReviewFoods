@@ -32,6 +32,12 @@ public class MonAn {
     public MonAn() {
     }
 
+    public MonAn(int id, String tenMonAn, String anh) {
+        this.id = id;
+        this.tenMonAn = tenMonAn;
+        this.anh = anh;
+    }
+
     public MonAn(int id, String tenMonAn, String anh, String video, String moTa, String cachLam, String noiBan, int idLoaiMonAn) {
         this.id = id;
         this.tenMonAn = tenMonAn;

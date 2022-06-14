@@ -13,6 +13,7 @@ import android.widget.Toast;
 import com.edu.baogia.introducefood.R;
 import com.edu.baogia.introducefood.model.object.DanhDau;
 import com.edu.baogia.introducefood.model.object.MonAn;
+import com.edu.baogia.introducefood.view.activity.DanhDauView;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -21,12 +22,13 @@ public class DanhDauAdapter extends BaseAdapter {
     Context context;
     int layout;
     List<MonAn> dsDanhDauMonAn;
+    String tenTK;
 
-
-    public DanhDauAdapter(Context context, int layout, List<MonAn> dsDanhDauMonAn) {
+    public DanhDauAdapter(Context context, int layout, List<MonAn> dsDanhDauMonAn,String tenTK) {
         this.context = context;
         this.layout = layout;
         this.dsDanhDauMonAn = dsDanhDauMonAn;
+        this.tenTK=tenTK;
     }
 
 
@@ -57,8 +59,9 @@ public class DanhDauAdapter extends BaseAdapter {
         imgDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                dsDanhDauMonAn.remove(monandanhdau);
-//                notifyDataSetChanged();
+                new DanhDau(monandanhdau.getId(),tenTK).xoaDanhdau(context);
+                dsDanhDauMonAn.remove(monandanhdau);
+                notifyDataSetChanged();
             }
         });
 

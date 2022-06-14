@@ -116,6 +116,45 @@ public class DanhDau {
         };
         requestQueue.add(stringRequest);
     }
+    public void getFoodDanhDau(CallBackGetFoodDanhDau callBackGetFoodDanhDau,Context context){
+        List<MonAn> danhDauList = new ArrayList<>();
+
+        String urlGetCheckedFood = new idwifi().urlNinh + "getFoodDanhDau.php";
+        RequestQueue requestQueue = Volley.newRequestQueue(context);
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, urlGetCheckedFood, null, new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+                JSONObject jsonObject;
+                for (int i = 0; i <= response.length(); i++) {
+                    try {
+                        jsonObject = response.getJSONObject(i);
+                        int id = jsonObject.getInt("id");
+                        String tenMonAn =jsonObject.getString("tenmonan");
+                        String anh =jsonObject.getString("anh");
+                        danhDauList.add(new MonAn(id,tenMonAn,anh));
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+                callBackGetFoodDanhDau.onSuccess(danhDauList);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d("pdt", "onErrorResponse: " + error.toString());
+                callBackGetFoodDanhDau.onFail(error.toString());
+            }
+        }){
+            @Nullable
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String,String> map=new HashMap<>();
+                map.put("tentaikhoan",tenTaiKhoan);
+                return map;
+            }
+        };
+        requestQueue.add(jsonArrayRequest);
+    }
     public void getCheckedFood(CallBackCheckedFood callBackCheckedFood, Context context){
         List<DanhDau> danhDauList = new ArrayList<>();
 
@@ -157,5 +196,9 @@ public class DanhDau {
     public interface CallBackCheckedFood{
         void onSuccessCheckedFood(List<DanhDau> danhDauList);
         void onErrorCheckedFood(String error);
+    }
+    public interface CallBackGetFoodDanhDau{
+        void onSuccess(List<MonAn> danhDauList);
+        void onFail(String error);
     }
 }
