@@ -60,11 +60,10 @@ public class SignUpFragment extends Fragment implements SignUpView{
 
 
     @Override
-    public void enterOTP(String e, String pas, String s) {
+    public void enterOTP(String e, String pas) {
         Intent intent = new Intent(this.getActivity(), EnterOTPActivity.class);
         intent.putExtra("numberPhone",e);
         intent.putExtra("pass",pas);
-        intent.putExtra("idOTP",s);
         startActivity(intent);
 
     }
@@ -85,7 +84,7 @@ public class SignUpFragment extends Fragment implements SignUpView{
             }else if(edtRePs.getText().toString().equals("")){
                 Toast.makeText(getActivity(), "Mật khẩu nhập lại không được để trống", Toast.LENGTH_SHORT).show();
             }else if(edtPs.getText().toString().equals(edtRePs.getText().toString())){
-                signUpPresenter.sendOTP(edtNumberPhone.getText().toString(),edtPs.getText().toString());
+                enterOTP(edtNumberPhone.getText().toString(),edtPs.getText().toString());
             }else {
                 Toast.makeText(getActivity(), "Mật khẩu không được để trống", Toast.LENGTH_SHORT).show();
             }

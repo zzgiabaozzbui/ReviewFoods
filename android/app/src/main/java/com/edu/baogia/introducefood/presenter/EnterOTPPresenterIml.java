@@ -61,7 +61,8 @@ public class EnterOTPPresenterIml implements EnterOTPPresenter,AccountInterface 
         signInWithPhoneAuthCredential2(credential);
     }
 
-    private void signInWithPhoneAuthCredential(PhoneAuthCredential credential) {
+    @Override
+    public void signInWithPhoneAuthCredential(PhoneAuthCredential credential) {
         mAuth = FirebaseAuth.getInstance();
         mAuth.signInWithCredential(credential)
                 .addOnCompleteListener(activity, new OnCompleteListener<AuthResult>() {
@@ -74,8 +75,7 @@ public class EnterOTPPresenterIml implements EnterOTPPresenter,AccountInterface 
                             FirebaseUser user = task.getResult().getUser();
                             String phonenumber = user.getPhoneNumber();
                             // Xác thực thành công
-                            AccountRemember account = new MySharedPreferences().getRememberAcc(context);
-                            new MySharedPreferences().rememberPass(context,account);
+                            AccountRemember account = new MySharedPreferences().getAccSave(context);
                             accountModel.registerAccContext(account);
 
                         } else {

@@ -50,6 +50,7 @@ public class EnterOTPActivity extends AppCompatActivity implements EnterOTPView{
     int i;
     int progressre =0;
     PhoneAuthProvider.ForceResendingToken mforceResendingToken;
+    PhoneAuthProvider.OnVerificationStateChangedCallbacks  mCallBack;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,18 +62,18 @@ public class EnterOTPActivity extends AppCompatActivity implements EnterOTPView{
         txtReOTP = findViewById(R.id.txtReOTP);
         mAuth = FirebaseAuth.getInstance();
         enterOTPPresenter = new EnterOTPPresenterIml(this,this,this);
-
+        //gọi mcallback
+        callBack();
         numberPhone = getIntent().getStringExtra("numberPhone");
         pass = getIntent().getStringExtra("pass");
+        new MySharedPreferences().accSave(this,new AccountRemember(numberPhone,pass,-1,false));
         idOTP = getIntent().getStringExtra("idOTP");
         repass = getIntent().getStringExtra("repass");
-
+        startSendOtp();
         click();
-        doStartProgressBar1();
     }
 
     private void click() {
-
         btnOTP.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -88,95 +89,78 @@ public class EnterOTPActivity extends AppCompatActivity implements EnterOTPView{
         txtReOTP.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                progressre = 200;
                 reSend();
             }
         });
-
     }
 
-    private void reSend() {
-        FirebaseAuth.getInstance().signOut();
+    private void startSendOtp() {
         PhoneAuthOptions options =
                 PhoneAuthOptions.newBuilder(mAuth)
                         .setPhoneNumber(numberPhone)       // Phone number to verify
                         .setTimeout(10L, TimeUnit.SECONDS) // Timeout and unit
                         .setActivity(this)                 // Activity (for callback binding)
-                        .setForceResendingToken(mforceResendingToken)
-                        .setCallbacks(new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
-                            @Override
-                            public void onVerificationCompleted(@NonNull PhoneAuthCredential phoneAuthCredential) {
-                                //xác thực thành công ngay lập tức mà không cần OTP
-                                signInWithPhoneAuthCredential(phoneAuthCredential);
-                                Log.d("AAA", "onCodeSent: oknoqw");
-                            }
-
-                            @Override
-                            public void onVerificationFailed(@NonNull FirebaseException e) {
-                                //xác thực thất bại
-                                Log.d("AAA", "Xác thực thất b ại");
-                                // Lệnh gọi lại này được gọi trong một yêu cầu xác minh không hợp lệ được thực hiện,
-                                // chẳng hạn nếu định dạng số điện thoại không hợp lệ.
-
-                                if (e instanceof FirebaseAuthInvalidCredentialsException) {
-                                    // Yêu cầu không hợp lệ
-                                    //Số điện thoại không hợp lệ
-                                    Log.d("AAA", "sdt ko hợp lệ: ");
-                                    Toast.makeText(EnterOTPActivity.this, "Số điện thoại không hợp lệ", Toast.LENGTH_SHORT).show();
-                                } else if (e instanceof FirebaseTooManyRequestsException) {
-                                    // Đã vượt quá hạn ngạch SMS cho dự án
-                                    Log.d("AAA", "Bạn đăng ký quá số lần cho phép trong 1 tiếng");
-                                }
-
-                                // Hiển thị thông báo và cập nhật giao diện người dùng
-
-
-                            }
-
-                            //Nhận được 1 OTP
-                            @Override
-                            public void onCodeSent(@NonNull String s, @NonNull PhoneAuthProvider.ForceResendingToken forceResendingToken) {
-                                super.onCodeSent(s, forceResendingToken);
-                                //Khi điện thoại không tự động xác thực đucợ mà cần nhập OTP
-                                //khi gửi cho bạn 1 OTP nó sẽ nhảy vào đây
-                                //s là id của lượt gửi OTP đó
-
-                                txtReOTP.setVisibility(View.GONE);
-                                idOTP = s;
-                                mforceResendingToken = forceResendingToken;
-                                progressre = 200;
-                                doStartProgressBar1();
-                                Log.d("AAA", "onCodeSent: re");
-
-                            }
-                        })          // OnVerificationStateChangedCallbacks
+                        .setCallbacks(mCallBack)          // OnVerificationStateChangedCallbacks
                         .build();
         PhoneAuthProvider.verifyPhoneNumber(options);
     }
 
 
-    private void signInWithPhoneAuthCredential(PhoneAuthCredential credential) {
-        mAuth.signInWithCredential(credential)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            Log.d("AAA", "signInWithCredential:success");
-
-                            FirebaseUser user = task.getResult().getUser();
-                            // Xác thực thành công
-                            success();
-                        } else {
-                            // Sign in failed, display a message and update the UI
-                            if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
-                                // The verification code entered was invalid
-                                //OTP không khả dụng
-                                Log.d("AAA", "OTP không khả dụng");
-                            }
-                        }
-                    }
-                });
+    private void reSend() {
+//        FirebaseAuth.getInstance().signOut();
+        PhoneAuthOptions options =
+                PhoneAuthOptions.newBuilder(mAuth)
+                        .setPhoneNumber(numberPhone)       // Phone number to verify
+                        .setTimeout(10L, TimeUnit.SECONDS) // Timeout and unit
+                        .setActivity(this)                 // Activity (for callback binding)
+                        .setCallbacks(mCallBack)          // OnVerificationStateChangedCallbacks
+                        .setForceResendingToken(mforceResendingToken)
+                        .build();
+        PhoneAuthProvider.verifyPhoneNumber(options);
     }
+    private void callBack() {
+        mCallBack = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
+            @Override
+            public void onVerificationCompleted(@NonNull PhoneAuthCredential phoneAuthCredential) {
+                //xác thực thành công ngay lập tức mà không cần OTP
+                enterOTPPresenter.signInWithPhoneAuthCredential(phoneAuthCredential);
+                Log.d("AAA", "onCodeSent: oknoqw");
+            }
+            @Override
+            public void onVerificationFailed(@NonNull FirebaseException e) {
+                //xác thực thất bại
+                Log.d("AAA", "Xác thực thất b ại");
+                // Lệnh gọi lại này được gọi trong một yêu cầu xác minh không hợp lệ được thực hiện,
+                // chẳng hạn nếu định dạng số điện thoại không hợp lệ.
+                if (e instanceof FirebaseAuthInvalidCredentialsException) {
+                    // Yêu cầu không hợp lệ
+                    //Số điện thoại không hợp lệ
+                    Toast.makeText(EnterOTPActivity.this, "Số điện thoại không hợp lệ", Toast.LENGTH_SHORT).show();
+                } else if (e instanceof FirebaseTooManyRequestsException) {
+                    // Đã vượt quá hạn ngạch SMS cho dự án
+                    Toast.makeText(EnterOTPActivity.this, "Bạn đăng ký quá số lần cho phép trong 1 ngày", Toast.LENGTH_SHORT).show();
+                }
+                // Hiển thị thông báo và cập nhật giao diện người dùng
+
+            }
+            //Nhận được 1 OTP
+            @Override
+            public void onCodeSent(@NonNull String s, @NonNull PhoneAuthProvider.ForceResendingToken forceResendingToken) {
+                super.onCodeSent(s, forceResendingToken);
+                //Khi điện thoại không tự động xác thực đucợ mà cần nhập OTP
+                //khi gửi cho bạn 1 OTP nó sẽ nhảy vào đây
+                //s là id của lượt gửi OTP đó
+                idOTP = s;
+                mforceResendingToken = forceResendingToken;
+
+                txtReOTP.setVisibility(View.GONE);
+                doStartProgressBar1();
+                Log.d("AAA", "onCodeSent: re");
+            }
+        };
+    }
+
 
     private void success() {
         Intent intent = new Intent( this, MainActivity.class);
@@ -199,7 +183,7 @@ public class EnterOTPActivity extends AppCompatActivity implements EnterOTPView{
                     handler.post(new Runnable() {
                         public void run() {
                             if(progress > MAX)  {
-                                i=100;
+                                i=0;
                                 progressre=0;
                                 progressBar1.setProgress(0);
                             }else {

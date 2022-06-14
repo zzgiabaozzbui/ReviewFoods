@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#fff"
     android:orientation="vertical">
 
     <LinearLayout
@@ -11,35 +12,100 @@
         android:layout_height="200dp"
         android:orientation="horizontal">
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:src="@drawable/user">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-        </de.hdodenhof.circleimageview.CircleImageView>
+
+            <ImageView
+                android:id="@+id/imgBottom"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/backgrounbottomnavigation"
+                android:scaleType="centerCrop"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+            </ImageView>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#51000000"
+                app:layout_constraintBottom_toBottomOf="@+id/imgBottom"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+            </LinearLayout>
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/imgTop"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:src="@drawable/food"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.13"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.45">
+
+            </de.hdodenhof.circleimageview.CircleImageView>
+
+            <TextView
+                android:id="@+id/txtHoten"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:textColor="#fff"
+                android:textSize="18dp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/imgBottom"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.24"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.93"></TextView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
 
     </LinearLayout>
     <Button
+        android:id="@+id/btnSuaTk"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:drawableEnd="@drawable/right"
+        android:drawableEnd="@drawable/right18"
+        android:background="@drawable/backgroundbtnacc"
         android:text="Sửa tài khoản"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
         android:gravity="left|center_vertical">
 
     </Button>
     <Button
+        android:id="@+id/btnCauHoi"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:drawableEnd="@drawable/right"
+        android:drawableEnd="@drawable/right18"
         android:text="Câu hỏi thường gặp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:background="@drawable/backgroundbtnacc"
         android:gravity="left|center_vertical">
 
     </Button>
     <Button
+        android:id="@+id/btnLh"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:drawableEnd="@drawable/right"
+        android:drawableEnd="@drawable/right18"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
         android:text="Liên hệ và báo lỗi"
+        android:background="@drawable/backgroundbtnacc"
         android:gravity="left|center_vertical">
 
     </Button>
@@ -47,8 +113,11 @@
         android:id="@+id/btnSign"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:drawableEnd="@drawable/right"
+        android:drawableEnd="@drawable/right18"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
         android:text="Đăng xuất"
+        android:background="@drawable/backgroundbtnacc"
         android:gravity="left|center_vertical">
 
     </Button>

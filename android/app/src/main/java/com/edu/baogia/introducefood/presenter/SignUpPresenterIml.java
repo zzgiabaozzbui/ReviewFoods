@@ -49,60 +49,6 @@ public class SignUpPresenterIml implements SignUpPresenter,AccountInterface {
         this.activity = activity;
     }
 
-    @Override
-    public void sendOTP(String e, String pas) {
-        mAuth = FirebaseAuth.getInstance();
-        PhoneAuthOptions options =
-                PhoneAuthOptions.newBuilder(mAuth)
-                        .setPhoneNumber(e)       // Phone number to verify
-                        .setTimeout(10L, TimeUnit.SECONDS) // Timeout and unit
-                        .setActivity(activity)                 // Activity (for callback binding)
-                        .setCallbacks(new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
-                            @Override
-                            public void onVerificationCompleted(@NonNull PhoneAuthCredential phoneAuthCredential) {
-                                //xác thực thành công ngay lập tức mà không cần OTP
-                                signInWithPhoneAuthCredential(phoneAuthCredential);
-                            }
-
-                            @Override
-                            public void onVerificationFailed(@NonNull FirebaseException e) {
-                                //xác thực thất bại
-                                Log.d("AAA", "Xác thực thất b ại");
-                                // Lệnh gọi lại này được gọi trong một yêu cầu xác minh không hợp lệ được thực hiện,
-                                // chẳng hạn nếu định dạng số điện thoại không hợp lệ.
-
-                                if (e instanceof FirebaseAuthInvalidCredentialsException) {
-                                    // Yêu cầu không hợp lệ
-                                    //Số điện thoại không hợp lệ
-                                    Log.d("AAA", "sdt ko hợp lệ: ");
-                                    Toast.makeText(context, "Số điện thoại không hợp lệ", Toast.LENGTH_SHORT).show();
-                                } else if (e instanceof FirebaseTooManyRequestsException) {
-                                    // Đã vượt quá hạn ngạch SMS cho dự án
-                                    Log.d("AAA", "Bạn đăng ký quá số lần cho phép trong 1 tiếng");
-                                }
-
-                                // Hiển thị thông báo và cập nhật giao diện người dùng
-
-
-                            }
-
-                            //Nhận được 1 OTP
-                            @Override
-                            public void onCodeSent(@NonNull String s, @NonNull PhoneAuthProvider.ForceResendingToken forceResendingToken) {
-                                super.onCodeSent(s, forceResendingToken);
-                                //Khi điện thoại không tự động xác thực đucợ mà cần nhập OTP
-                                //khi gửi cho bạn 1 OTP nó sẽ nhảy vào đây
-                                //s là id của lượt gửi OTP đó
-
-                                mforceResendingToken = forceResendingToken;
-
-                                signUpView.enterOTP(e,pas,s);
-
-                            }
-                        })          // OnVerificationStateChangedCallbacks
-                        .build();
-        PhoneAuthProvider.verifyPhoneNumber(options);
-    }
 
     @Override
     public void checkTK(String e) {

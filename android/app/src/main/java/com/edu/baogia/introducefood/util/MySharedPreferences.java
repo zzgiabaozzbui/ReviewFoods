@@ -47,4 +47,27 @@ public class MySharedPreferences {
         String applk = sharedPref.getString("applk", "-1");
         return applk;
     }
+
+    public void accSave(Context context, AccountRemember account){
+//      sharedPref được lưu tại DATA/data/[application package name]/shared_prefs/shared_preferences_name.xml
+        SharedPreferences sharedPref =  context.getSharedPreferences("MyPreferences2",Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putString("username", ""+account.getUsername());
+        editor.putString("password", ""+ account.getPassword());
+        editor.putInt("idnguoidung", account.getIduser());
+        if (account.getCheck()==null){
+            account.setCheck(false);
+        }
+        editor.putBoolean("remember", account.getCheck());
+        editor.commit();
+    }
+    public AccountRemember getAccSave(Context context){
+        SharedPreferences sharedPref = context.getSharedPreferences("MyPreferences2", Context.MODE_PRIVATE);
+        String username = sharedPref.getString("username", "");
+        String password = sharedPref.getString("password", "");
+        int idnguoidung = sharedPref.getInt("idnguoidung", -1);
+        boolean remember = sharedPref.getBoolean("remember", false);
+        AccountRemember accountRemember = new AccountRemember(username,password,idnguoidung,remember);
+        return accountRemember;
+    }
 }
