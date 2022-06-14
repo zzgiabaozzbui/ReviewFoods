@@ -1,6 +1,7 @@
 package com.edu.baogia.introducefood.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,7 @@ import com.edu.baogia.introducefood.R;
 import com.edu.baogia.introducefood.model.object.DanhDau;
 import com.edu.baogia.introducefood.model.object.MonAn;
 import com.edu.baogia.introducefood.view.activity.DanhDauView;
+import com.edu.baogia.introducefood.view.activity.LoginActivity;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -29,6 +31,11 @@ public class DanhDauAdapter extends BaseAdapter {
         this.layout = layout;
         this.dsDanhDauMonAn = dsDanhDauMonAn;
         this.tenTK=tenTK;
+        if(tenTK.equalsIgnoreCase("")){
+            Toast.makeText(context,"Bạn chưa đăng nhập",Toast.LENGTH_LONG);
+            Intent intent=new Intent(context, LoginActivity.class);
+            context.startActivity(intent);
+        }
     }
 
 
@@ -49,6 +56,7 @@ public class DanhDauAdapter extends BaseAdapter {
 
     @Override
     public View getView(int i, View convertView, ViewGroup parent) {
+
         LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         convertView = layoutInflater.inflate(layout,null);
         ImageView imgFood = convertView.findViewById(R.id.imgFood);

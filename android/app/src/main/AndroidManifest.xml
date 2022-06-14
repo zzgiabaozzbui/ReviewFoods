@@ -41,6 +41,9 @@
 <!--            android:name=".view.activity.MainActivity"-->
 <!--            android:exported="true" />-->
         <activity
+            android:name=".view.activity.LoginActivity"
+            android:exported="true" />
+        <activity
             android:name=".view.activity.EnterOTPActivity"
             android:exported="true" />
          <activity
