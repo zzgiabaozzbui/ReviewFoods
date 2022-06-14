@@ -2,7 +2,6 @@ package com.edu.baogia.introducefood.view.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,25 +14,11 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.edu.baogia.introducefood.R;
-import com.edu.baogia.introducefood.model.object.AccountRemember;
 import com.edu.baogia.introducefood.presenter.SignUpPresenter;
 import com.edu.baogia.introducefood.presenter.SignUpPresenterIml;
 import com.edu.baogia.introducefood.view.activity.EnterOTPActivity;
 import com.edu.baogia.introducefood.view.activity.MainActivity;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.FirebaseException;
-import com.google.firebase.FirebaseTooManyRequestsException;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.PhoneAuthCredential;
-import com.google.firebase.auth.PhoneAuthOptions;
 import com.google.firebase.auth.PhoneAuthProvider;
-
-import java.util.concurrent.Executor;
-import java.util.concurrent.TimeUnit;
 
 
 public class SignUpFragment extends Fragment implements SignUpView{
@@ -43,7 +28,7 @@ public class SignUpFragment extends Fragment implements SignUpView{
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        ViewGroup root = (ViewGroup) inflater.inflate(R.layout.activity_sign_up,container,false);
+        ViewGroup root = (ViewGroup) inflater.inflate(R.layout.fragment_sign_up,container,false);
         innit(root);
         click();
         return root;

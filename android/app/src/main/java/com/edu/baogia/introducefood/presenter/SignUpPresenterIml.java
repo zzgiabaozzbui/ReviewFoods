@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -29,7 +30,6 @@ import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthOptions;
 import com.google.firebase.auth.PhoneAuthProvider;
 
-import java.util.concurrent.Executor;
 import java.util.concurrent.TimeUnit;
 
 
@@ -40,6 +40,7 @@ public class SignUpPresenterIml implements SignUpPresenter,AccountInterface {
     Context context;
     Activity activity;
     AccountRemember account;
+    private PhoneAuthProvider.ForceResendingToken mforceResendingToken;
 
     public SignUpPresenterIml(SignUpView signUpView, Context context, Activity activity) {
         this.signUpView = signUpView;
@@ -51,12 +52,10 @@ public class SignUpPresenterIml implements SignUpPresenter,AccountInterface {
     @Override
     public void sendOTP(String e, String pas) {
         mAuth = FirebaseAuth.getInstance();
-        account = new AccountRemember(e,pas,-1, false);
-        new MySharedPreferences().rememberPass(context,account);
         PhoneAuthOptions options =
                 PhoneAuthOptions.newBuilder(mAuth)
                         .setPhoneNumber(e)       // Phone number to verify
-                        .setTimeout(60L, TimeUnit.SECONDS) // Timeout and unit
+                        .setTimeout(10L, TimeUnit.SECONDS) // Timeout and unit
                         .setActivity(activity)                 // Activity (for callback binding)
                         .setCallbacks(new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
                             @Override
@@ -76,9 +75,10 @@ public class SignUpPresenterIml implements SignUpPresenter,AccountInterface {
                                     // Yêu cầu không hợp lệ
                                     //Số điện thoại không hợp lệ
                                     Log.d("AAA", "sdt ko hợp lệ: ");
+                                    Toast.makeText(context, "Số điện thoại không hợp lệ", Toast.LENGTH_SHORT).show();
                                 } else if (e instanceof FirebaseTooManyRequestsException) {
                                     // Đã vượt quá hạn ngạch SMS cho dự án
-                                    Log.d("AAA", "quá giới hạn: ");
+                                    Log.d("AAA", "Bạn đăng ký quá số lần cho phép trong 1 tiếng");
                                 }
 
                                 // Hiển thị thông báo và cập nhật giao diện người dùng
@@ -93,6 +93,9 @@ public class SignUpPresenterIml implements SignUpPresenter,AccountInterface {
                                 //Khi điện thoại không tự động xác thực đucợ mà cần nhập OTP
                                 //khi gửi cho bạn 1 OTP nó sẽ nhảy vào đây
                                 //s là id của lượt gửi OTP đó
+
+                                mforceResendingToken = forceResendingToken;
+
                                 signUpView.enterOTP(e,pas,s);
 
                             }
@@ -150,7 +153,7 @@ public class SignUpPresenterIml implements SignUpPresenter,AccountInterface {
 
     @Override
     public void registerAccSuces(AccountRemember account) {
-        new MySharedPreferences().rememberPass(context,account);
+//        new MySharedPreferences().rememberPass(context,account);
         signUpView.goMain();
     }
 

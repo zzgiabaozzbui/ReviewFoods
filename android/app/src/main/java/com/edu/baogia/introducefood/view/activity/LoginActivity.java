@@ -25,10 +25,12 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.edu.baogia.introducefood.R;
 import com.edu.baogia.introducefood.adapter.LoginAdapter;
+import com.edu.baogia.introducefood.model.object.AccountRemember;
 import com.edu.baogia.introducefood.model.object.NguoiDung;
 import com.edu.baogia.introducefood.model.object.Users;
 import com.edu.baogia.introducefood.presenter.LoginPresenter;
 import com.edu.baogia.introducefood.presenter.LoginPresenterIml;
+import com.edu.baogia.introducefood.util.MySharedPreferences;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -82,7 +84,8 @@ public class LoginActivity extends AppCompatActivity implements LoginView{
 
     }
 
-    private void google() {// Configure sign-in to request the user's ID, email address, and basic
+    private void google() {
+        // Configure sign-in to request the user's ID, email address, and basic
         // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
@@ -137,36 +140,37 @@ public class LoginActivity extends AppCompatActivity implements LoginView{
         txtBoqua.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //đăng xuất google
                 signOut();
-                FacebookSdk.sdkInitialize(getApplicationContext());
+                //Đăng xuất face book
+                signOutFace();
 
-                new GraphRequest(AccessToken.getCurrentAccessToken(), "/me/permissions/", null, HttpMethod.DELETE, new GraphRequest
-                        .Callback() {
-                    @Override
-                    public void onCompleted(GraphResponse graphResponse) {
+                new MySharedPreferences().rememberPass(LoginActivity.this,new AccountRemember());
 
-                        AccessToken.setCurrentAccessToken(null);
-        //                        SharedPreferences pref = DashBoard.this.getPreferences(Context.MODE_PRIVATE);
-        //                        SharedPreferences.Editor editor = pref.edit();
-        //                        editor.clear();
-        //                        editor.commit();
-                        LoginManager.getInstance().logOut();
-                        Log.d("AAA", "out: ");
-
-        //                        Intent logoutint = new Intent(DashBoard.this,MainActivity.class);
-        //                        logoutint.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        //                        startActivity(logoutint);
-
-                    }
-                }).executeAsync();
+                Intent intent = new Intent(LoginActivity.this,MainActivity.class);
+                startActivity(intent);
             }
         });
+    }
+
+    private void signOutFace() {
+        FacebookSdk.sdkInitialize(getApplicationContext());
+        new GraphRequest(AccessToken.getCurrentAccessToken(), "/me/permissions/", null, HttpMethod.DELETE, new GraphRequest
+                .Callback() {
+            @Override
+            public void onCompleted(GraphResponse graphResponse) {
+                AccessToken.setCurrentAccessToken(null);
+                LoginManager.getInstance().logOut();
+                Log.d("AAA", "out: ");
+            }
+        }).executeAsync();
     }
 
     private void signIngoogle() {
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
+
 
     private void signInface() {
         //Cấp quyền lấy các data

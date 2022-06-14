@@ -37,7 +37,7 @@ public class SignInFragment extends Fragment  implements SignInView {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        ViewGroup root = (ViewGroup) inflater.inflate(R.layout.activity_sign_in,container,false);
+        ViewGroup root = (ViewGroup) inflater.inflate(R.layout.fragment_sign_in,container,false);
         innit(root);
         checkRemember(root);
         animation(root);

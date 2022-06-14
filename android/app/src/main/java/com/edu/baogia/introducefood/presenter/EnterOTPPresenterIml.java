@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
@@ -12,6 +13,7 @@ import com.edu.baogia.introducefood.model.mySQL.AccountModel;
 import com.edu.baogia.introducefood.model.object.Account;
 import com.edu.baogia.introducefood.model.object.AccountRemember;
 import com.edu.baogia.introducefood.util.MySharedPreferences;
+import com.edu.baogia.introducefood.view.activity.EnterOTPActivity;
 import com.edu.baogia.introducefood.view.activity.EnterOTPView;
 import com.edu.baogia.introducefood.view.activity.MainActivity;
 import com.edu.baogia.introducefood.view.fragment.SignUpView;
@@ -82,6 +84,7 @@ public class EnterOTPPresenterIml implements EnterOTPPresenter,AccountInterface 
                             if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
                                 // The verification code entered was invalid
                                 //OTP không khả dụng
+                                Toast.makeText(context, "OTP của bạn nhập bị sai!!!", Toast.LENGTH_SHORT).show();
                             }
                         }
                     }
@@ -109,6 +112,7 @@ public class EnterOTPPresenterIml implements EnterOTPPresenter,AccountInterface 
                             if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
                                 // The verification code entered was invalid
                                 //OTP không khả dụng
+                                Toast.makeText(context, "OTP của bạn nhập bị sai!!!", Toast.LENGTH_SHORT).show();
                             }
                         }
                     }

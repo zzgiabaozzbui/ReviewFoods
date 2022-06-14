@@ -44,10 +44,11 @@
 
     </Button>
     <Button
+        android:id="@+id/btnSign"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:drawableEnd="@drawable/right"
-        android:text="Thoát"
+        android:text="Đăng xuất"
         android:gravity="left|center_vertical">
 
     </Button>
