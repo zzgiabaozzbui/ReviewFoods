@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="100dp"
+    android:layout_height="100dp">
+
+    <LinearLayout
+        android:id="@+id/lnfoood"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:orientation="vertical"
+        android:gravity="center">
+        <TextView
+            android:id="@+id/txtid"
+            android:visibility="gone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:text="food">
+
+        </TextView>
+        <ImageView
+            android:scaleType="fitCenter"
+            android:id="@+id/imgcAnh"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/bordercate">
+
+        </ImageView>
+        <TextView
+            android:id="@+id/txtNameCate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:text="food">
+
+        </TextView>
+    </LinearLayout>
+</LinearLayout>

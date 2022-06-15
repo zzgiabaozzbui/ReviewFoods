@@ -9,6 +9,7 @@ import com.edu.baogia.introducefood.model.mySQL.FoodInterator;
 import com.edu.baogia.introducefood.model.mySQL.LoadFoodListener;
 import com.edu.baogia.introducefood.model.mySQL.RatignInterface;
 import com.edu.baogia.introducefood.model.object.Food;
+import com.edu.baogia.introducefood.model.object.LoaiMonAn;
 import com.edu.baogia.introducefood.view.activity.FoodView;
 import com.edu.baogia.introducefood.view.fragment.ReviewFragmentView;
 
@@ -45,6 +46,11 @@ public class FoodPresenterIm implements FoodPresenter, LoadFoodListener {
 
     @Override
     public void onLoadFoodSuccess(List<Food> listFood) {
+
+    }
+
+    @Override
+    public void onLoadListCate(List<LoaiMonAn> listFood) {
 
     }
 

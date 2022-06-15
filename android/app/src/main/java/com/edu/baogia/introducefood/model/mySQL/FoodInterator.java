@@ -17,6 +17,7 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.edu.baogia.introducefood.model.object.Food;
+import com.edu.baogia.introducefood.model.object.LoaiMonAn;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -94,6 +95,47 @@ public class FoodInterator {
         requestQueue.add(jsonArrayRequest);
     }
 
+    //Xử lý tạo dữ liệu
+    public void createListCate(){
+        List<LoaiMonAn> listFood = new ArrayList<>();
+        RequestQueue requestQueue = Volley.newRequestQueue(fragment.getContext());
+        String url = "http://" + ipWifi + "/ReviewFoods/service/bao/select.php";
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null,
+                new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        try {
+                            JSONObject object;
+                            LoaiMonAn us;
+                            int id;
+                            String tenloai;
+                            String anh;
+                            for (int i = 0; i < response.length(); i++) {
+                                object = response.getJSONObject(i);
+                                id = object.getInt("id");
+                                tenloai = object.getString("tenloai");
+                                anh = object.getString("anh");
+
+                                us = new LoaiMonAn(id,tenloai,anh);
+                                listFood.add(us);
+                            }
+
+                            listener.onLoadListCate(listFood);
+                        } catch (Exception e) {
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d("AAA", "onErrorResponse65: "+error.toString());
+
+                        listener.onLoadFoodFailure(error.toString());
+                    }
+                });
+
+        requestQueue.add(jsonArrayRequest);
+    }
     public void getFood(int id){
         List<Food> listFood = new ArrayList<>();
         RequestQueue requestQueue = Volley.newRequestQueue(context);

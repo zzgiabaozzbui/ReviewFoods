@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment;
 import com.edu.baogia.introducefood.model.mySQL.FoodInterator;
 import com.edu.baogia.introducefood.model.mySQL.LoadFoodListener;
 import com.edu.baogia.introducefood.model.object.Food;
+import com.edu.baogia.introducefood.model.object.LoaiMonAn;
 import com.edu.baogia.introducefood.view.fragment.HomeFragmentView;
 
 import java.util.List;
@@ -25,8 +26,18 @@ public class HomePresenterIm implements LoadFoodListener, HomePresenter {
     }
 
     @Override
+    public void loadCate() {
+        foodInterator.createListCate();
+    }
+
+    @Override
     public void onLoadFoodSuccess(List<Food> listFood) {
         homeFragmentView.listRcy(listFood);
+    }
+
+    @Override
+    public void onLoadListCate(List<LoaiMonAn> listFood) {
+        homeFragmentView.listRcyCate(listFood);
     }
 
     @Override

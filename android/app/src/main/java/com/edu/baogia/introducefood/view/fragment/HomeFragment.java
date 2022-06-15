@@ -25,9 +25,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.edu.baogia.introducefood.R;
+import com.edu.baogia.introducefood.adapter.CateAdapter;
 import com.edu.baogia.introducefood.adapter.HomeAdapter;
 import com.edu.baogia.introducefood.adapter.RcyNewAdapter;
 import com.edu.baogia.introducefood.model.object.Food;
+import com.edu.baogia.introducefood.model.object.LoaiMonAn;
 import com.edu.baogia.introducefood.presenter.HomePresenter;
 import com.edu.baogia.introducefood.presenter.HomePresenterIm;
 import com.edu.baogia.introducefood.view.activity.FoodActivity;
@@ -49,6 +51,7 @@ public class HomeFragment extends Fragment implements HomeFragmentView{
     public  static HomeAdapter rcyAdapter;
 
     public  static RcyNewAdapter rcyNewAdapter;
+    public  static CateAdapter rcyCateAdapter;
     public  static List<Food> listrcy2 = new ArrayList<>();
 
     public List<Food> homeFragList;
@@ -112,6 +115,7 @@ public class HomeFragment extends Fragment implements HomeFragmentView{
         rcyPhone = root.findViewById(R.id.rcyPhone);
         rcyPhone2 = root.findViewById(R.id.rcyPhone2);
         txtSearch = root.findViewById(R.id.txtSearch);
+        rcycate = root.findViewById(R.id.rcycate);
         txtCateNew = root.findViewById(R.id.txtCateNew);
         txtDesNew= root.findViewById(R.id.txtDesNew);
         txtNameNew= root.findViewById(R.id.txtNameNew);
@@ -128,6 +132,8 @@ public class HomeFragment extends Fragment implements HomeFragmentView{
     private void loadData() {
         homePresenter = new HomePresenterIm( HomeFragment.this);
         homePresenter.loadData();
+        homePresenter.loadCate();
+
     }
     private void setrcAdapter(List<Food> listDemo) {
         listrcy2.clear();
@@ -140,6 +146,7 @@ public class HomeFragment extends Fragment implements HomeFragmentView{
         rcyAdapter = new HomeAdapter(getContext(),listDemo,R.layout.food);
         rcyPhone.setAdapter(rcyAdapter);
         rcyPhone2.setAdapter(rcyAdapter);
+
 //        //dọc:
 //        rcyPhone.setLayoutManager(new LinearLayoutManager(this));
 
@@ -162,6 +169,17 @@ public class HomeFragment extends Fragment implements HomeFragmentView{
     @Override
     public void listRcy(List<Food> listDemo) {
         setrcAdapter(listDemo);
+    }
+
+    @Override
+    public void listRcyCate(List<LoaiMonAn> listDemo) {
+        rcyCateAdapter = new CateAdapter(getContext(),listDemo,R.layout.food_cate);
+        rcycate.setAdapter(rcyCateAdapter);
+
+        //Ngang
+        rcycate.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false));
+
+        rcyCateAdapter.notifyDataSetChanged();
     }
 
     public TextView getTxtCateNew() {
