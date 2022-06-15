@@ -1,6 +1,7 @@
 package com.edu.baogia.introducefood.adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -56,7 +57,8 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ViewHolder
         Glide.with(this.mContext).load(mList.get(position).getAva()).into(holder.imageView);
         if(mList.get(position).getImg()!=null&&!mList.get(position).getImg().trim().equals(""))
         {
-            Glide.with(this.mContext).load(QuestModel.IP+QuestModel.FOLDER+mList.get(position).getImg()).into(holder.imgRV);
+            Log.d("AAA",QuestModel.IP+QuestModel.FOLDER+mList.get(position).getImg());
+            Glide.with(this.mContext).load(QuestModel.IP+QuestModel.FOLDER+"Images/"+mList.get(position).getImg()).into(holder.imgRV);
         }
         else
         {

@@ -3,7 +3,7 @@ include 'connect.php';
 include 'review.php';
 if (isset($_POST['Key'])) {
 $Key=$_POST['Key'];
-$sql = "SELECT * from review,taikhoan,nguoidung WHERE keyFood='".$Key."' and review.account=taikhoan.tentaikhoan and taikhoan.idnguoidung=nguoidung.id";
+$sql = "SELECT * from review,taikhoan,nguoidung WHERE keyFood='".$Key."' and review.account=taikhoan.tentaikhoan and taikhoan.idnguoidung=nguoidung.id order by review.keyRV desc";
 $result = $conn->query($sql);
 if ($result->num_rows > 0) {
   // output data of each row

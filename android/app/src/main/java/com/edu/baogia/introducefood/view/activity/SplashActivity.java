@@ -30,6 +30,7 @@ import java.io.IOException;
 
 public class SplashActivity extends AppCompatActivity {
     private Handler handler = new Handler();
+    Boolean precheck=true;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,12 +69,16 @@ public class SplashActivity extends AppCompatActivity {
                             try {
                                 boolean check=new MyInternet().isInternetAvailable();
                                 Log.d("pdt", "run: "+check);
-                                if(check==false){
-//                                   Intent intent=new Intent(SplashActivity.this,ActivityNoInternet.class);
-//                                   startActivity(intent);
-                                }else {
-//                                    Intent intent=new Intent(SplashActivity.this,MainActivity.class);
-//                                    startActivity(intent);
+                                if(check!=precheck){
+                                    if(check==false){
+                                        Intent intent=new Intent(SplashActivity.this,ActivityNoInternet.class);
+                                        startActivity(intent);
+                                    }else if(check==true){
+                                        Intent intent=new Intent(SplashActivity.this,MainActivity.class);
+                                        startActivity(intent);
+                                    }
+
+                                    precheck = check;
                                 }
                             } catch (IOException e) {
                                 e.printStackTrace();
