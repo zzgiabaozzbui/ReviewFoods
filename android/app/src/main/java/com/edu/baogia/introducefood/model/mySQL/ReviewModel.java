@@ -222,13 +222,17 @@ public class ReviewModel implements ReviewMVP.Model {
                 new Response.Listener<NetworkResponse>() {
                     @Override
                     public void onResponse(NetworkResponse response) {
+                        Log.d("AAA",response.toString());
                         try {
                             JSONObject obj = new JSONObject(new String(response.data));
+                            String s=new String(response.data);
                             String filename=""+obj.getString("file_name");
                             callback.getString(filename);
                         } catch (JSONException e) {
                             e.printStackTrace();
-                            Log.d("AAA",e.toString());
+                            String s=new String(response.data);
+                            callback.getString(null);
+                            Log.d("AAA",s);
                         }
                     }
                 },

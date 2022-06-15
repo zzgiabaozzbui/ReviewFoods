@@ -7,6 +7,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -39,6 +40,7 @@ import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.normal.TedPermission;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 
@@ -359,11 +361,12 @@ public class ReviewActivity extends AppCompatActivity implements ReviewMVP.View{
                     @Override
                     public void onImageSelected(Uri uri) {
                         try {
-                            InputStream inputStream = getContentResolver().openInputStream(uri);
-                            Bitmap b = BitmapFactory.decodeStream(inputStream);
+                            Bitmap b = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
                             imageViewAdd.setImageBitmap(b);
                             imgAdd=b;
                         } catch (FileNotFoundException e) {
+                            e.printStackTrace();
+                        } catch (IOException e) {
                             e.printStackTrace();
                         }
 
@@ -378,12 +381,13 @@ public class ReviewActivity extends AppCompatActivity implements ReviewMVP.View{
                     @Override
                     public void onImageSelected(Uri uri) {
                         try {
-                            InputStream inputStream = getContentResolver().openInputStream(uri);
-                            Bitmap b = BitmapFactory.decodeStream(inputStream);
+                            Bitmap b = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
                             imageViewUpdate.setImageBitmap(b);
                             imgUpdate=b;
 
                         } catch (FileNotFoundException e) {
+                            e.printStackTrace();
+                        } catch (IOException e) {
                             e.printStackTrace();
                         }
 
