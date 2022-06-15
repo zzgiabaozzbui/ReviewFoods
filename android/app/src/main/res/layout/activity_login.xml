@@ -102,7 +102,7 @@
     <LinearLayout
         android:id="@+id/lnbt"
         android:layout_width="match_parent"
-        android:layout_height="150dp"
+        android:layout_height="100dp"
         android:gravity="center|top"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"

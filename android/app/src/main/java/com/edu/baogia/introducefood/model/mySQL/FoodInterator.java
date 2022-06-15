@@ -99,7 +99,7 @@ public class FoodInterator {
     public void createListCate(){
         List<LoaiMonAn> listFood = new ArrayList<>();
         RequestQueue requestQueue = Volley.newRequestQueue(fragment.getContext());
-        String url = "http://" + ipWifi + "/ReviewFoods/service/bao/select.php";
+        String url = "http://" + ipWifi + "/ReviewFoods/service/bao/selectCate.php";
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONArray>() {
                     @Override

@@ -49,7 +49,11 @@ public class CateAdapter extends RecyclerView.Adapter<CateAdapter.ViewHolder> {
 
         holder.txtNameCate.setText(""+book.getNameCategory());
 
-        Picasso.get().load("http://"+ipWifi+book.getImage()).into(holder.imgcAnh);
+        if (book.getImage().equals("null")){
+
+        }else {
+            Picasso.get().load("http://"+ipWifi+book.getImage()).into(holder.imgcAnh);
+        }
 
         holder.setItemClickListener(new ItemClickListener() {
             @Override
@@ -68,7 +72,7 @@ public class CateAdapter extends RecyclerView.Adapter<CateAdapter.ViewHolder> {
 
             }
         });
-        Animation animation = AnimationUtils.loadAnimation(context.getApplicationContext(),R.anim.move);
+        Animation animation = AnimationUtils.loadAnimation(context.getApplicationContext(),R.anim.move3);
         holder.lnfoood.startAnimation(animation);
     }
 
@@ -88,6 +92,7 @@ public class CateAdapter extends RecyclerView.Adapter<CateAdapter.ViewHolder> {
             txtid = itemView.findViewById(R.id.txtid);
             txtNameCate = itemView.findViewById(R.id.txtNameCate);
             imgcAnh = itemView.findViewById(R.id.imgcAnh);
+            lnfoood = itemView.findViewById(R.id.lnfoood);
 
             itemView.setOnClickListener(this);
             itemView.setOnLongClickListener(this);

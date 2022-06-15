@@ -53,7 +53,7 @@ public class SplashActivity extends AppCompatActivity {
 //        boolean isLoggedFace = accessToken != null && !accessToken.isExpired();
         AccountRemember accountRemember = new MySharedPreferences().getRememberAcc(this);
         Log.d("AAA", "nextActivity: "+accountRemember.toString());
-        if (accountRemember.getUsername()==null || accountRemember.getUsername().equals("null")){
+        if (accountRemember.getUsername()==null || accountRemember.getUsername().equals("null")|| accountRemember.getUsername().equals("")){
             Intent intent = new Intent(SplashActivity.this,LoginActivity.class);
             startActivity(intent);
         }else {

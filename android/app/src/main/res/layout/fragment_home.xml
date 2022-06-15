@@ -20,7 +20,8 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="320dp">
+                android:background="@drawable/bachcontran2"
+                android:layout_height="385dp">
 
                 <LinearLayout
                     android:id="@+id/linearLayout"
@@ -82,28 +83,27 @@
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="80dp"
+                        android:layout_height="150dp"
                         android:orientation="vertical"
                         android:layout_marginTop="20dp"
+                        android:gravity="center|left"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintVertical_bias="1.0">
 
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="30dp"
-                            android:background="@color/white"
-                            android:text="Thể loại"
-                            android:textColor="@color/orang"
-                            android:textStyle="bold"></TextView>
+<!--                        <TextView-->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:layout_height="30dp"-->
+<!--                            android:text="Thể loại"-->
+<!--                            android:textColor="@color/white"-->
+<!--                            android:textStyle="bold"></TextView>-->
 
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/rcycate"
                             android:layout_width="match_parent"
-                            android:layout_height="100dp"
-                            android:background="@color/green">
+                            android:layout_height="100dp">
 
                         </androidx.recyclerview.widget.RecyclerView>
 
@@ -122,7 +122,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.72">
+                    app:layout_constraintVertical_bias="0.58000004">
 
                     <Button
                         android:id="@+id/btnScanQrcode"
@@ -172,16 +172,8 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
-                                android:layout_marginLeft="5dp"
-                                android:text="500"
-                                android:textColor="@color/black"></TextView>
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
                                 android:layout_marginLeft="4dp"
-                                android:text="Món ĂN"
+                                android:text="Món ĂN YÊU THÍCH"
                                 android:textColor="@color/black"></TextView>
                         </LinearLayout>
 
@@ -195,22 +187,9 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
-                                android:text="Bạn đã đánh dấu "
+                                android:text="Bạn đã đánh dấu món ăn nào chưa? "
                                 android:textSize="8dp"></TextView>
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:text="500 "
-                                android:textSize="8dp"></TextView>
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:text="món ăn."
-                                android:textSize="8dp"></TextView>
                         </LinearLayout>
 
                         <TextView
