@@ -48,7 +48,7 @@ public class SignUpFragment extends Fragment implements SignUpView{
             public void onClick(View view) {
                 if(edtNumberPhone.getText().toString().equals("")){
                     Toast.makeText(getActivity(), "Số điện thoại không được để trống", Toast.LENGTH_SHORT).show();
-                }else{
+                }else {
                     signUpPresenter.checkTK(edtNumberPhone.getText().toString());
                 }
 
@@ -83,10 +83,12 @@ public class SignUpFragment extends Fragment implements SignUpView{
                 Toast.makeText(getActivity(), "Mật khẩu không được để trống", Toast.LENGTH_SHORT).show();
             }else if(edtRePs.getText().toString().equals("")){
                 Toast.makeText(getActivity(), "Mật khẩu nhập lại không được để trống", Toast.LENGTH_SHORT).show();
+            }else if(edtNumberPhone.getText().toString().length()<8){
+                Toast.makeText(getActivity(), "Mật khẩu phải nhiều hơn 8 chữ số!", Toast.LENGTH_SHORT).show();
             }else if(edtPs.getText().toString().equals(edtRePs.getText().toString())){
                 enterOTP(edtNumberPhone.getText().toString(),edtPs.getText().toString());
             }else {
-                Toast.makeText(getActivity(), "Mật khẩu không được để trống", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "Mật khẩu và mật khẩu nhập lại phải giống nhau", Toast.LENGTH_SHORT).show();
             }
         }
     }

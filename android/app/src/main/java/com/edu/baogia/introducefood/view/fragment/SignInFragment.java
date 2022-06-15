@@ -72,12 +72,15 @@ public class SignInFragment extends Fragment  implements SignInView {
             @Override
             public void onClick(View view) {
                 if(edtNumberPhone.getText().toString().equals("")){
-                    if(edtPass.getText().toString().equals("")){
-                        Toast.makeText(getContext(), "Mật khẩu không được để trống!",Toast.LENGTH_SHORT).show();
-                    }else {
-                        Toast.makeText(getContext(), "Tài khoản không được để trống!",Toast.LENGTH_SHORT).show();
-                    }
-                }else {
+
+                    Toast.makeText(getContext(), "Tài khoản không được để trống!",Toast.LENGTH_SHORT).show();
+                }else if(edtPass.getText().toString().equals("")){
+                    Toast.makeText(getContext(), "Mật khẩu không được để trống!",Toast.LENGTH_SHORT).show();
+
+                }else if(edtPass.getText().toString().length() < 8){
+                    Toast.makeText(getContext(), "Mật khẩu phải nhiều hơn 8 chữ số!",Toast.LENGTH_SHORT).show();
+
+                }else  {
                     Account account = new Account(edtNumberPhone.getText().toString(),edtPass.getText().toString(),0,0);
                     loginPresenter.checkAccount(account,remember.isChecked());
                 }
