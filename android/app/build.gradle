@@ -58,6 +58,8 @@ dependencies {
     //Barcode
     implementation 'me.dm7.barcodescanner:zxing:1.9.8'
     implementation 'com.karumi:dexter:5.0.0' // Hỗ trợ xin quyền truy cập camera
+    //Zxing
+    implementation 'com.google.zxing:core:3.4.1'
 
 
     //basee64
