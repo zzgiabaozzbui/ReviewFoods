@@ -218,7 +218,9 @@ public class HomeFragment extends Fragment implements HomeFragmentView{
             if(resultCode == Activity.RESULT_OK) {
                 // Nhận dữ liệu từ Intent trả về
                 String result = data.getStringExtra("idfood");
-
+                Intent intent=new Intent(getActivity(),FoodActivity.class);
+                intent.putExtra("idFood",Integer.parseInt(result));
+                startActivity(intent);
                 // Sử dụng kết quả result bằng cách hiện Toast
                 Toast.makeText(getContext(), "Result: " + result, Toast.LENGTH_LONG).show();
                 Log.d("AAA", "onActivityResult2: "+result);

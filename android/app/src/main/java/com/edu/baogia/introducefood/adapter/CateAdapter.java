@@ -22,6 +22,7 @@ import com.edu.baogia.introducefood.R;
 import com.edu.baogia.introducefood.model.object.Food;
 import com.edu.baogia.introducefood.model.object.LoaiMonAn;
 import com.edu.baogia.introducefood.util.idwifi;
+import com.edu.baogia.introducefood.view.activity.DanhMucMonAnView;
 import com.edu.baogia.introducefood.view.activity.FoodActivity;
 import com.squareup.picasso.Picasso;
 
@@ -64,13 +65,10 @@ public class CateAdapter extends RecyclerView.Adapter<CateAdapter.ViewHolder> {
                 }
                 else{
 //                    Toast.makeText(context, "Bạn vừa bấm "+list.get(position).getId(), Toast.LENGTH_SHORT).show();
-//                    Intent intent = new Intent(context, FoodActivity.class);
-//                    intent.putExtra("idFood",list.get(position).getId());
-//                    context.startActivity(intent);
-
+                    Intent intent = new Intent(context, DanhMucMonAnView.class);
+                    intent.putExtra("idLoaiMonAn",list.get(position).getId()+"");
+                    context.startActivity(intent);
                 }
-
-
             }
         });
         Animation animation = AnimationUtils.loadAnimation(context.getApplicationContext(),R.anim.move3);

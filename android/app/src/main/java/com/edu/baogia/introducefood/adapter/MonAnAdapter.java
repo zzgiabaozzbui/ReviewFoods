@@ -141,7 +141,6 @@ public class MonAnAdapter extends RecyclerView.Adapter<MonAnAdapter.MonAnViewHol
     public int filter(String s, List<String> condition) {
         s = s.toLowerCase(Locale.getDefault());
         list.clear();
-
         if (condition.size() < 1) {
             if (s.equalsIgnoreCase("")) {
                 list.addAll(listPhu);
@@ -154,7 +153,6 @@ public class MonAnAdapter extends RecyclerView.Adapter<MonAnAdapter.MonAnViewHol
             }
         }
         else {
-
             if (s.equalsIgnoreCase("")) {
                 for (MonAn monAn : listPhu) {
                     for (String id : condition) {

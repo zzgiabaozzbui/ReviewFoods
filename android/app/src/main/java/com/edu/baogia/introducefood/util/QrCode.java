@@ -14,7 +14,7 @@ public class QrCode {
         QRCodeWriter writer = new QRCodeWriter();
         Bitmap bmp=null;
         try {
-            BitMatrix bitMatrix = writer.encode("abcd", BarcodeFormat.QR_CODE, 512, 512);
+            BitMatrix bitMatrix = writer.encode(content, BarcodeFormat.QR_CODE, 512, 512);
             int width = bitMatrix.getWidth();
             int height = bitMatrix.getHeight();
             bmp = Bitmap.createBitmap(width, height, Bitmap.Config.RGB_565);
