@@ -173,7 +173,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
                                 android:layout_marginLeft="4dp"
-                                android:text="Món ĂN YÊU THÍCH"
+                                android:text="Món Ăn Yêu Thích "
                                 android:textColor="@color/black"></TextView>
                         </LinearLayout>
 
