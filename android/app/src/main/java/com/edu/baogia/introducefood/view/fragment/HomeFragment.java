@@ -217,7 +217,7 @@ public class HomeFragment extends Fragment implements HomeFragmentView{
             // RESULT_OK chỉ ra rằng kết quả này đã thành công
             if(resultCode == Activity.RESULT_OK) {
                 // Nhận dữ liệu từ Intent trả về
-                String result = data.getStringExtra("idfood");
+                String result = data.getStringExtra("EXTRA_DATA");
                 Intent intent=new Intent(getActivity(),FoodActivity.class);
                 intent.putExtra("idFood",Integer.parseInt(result));
                 startActivity(intent);
