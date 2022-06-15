@@ -50,7 +50,6 @@ public class FogetActivity extends AppCompatActivity implements  ForgetView {
     public void enterOTP(String e, String pas, String s) {
         Intent intent = new Intent(FogetActivity.this, EnterOTPActivity.class);
         intent.putExtra("numberPhone",edtNumberPhone.getText().toString());
-        intent.putExtra("idOTP",s);
         intent.putExtra("repass","ok");
         startActivity(intent);
     }

@@ -5,19 +5,25 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:gravity="center|top"
+    android:gravity="center"
+    android:padding="20dp"
     tools:context=".view.activity.EnterOTPActivity">
 
     <EditText
         android:id="@+id/edtNumberPhone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="OTP"></EditText>
+        android:hint="Enter numberphone"></EditText>
     <Button
         android:id="@+id/btnForget"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Nhập">
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:textColor="#fff"
+        android:textStyle="bold"
+        android:background="@drawable/backgrounbottomnavigation"
+        android:text="Enter">
 
     </Button>
 </LinearLayout>
