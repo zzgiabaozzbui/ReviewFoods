@@ -18,8 +18,12 @@ import com.edu.baogia.introducefood.interfaces.BooleanCallback;
 import com.edu.baogia.introducefood.interfaces.ListReviewCallback;
 import com.edu.baogia.introducefood.interfaces.ReviewMVP;
 import com.edu.baogia.introducefood.interfaces.StringCallback;
+import com.edu.baogia.introducefood.model.object.AccountRemember;
 import com.edu.baogia.introducefood.model.object.Review;
+import com.edu.baogia.introducefood.util.MySharedPreferences;
 import com.edu.baogia.introducefood.util.VolleyMultipartRequest;
+import com.edu.baogia.introducefood.util.idwifi;
+import com.edu.baogia.introducefood.view.activity.HoSoView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -154,13 +158,15 @@ public class ReviewModel implements ReviewMVP.Model {
 
     @Override
     public String getUid() {
-        return null;
+         AccountRemember accountRemember=new MySharedPreferences().getRememberAcc(context);
+         return  accountRemember.getUsername();
     }
 
     @Override
     public void getListReview(int key, ListReviewCallback callback) {
         RequestQueue requestQueue= Volley.newRequestQueue(context);
         String url=QuestModel.IP+QuestModel.FOLDER+"selectReview.php";
+        Log.d("AAA",url);
         StringRequest stringRequest=new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
             public  void onResponse(String response) {
@@ -174,8 +180,8 @@ public class ReviewModel implements ReviewMVP.Model {
                         review=new Review();
                         review.setKeyReview(jsonObject.getInt("keyRV"));
                         review.setAccount(jsonObject.getString("account"));
-                        review.setName("Manhhlunn");
-                        review.setAva("https://static-images.vnncdn.net/files/publish/nhan-sac-elizabeth-olsen-phu-thuy-sieu-quyen-ru-trong-doctor-strange-2-d0a203b613204da1bb467af5df0dcd5c.jpg");
+                        review.setName(jsonObject.getString("name"));
+                        review.setAva(new idwifi().urlThang+jsonObject.getString("avatar"));
                         review.setKey(jsonObject.getInt("keyFood"));
                         review.setText(jsonObject.getString("content"));
                         review.setTime(jsonObject.getString("timeRV"));
@@ -222,6 +228,7 @@ public class ReviewModel implements ReviewMVP.Model {
                             callback.getString(filename);
                         } catch (JSONException e) {
                             e.printStackTrace();
+                            Log.d("AAA",e.toString());
                         }
                     }
                 },

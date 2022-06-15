@@ -87,7 +87,7 @@ public class ReviewPresenter implements ReviewMVP.Presenter {
 
     @Override
     public String getAccount() {
-        return "TEST";
+        return model.getUid();
     }
 
     @Override

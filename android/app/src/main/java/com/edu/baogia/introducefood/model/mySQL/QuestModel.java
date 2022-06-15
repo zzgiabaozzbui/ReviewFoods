@@ -32,7 +32,7 @@ import java.util.Map;
 
 public class QuestModel implements QuestMVP.Model {
     Context context;
-    public static final String IP=ipWifi;
+    public static final String IP="http://"+ipWifi;
     public static final String FOLDER="/ReviewFoods/service/manh/KTPM/";
     public QuestModel(Context context) {
         this.context = context;
