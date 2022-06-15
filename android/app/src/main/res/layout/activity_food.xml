@@ -184,6 +184,21 @@
 
             </LinearLayout>
         </LinearLayout>
+
+        <com.google.android.material.checkbox.MaterialCheckBox
+            android:id="@+id/ckoMonAn_DM"
+            android:layout_width="25dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:button="@drawable/ic_kh_tim"
+            android:checked="false"
+            app:layout_constraintBottom_toBottomOf="@+id/imgAnh2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.92"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.26"
+            app:useMaterialThemeColors="false"></com.google.android.material.checkbox.MaterialCheckBox>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.google.android.material.tabs.TabLayout

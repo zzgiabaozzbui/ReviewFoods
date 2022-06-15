@@ -45,6 +45,16 @@ public class FoodPresenterIm implements FoodPresenter, LoadFoodListener {
     }
 
     @Override
+    public void upDanhDau(int id, String taikhoan,Boolean check) {
+        if(check==true){
+            foodInterator.insertDanhdau(id,taikhoan);
+        }else if(check==false){
+            foodInterator.deleteDanhdau(id,taikhoan);
+        }
+    }
+
+
+    @Override
     public void onLoadFoodSuccess(List<Food> listFood) {
 
     }

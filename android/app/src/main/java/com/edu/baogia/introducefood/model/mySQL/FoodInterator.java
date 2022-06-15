@@ -4,6 +4,7 @@ import static com.edu.baogia.introducefood.util.idwifi.ipWifi;
 
 import android.content.Context;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -18,6 +19,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.edu.baogia.introducefood.model.object.Food;
 import com.edu.baogia.introducefood.model.object.LoaiMonAn;
+import com.edu.baogia.introducefood.util.idwifi;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -286,5 +288,61 @@ public class FoodInterator {
         };
 
         requestQueue.add(jsonArrayRequest);
+    }
+
+    public void insertDanhdau(int idMonAn,String tenTaiKhoan){
+        String urlThem= new idwifi().urlThang+"themDanhDau.php";
+        RequestQueue requestQueue= Volley.newRequestQueue(context);
+        StringRequest stringRequest=new StringRequest(Request.Method.POST, urlThem, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                if (response.equalsIgnoreCase("Thêm thành công")){
+                    Toast.makeText(context, "Bạn đã thêm sản phẩm vào danh sách yêu thích", Toast.LENGTH_SHORT).show();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d("error", "error thêm đánh dấu: "+error.toString());
+            }
+        }){
+            @Nullable
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String,String> map=new HashMap<>();
+                map.put("idFood",idMonAn+"");
+                map.put("tentaikhoan",tenTaiKhoan);
+                return map;
+            }
+        };
+        requestQueue.add(stringRequest);
+    }
+
+    public void deleteDanhdau(int idMonAn,String tenTaiKhoan) {
+        String urlXoa= new idwifi().urlThang+"xoaDanhDau.php";
+        RequestQueue requestQueue= Volley.newRequestQueue(context);
+        StringRequest stringRequest=new StringRequest(Request.Method.POST, urlXoa, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                if (response.equalsIgnoreCase("Xóa thành công")){
+                    Toast.makeText(context, "Bạn đã xóa sản phẩm trong danh sách yêu thích", Toast.LENGTH_SHORT).show();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d("error", "error xóa đánh dấu: "+error.toString());
+            }
+        }){
+            @Nullable
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String,String> map=new HashMap<>();
+                map.put("idFood",idMonAn+"");
+                map.put("tentaikhoan",tenTaiKhoan);
+                return map;
+            }
+        };
+        requestQueue.add(stringRequest);
     }
 }

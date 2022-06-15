@@ -6,17 +6,18 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -25,11 +26,17 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.edu.baogia.introducefood.R;
 import com.edu.baogia.introducefood.adapter.TabLayoutFoodAdapter;
+import com.edu.baogia.introducefood.model.object.AccountRemember;
 import com.edu.baogia.introducefood.model.object.Food;
 import com.edu.baogia.introducefood.presenter.FoodPresenter;
 import com.edu.baogia.introducefood.presenter.FoodPresenterIm;
+import com.edu.baogia.introducefood.util.MySharedPreferences;
 import com.edu.baogia.introducefood.util.QrCode;
+
 import com.edu.baogia.introducefood.util.idwifi;
+
+import com.google.android.material.checkbox.MaterialCheckBox;
+
 import com.google.android.material.tabs.TabLayout;
 import com.squareup.picasso.Picasso;
 
@@ -46,6 +53,7 @@ public class FoodActivity extends AppCompatActivity implements FoodView{
     FoodPresenter foodPresenter;
     LinearLayout lndia;
     private Food fd;
+    MaterialCheckBox ckoMonAn_DM;
     int id;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,6 +107,24 @@ public class FoodActivity extends AppCompatActivity implements FoodView{
                 dialog.show();
             }
         });
+
+        AccountRemember accountRemember = new MySharedPreferences().getRememberAcc(this);
+        if (accountRemember.getUsername()==null || accountRemember.getUsername().equals("null")|| accountRemember.getUsername().equals("")){
+            Toast.makeText(this, "Bạn phải đăng nhập để đánh dấu món ăn", Toast.LENGTH_SHORT).show();
+        }else {
+            ckoMonAn_DM.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                    if (b) {
+                        ckoMonAn_DM.setButtonDrawable(R.drawable.ic_tim);
+                        foodPresenter.upDanhDau(id,accountRemember.getUsername(),b);
+                    }else{
+                        ckoMonAn_DM.setButtonDrawable(R.drawable.ic_kh_tim);
+                        foodPresenter.upDanhDau(id,accountRemember.getUsername(),b);
+                    }
+                }
+            });
+        }
     }
     private void tablayout() {
         tabLayout.addTab(tabLayout.newTab());

@@ -105,7 +105,6 @@ public class EnterOTPPresenterIml implements EnterOTPPresenter,AccountInterface 
                             // Xác thực thành công
                             enterOTPView.goRePass();
 
-
                         } else {
                             // Sign in failed, display a message and update the UI
                             Log.d("AAA", "signInWithCredential:failure");
