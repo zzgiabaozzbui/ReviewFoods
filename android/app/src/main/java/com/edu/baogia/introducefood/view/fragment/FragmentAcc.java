@@ -29,6 +29,9 @@ import com.edu.baogia.introducefood.presenter.FoodRatingPresenter;
 import com.edu.baogia.introducefood.presenter.FoodRatingPresenterIm;
 import com.edu.baogia.introducefood.util.MyInternet;
 import com.edu.baogia.introducefood.util.MySharedPreferences;
+import com.edu.baogia.introducefood.util.idwifi;
+import com.edu.baogia.introducefood.view.activity.DanhDauView;
+import com.edu.baogia.introducefood.view.activity.HoSoView;
 import com.edu.baogia.introducefood.view.activity.LoginActivity;
 import com.edu.baogia.introducefood.view.activity.SplashActivity;
 import com.facebook.AccessToken;
@@ -50,7 +53,7 @@ import java.io.IOException;
 public class FragmentAcc extends Fragment  implements FragmentAccView{
     ImageView imgBottom, imgTop;
     TextView txtHoten;
-    Button btnSign, btnSuaTk, btnCauHoi, btnLh;
+    Button btnSign, btnSuaTk, btnCauHoi, btnLh,btnDanhDau;
     GoogleSignInClient mGoogleSignInClient;
     AccPresenter accPresenter;
     @Nullable
@@ -87,6 +90,20 @@ public class FragmentAcc extends Fragment  implements FragmentAccView{
 
             }
         });
+        btnSuaTk.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(getActivity(), HoSoView.class);
+                startActivity(intent);
+            }
+        });
+        btnDanhDau.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), DanhDauView.class);
+                startActivity(intent);
+            }
+        });
     }
 
 
@@ -102,6 +119,7 @@ public class FragmentAcc extends Fragment  implements FragmentAccView{
         btnSign = root.findViewById(R.id.btnSign);
         btnSuaTk= root.findViewById(R.id.btnSuaTk);
         btnCauHoi= root.findViewById(R.id.btnCauHoi);
+        btnDanhDau=root.findViewById(R.id.btnDanhDau);
         btnLh = root.findViewById(R.id.btnLh);
         txtHoten = root.findViewById(R.id.txtHoten);
         imgBottom = root.findViewById(R.id.imgBottom);
@@ -150,10 +168,11 @@ public class FragmentAcc extends Fragment  implements FragmentAccView{
     public void setacc(Users users) {
         Log.d("AAA", "setacc: "+users.toString());
         if(users.getAnhDaiDien()==null||users.getAnhDaiDien().equals("null")){
-
+            imgTop.setImageResource(R.drawable.food);
+            imgBottom.setImageResource(R.drawable.food);
         }else {
-            Picasso.get().load("http://"+ipWifi+users.getAnhDaiDien()).into(imgTop);
-            Picasso.get().load("http://"+ipWifi+users.getAnhDaiDien()).into(imgBottom);
+            Picasso.get().load(new idwifi().urlThang+users.getAnhDaiDien()).into(imgTop);
+            Picasso.get().load(new idwifi().urlThang+users.getAnhDaiDien()).into(imgBottom);
         }
         if(users.getTenDayDu()==null||users.getTenDayDu().equals("null")){
 

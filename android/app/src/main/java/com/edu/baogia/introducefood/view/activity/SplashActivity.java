@@ -1,30 +1,40 @@
 package com.edu.baogia.introducefood.view.activity;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.SystemClock;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.edu.baogia.introducefood.R;
 import com.edu.baogia.introducefood.model.object.AccountRemember;
+import com.edu.baogia.introducefood.util.MyInternet;
 import com.edu.baogia.introducefood.util.MySharedPreferences;
 import com.facebook.AccessToken;
 import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
 
-public class SplashActivity extends AppCompatActivity {
+import java.io.IOException;
 
+public class SplashActivity extends AppCompatActivity {
+    private Handler handler = new Handler();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-
+        serviceInternet();
 
         //Màu thanh pin
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -43,6 +53,41 @@ public class SplashActivity extends AppCompatActivity {
                 nextActivity();
             }
         },2000);
+    }
+
+
+    private void serviceInternet() {
+        Thread thread=new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while (true){
+                    SystemClock.sleep(2000);
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                boolean check=new MyInternet().isInternetAvailable();
+                                Log.d("pdt", "run: "+check);
+                                if(check==false){
+//                                   Intent intent=new Intent(SplashActivity.this,ActivityNoInternet.class);
+//                                   startActivity(intent);
+                                }else {
+//                                    Intent intent=new Intent(SplashActivity.this,MainActivity.class);
+//                                    startActivity(intent);
+                                }
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    });
+                }
+
+
+            }
+        });
+        thread.start();
     }
 
     private void nextActivity() {

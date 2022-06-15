@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.edu.baogia.introducefood.R;
 import com.edu.baogia.introducefood.model.object.DanhDau;
 import com.edu.baogia.introducefood.model.object.MonAn;
+import com.edu.baogia.introducefood.util.idwifi;
 import com.edu.baogia.introducefood.view.activity.DanhDauView;
 import com.edu.baogia.introducefood.view.activity.LoginActivity;
 import com.squareup.picasso.Picasso;
@@ -73,7 +74,7 @@ public class DanhDauAdapter extends BaseAdapter {
             }
         });
 
-        Picasso.get().load(monandanhdau.getAnh()).into(imgFood);
+        Picasso.get().load(new idwifi().urlThang+monandanhdau.getAnh()).into(imgFood);
         txtNameFood.setText(monandanhdau.getTenMonAn());
         return convertView;
     }

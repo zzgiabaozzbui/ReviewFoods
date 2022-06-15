@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.edu.baogia.introducefood.R;
 import com.edu.baogia.introducefood.model.object.Food;
+import com.edu.baogia.introducefood.util.idwifi;
 import com.edu.baogia.introducefood.view.activity.FoodActivity;
 import com.squareup.picasso.Picasso;
 
@@ -47,7 +48,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
         holder.txtCate.setText("Loại: "+book.getCate());
         holder.txtDes.setText("Mô tả: "+book.getDes());
 
-        Picasso.get().load(""+book.getImg()).into(holder.imgAnh);
+        Picasso.get().load(new idwifi().urlThang+""+book.getImg()).into(holder.imgAnh);
 
         holder.setItemClickListener(new ItemClickListener() {
             @Override

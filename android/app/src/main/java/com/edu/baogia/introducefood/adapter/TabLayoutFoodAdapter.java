@@ -42,7 +42,7 @@ public class TabLayoutFoodAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         switch (position){
             case 0:
-                ReviewFragment reviewFragment = new ReviewFragment();
+                ReviewFragment reviewFragment = new ReviewFragment(id);
                 return reviewFragment;
             case 1:
 

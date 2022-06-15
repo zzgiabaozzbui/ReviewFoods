@@ -76,14 +76,13 @@ public class LoaiMonAnAdapter extends RecyclerView.Adapter<LoaiMonAnAdapter.Doan
         addFillter(holder, position);
         holderDanhMuc=holder;
         if(intent!=null)
-        getCurrentFillter(loaiMonAn.getId()+"");
+            getCurrentFillter(loaiMonAn.getId()+"");
     }
 
     private void getCurrentFillter(String idLoaiMonAn) {
         try{
             String id=intent.getStringExtra("idLoaiMonAn");
             if(id.equalsIgnoreCase(idLoaiMonAn)){
-                Log.d("pdt", "getCurrentFillter: "+idLoaiMonAn);
                 holderDanhMuc.ckoFillter.setBackgroundResource(R.drawable.checked_fillter);
                 holderDanhMuc.ckoFillter.setChecked(true);
                 holderDanhMuc.lnlChecked.setVisibility(View.VISIBLE);

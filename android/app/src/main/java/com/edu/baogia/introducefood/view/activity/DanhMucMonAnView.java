@@ -1,6 +1,8 @@
 package com.edu.baogia.introducefood.view.activity;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -116,7 +118,7 @@ public class DanhMucMonAnView extends AppCompatActivity implements NavigationVie
         });
 
 
-        adapter = new LoaiMonAnAdapter(DanhMucMonAnView.this,getIntent());
+
         GridLayoutManager gridLayoutManager = new GridLayoutManager(DanhMucMonAnView.this, 2);
         rcvDanhMucFillter.setLayoutManager(gridLayoutManager);
         rcvDanhMucFillter.setFocusable(false);
@@ -130,8 +132,8 @@ public class DanhMucMonAnView extends AppCompatActivity implements NavigationVie
         drrDoanhMuc = findViewById(R.id.drrDoanhMuc);
         tbrDoanhMuc = findViewById(R.id.tbrDoanhMuc);
 //        Thêm tên tài khoản vào thuộc tính Fragment_MonAn
-
-        fragment_monAn = new Fragment_MonAn(DanhMucMonAnView.this,getIntent(),tenTK);
+        adapter = new LoaiMonAnAdapter(DanhMucMonAnView.this,getIntent());
+        fragment_monAn = new Fragment_MonAn(DanhMucMonAnView.this,getIntent(),tenTK,adapter);
         replaceFragment(fragment_monAn);
 
     }
@@ -139,8 +141,10 @@ public class DanhMucMonAnView extends AppCompatActivity implements NavigationVie
     private void setMyToolbar() {
         setSupportActionBar(tbrDoanhMuc);
         ActionBar actionBar = getSupportActionBar();
+        ColorDrawable colorDrawable = new ColorDrawable(Color.parseColor("#FF89B1"));
         if (actionBar != null) {
-            actionBar.setTitle("Custom Toolbar");
+            actionBar.setTitle("Danh mục món ăn");
+            actionBar.setBackgroundDrawable(colorDrawable);
         }
     }
 
@@ -173,6 +177,7 @@ public class DanhMucMonAnView extends AppCompatActivity implements NavigationVie
             public boolean onQueryTextChange(String newText) {
                 List<String> conditions = adapter.getCondition();
                 MonAnAdapter monAnAdapter = fragment_monAn.getAdapter();
+
                 int check = monAnAdapter.filter(newText, conditions);
                 return false;
             }

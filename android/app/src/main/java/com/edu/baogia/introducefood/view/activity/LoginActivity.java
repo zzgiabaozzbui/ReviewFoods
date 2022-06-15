@@ -1,5 +1,6 @@
 package com.edu.baogia.introducefood.view.activity;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -7,14 +8,18 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.SystemClock;
 import android.util.Base64;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,6 +35,7 @@ import com.edu.baogia.introducefood.model.object.NguoiDung;
 import com.edu.baogia.introducefood.model.object.Users;
 import com.edu.baogia.introducefood.presenter.LoginPresenter;
 import com.edu.baogia.introducefood.presenter.LoginPresenterIml;
+import com.edu.baogia.introducefood.util.MyInternet;
 import com.edu.baogia.introducefood.util.MySharedPreferences;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
@@ -55,6 +61,9 @@ import com.google.android.material.tabs.TabLayout;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
+import java.net.Inet4Address;
+import java.net.UnknownHostException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
@@ -82,7 +91,11 @@ public class LoginActivity extends AppCompatActivity implements LoginView{
         google();
         click();
 
+
+
+
     }
+
 
     private void google() {
         // Configure sign-in to request the user's ID, email address, and basic

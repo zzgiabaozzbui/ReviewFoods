@@ -29,6 +29,7 @@ import com.edu.baogia.introducefood.model.object.Food;
 import com.edu.baogia.introducefood.presenter.FoodPresenter;
 import com.edu.baogia.introducefood.presenter.FoodPresenterIm;
 import com.edu.baogia.introducefood.util.QrCode;
+import com.edu.baogia.introducefood.util.idwifi;
 import com.google.android.material.tabs.TabLayout;
 import com.squareup.picasso.Picasso;
 
@@ -191,8 +192,8 @@ public class FoodActivity extends AppCompatActivity implements FoodView{
         txtName.setText(""+food.getName());
         txtCate.setText(""+food.getCate());
 
-        Picasso.get().load(""+food.getImg()).into(imgAnh);
-        Picasso.get().load(""+food.getImg()).into(imgAnh2);
+        Picasso.get().load(new idwifi().urlThang+food.getImg()).into(imgAnh);
+        Picasso.get().load(new idwifi().urlThang+food.getImg()).into(imgAnh2);
     }
 
     @Override

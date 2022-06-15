@@ -4,6 +4,31 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     >
+    <LinearLayout
+        android:padding="5dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/pink">
+        <ImageView
+            android:id="@+id/imgReturnHome"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginRight="10dp"
+            android:backgroundTint="@color/orang"
+            android:textColor="@color/white"
+            android:src="@drawable/ic_return"></ImageView>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textSize="22sp"
+            android:layout_gravity="center"
+
+            android:text="Danh mục món ăn đã đánh dấu"></TextView>
+    </LinearLayout>
+
+
     <ListView
         android:id="@+id/ListViewDanhDau"
         android:layout_width="match_parent"

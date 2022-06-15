@@ -19,6 +19,8 @@ import com.edu.baogia.introducefood.R;
 import com.edu.baogia.introducefood.interfaces.ItemClickRecycleListener;
 import com.edu.baogia.introducefood.model.object.DanhDau;
 import com.edu.baogia.introducefood.model.object.MonAn;
+import com.edu.baogia.introducefood.util.idwifi;
+import com.edu.baogia.introducefood.view.activity.FoodActivity;
 import com.edu.baogia.introducefood.view.activity.LoginActivity;
 import com.edu.baogia.introducefood.view.activity.LoginView;
 import com.google.android.material.checkbox.MaterialCheckBox;
@@ -59,14 +61,15 @@ public class MonAnAdapter extends RecyclerView.Adapter<MonAnAdapter.MonAnViewHol
         if (monAn == null) {
             return;
         }
-        Picasso.get().load(monAn.getAnh()).into(holder.imgMonAn_DM);
+        Picasso.get().load(new idwifi().urlThang+monAn.getAnh()).into(holder.imgMonAn_DM);
+
         holder.txtTenMonAn_DM.setText(monAn.getTenMonAn());
         holder.txtMoTaMonAn_DM.setText(monAn.getMoTa());
         new DanhDau(0,tenTK).getCheckedFood(new DanhDau.CallBackCheckedFood() {
             @Override
             public void onSuccessCheckedFood(List<DanhDau> danhDauList) {
                 if (danhDaus.size()==0)
-                danhDaus.addAll(danhDauList);
+                    danhDaus.addAll(danhDauList);
                 Boolean check=false;
                 for (DanhDau danhDau:danhDaus) {
                     if(monAn.getId()==danhDau.getIdMonAn()){
@@ -94,7 +97,9 @@ public class MonAnAdapter extends RecyclerView.Adapter<MonAnAdapter.MonAnViewHol
                 if(isLongClick){
                     return;
                 }else {
-                    Toast.makeText(view.getContext(), "bạn đã click chuột "+list.get(position).getTenMonAn(), Toast.LENGTH_SHORT).show();
+                    Intent intent=new Intent(view.getContext(), FoodActivity.class);
+                    intent.putExtra("idFood",list.get(position).getId());
+                    view.getContext().startActivity(intent);
                 }
             }
         });
@@ -136,7 +141,8 @@ public class MonAnAdapter extends RecyclerView.Adapter<MonAnAdapter.MonAnViewHol
     public int filter(String s, List<String> condition) {
         s = s.toLowerCase(Locale.getDefault());
         list.clear();
-        if (condition.size() == 0) {
+
+        if (condition.size() < 1) {
             if (s.equalsIgnoreCase("")) {
                 list.addAll(listPhu);
             } else {
@@ -148,6 +154,7 @@ public class MonAnAdapter extends RecyclerView.Adapter<MonAnAdapter.MonAnViewHol
             }
         }
         else {
+
             if (s.equalsIgnoreCase("")) {
                 for (MonAn monAn : listPhu) {
                     for (String id : condition) {
@@ -157,12 +164,12 @@ public class MonAnAdapter extends RecyclerView.Adapter<MonAnAdapter.MonAnViewHol
                     }
                 }
             } else {
+
                 for (MonAn monAn : listPhu) {
-                    if (monAn.getTenMonAn().toLowerCase(Locale.getDefault()).contains(s)) {
-                        for (String id : condition) {
-                            if (monAn.getId() == Integer.parseInt(id)) {
-                                list.add(monAn);
-                            }
+                    for (String id : condition) {
+                        if (monAn.getIdLoaiMonAn() == Integer.parseInt(id)) {
+                            if (monAn.getTenMonAn().toLowerCase(Locale.getDefault()).contains(s)) {
+                                list.add(monAn);}
                         }
                     }
                 }

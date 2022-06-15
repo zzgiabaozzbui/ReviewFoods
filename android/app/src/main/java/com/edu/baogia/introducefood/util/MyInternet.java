@@ -5,7 +5,7 @@ import android.util.Log;
 
 import java.io.IOException;
 
-public class MyInternet {
+public class MyInternet   {
     public boolean isInternetAvailable() throws IOException, InterruptedException {
 //        try {
 //            Log.d("AAA", "onCreateView: "+new MyInternet().isInternetAvailable());
@@ -14,6 +14,7 @@ public class MyInternet {
 //        } catch (InterruptedException e) {
 //            e.printStackTrace();
 //        }
+
         String command = "ping -c 1 google.com";
         return Runtime.getRuntime().exec(command).waitFor() == 0;
     }

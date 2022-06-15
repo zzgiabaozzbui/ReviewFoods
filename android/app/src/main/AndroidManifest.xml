@@ -44,6 +44,9 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".view.activity.ActivityNoInternet"
+            android:exported="true" />
+        <activity
             android:name=".view.activity.MainActivity"
             android:exported="true" />
         <activity

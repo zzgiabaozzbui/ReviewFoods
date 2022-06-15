@@ -21,6 +21,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.edu.baogia.introducefood.R;
 import com.edu.baogia.introducefood.model.object.Food;
 import com.edu.baogia.introducefood.model.object.LoaiMonAn;
+import com.edu.baogia.introducefood.util.idwifi;
 import com.edu.baogia.introducefood.view.activity.FoodActivity;
 import com.squareup.picasso.Picasso;
 
@@ -52,7 +53,7 @@ public class CateAdapter extends RecyclerView.Adapter<CateAdapter.ViewHolder> {
         if (book.getImage().equals("null")){
 
         }else {
-            Picasso.get().load("http://"+ipWifi+book.getImage()).into(holder.imgcAnh);
+            Picasso.get().load(new idwifi().urlThang+book.getImage()).into(holder.imgcAnh);
         }
 
         holder.setItemClickListener(new ItemClickListener() {

@@ -34,6 +34,7 @@ import com.edu.baogia.introducefood.model.object.NguoiDung;
 import com.edu.baogia.introducefood.presenter.HoSoPresenter;
 import com.edu.baogia.introducefood.util.MySharedPreferences;
 import com.edu.baogia.introducefood.util.UrlVolley;
+import com.edu.baogia.introducefood.util.idwifi;
 import com.squareup.picasso.Picasso;
 
 import java.io.FileNotFoundException;
@@ -44,7 +45,7 @@ public class HoSoView extends AppCompatActivity implements HoSoInterface {
     LinearLayout lnlIdHoSo,lnlTenDayDuHoSo,lnlNgaySinhHoSo,lnlEmailHoSo,lnlGioiTinhHoSo,lnlSdtHoSo;
     TextView txtIdHoSo,txtTenDayDuHoSo,txtNgaySinhHoSo,txtEmailHoSo,txtGioiTinhHoSo,txtSdtHoSo;
     ImageView imgAvatarHoSo;
-    Button btnAcceptHoSo;
+    Button btnAcceptHoSo,btnReturnHomeHoSo;
     DatePickerDialog datePickerDialog;
     Bitmap bitmap;
 
@@ -66,13 +67,23 @@ public class HoSoView extends AppCompatActivity implements HoSoInterface {
         seederTime();
         getDataHoSoCurrent();
         acceptChangeData();
+        returnHome();
         setAvatar();
 
     }
+
+    private void returnHome() {
+        btnReturnHomeHoSo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+    }
+
     private void setTenTaiKhoan() {
         try {
             AccountRemember accountRemember=new  MySharedPreferences().getRememberAcc(HoSoView.this);
-            Log.d("pdt", "setTenTaiKhoan: "+accountRemember.getUsername());
             tenTK=accountRemember.getUsername();
         }catch (Exception e){
 
@@ -150,9 +161,9 @@ public class HoSoView extends AppCompatActivity implements HoSoInterface {
                 }else if(nguoiDung.getGioiTinh()==2){
                     gioiTinh="Khác";
                 }
-                Picasso.get().load(new UrlVolley().url+nguoiDung.getAnhDaiDien()).error(R.drawable.meo_meo).into(imgAvatarHoSo);
+                Picasso.get().load(new idwifi().urlThang+nguoiDung.getAnhDaiDien()).error(R.drawable.meo_meo).into(imgAvatarHoSo);
                 txtGioiTinhHoSo.setText(gioiTinh);
-                txtSdtHoSo.setText("0"+nguoiDung.getSdt());
+                txtSdtHoSo.setText(nguoiDung.getSdt());
             }
 
             @Override
@@ -178,7 +189,7 @@ public class HoSoView extends AppCompatActivity implements HoSoInterface {
     }
 
     public void sdtlLinear(View view){
-        createDialogType("Email",txtSdtHoSo.getText().toString(),txtSdtHoSo,InputType.TYPE_CLASS_PHONE);
+        createDialogType("Số điện thoại",txtSdtHoSo.getText().toString(),txtSdtHoSo,InputType.TYPE_CLASS_PHONE);
     }
 
     public void changeGender(View view){
@@ -291,6 +302,7 @@ public class HoSoView extends AppCompatActivity implements HoSoInterface {
         imgAvatarHoSo=findViewById(R.id.imgAvatarHoSo);
 
         btnAcceptHoSo=findViewById(R.id.btnAcceptHoSo);
+        btnReturnHomeHoSo=findViewById(R.id.btnReturnHomeHoSo);
 
 
     }
@@ -303,27 +315,27 @@ public class HoSoView extends AppCompatActivity implements HoSoInterface {
             startActivity(intent);
         }
         else
-        nguoiDung.getNguoiDung(HoSoView.this,callBackHoSo,tenTK);
+            nguoiDung.getNguoiDung(HoSoView.this,callBackHoSo,tenTK);
     }
 
     @Override
     public void updateHoSo() {
-                int gioiTinh=2;
-                if(txtGioiTinhHoSo.getText().toString().equalsIgnoreCase("Nam")){
-                    gioiTinh=0;
-                }else if(txtGioiTinhHoSo.getText().toString().equalsIgnoreCase("Nữ")){
-                    gioiTinh=1;
-                }
-                NguoiDung nguoiDung=new NguoiDung();
-                nguoiDung.setId(Integer.parseInt(txtIdHoSo.getText().toString()));
-                nguoiDung.setTenDayDu(txtTenDayDuHoSo.getText().toString());
+        int gioiTinh=2;
+        if(txtGioiTinhHoSo.getText().toString().equalsIgnoreCase("Nam")){
+            gioiTinh=0;
+        }else if(txtGioiTinhHoSo.getText().toString().equalsIgnoreCase("Nữ")){
+            gioiTinh=1;
+        }
+        NguoiDung nguoiDung=new NguoiDung();
+        nguoiDung.setId(Integer.parseInt(txtIdHoSo.getText().toString()));
+        nguoiDung.setTenDayDu(txtTenDayDuHoSo.getText().toString());
 
-                nguoiDung.setNgaySinh(txtNgaySinhHoSo.getText().toString());
-                nguoiDung.setEmail(txtEmailHoSo.getText().toString());
-                nguoiDung.setSdt(txtSdtHoSo.getText().toString());
-                nguoiDung.setGioiTinh(gioiTinh);
+        nguoiDung.setNgaySinh(txtNgaySinhHoSo.getText().toString());
+        nguoiDung.setEmail(txtEmailHoSo.getText().toString());
+        nguoiDung.setSdt(txtSdtHoSo.getText().toString());
+        nguoiDung.setGioiTinh(gioiTinh);
 
-                new NguoiDung().updateHoSo(HoSoView.this,nguoiDung,bitmap);
+        new NguoiDung().updateHoSo(HoSoView.this,nguoiDung,bitmap);
 
 
 

@@ -2,7 +2,9 @@ package com.edu.baogia.introducefood.view.activity;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Adapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 
 import androidx.annotation.Nullable;
@@ -25,6 +27,7 @@ public class DanhDauView extends AppCompatActivity implements DanhDauInterface {
     ListView listView ;
     List<MonAn> monAnList;
     DanhDauAdapter danhDauAdapter;
+    ImageView imgReturnHome;
     String tenTK="";
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -32,13 +35,24 @@ public class DanhDauView extends AppCompatActivity implements DanhDauInterface {
         setTenTaiKhoan();
         setContentView(R.layout.activity_danhdauview);
         listView = findViewById(R.id.ListViewDanhDau);
+        imgReturnHome=findViewById(R.id.imgReturnHome);
         monAnList = new ArrayList<>();
         danhDauAdapter = new DanhDauAdapter(DanhDauView.this,R.layout.linedanhdauview,monAnList,tenTK);
         listView.setAdapter(danhDauAdapter);
         addData();
-
+        setReturnHome();
 
     }
+
+    private void setReturnHome() {
+        imgReturnHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+    }
+
     private void setTenTaiKhoan() {
         try {
             AccountRemember accountRemember=new MySharedPreferences().getRememberAcc(DanhDauView.this);

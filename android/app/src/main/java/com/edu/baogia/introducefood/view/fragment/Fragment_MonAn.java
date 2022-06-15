@@ -35,18 +35,21 @@ public class Fragment_MonAn extends Fragment implements FoodFillterInterface {
     View view;
     FoodFillterPresenter foodFillterPresenter=new FoodFillterPresenter(this);
     String TK="";
+    LoaiMonAnAdapter loaiMonAnAdapter;
     public MonAnAdapter getAdapter(){
         return adapter;
     }
 
-    public Fragment_MonAn(Context context,Intent i) {
+    public Fragment_MonAn(Context context,Intent i,LoaiMonAnAdapter loaiMonAnAdapter) {
         this.context = context;
         this.i=i;
+        this.loaiMonAnAdapter=loaiMonAnAdapter;
     }
-    public Fragment_MonAn(Context context,Intent i,String taikhoan) {
+    public Fragment_MonAn(Context context,Intent i,String taikhoan,LoaiMonAnAdapter loaiMonAnAdapter) {
         this.context = context;
         this.i=i;
         this.TK=taikhoan;
+        this.loaiMonAnAdapter=loaiMonAnAdapter;
     }
 
     @Nullable
@@ -92,7 +95,7 @@ public class Fragment_MonAn extends Fragment implements FoodFillterInterface {
         Intent intent=i;
         if(i.getStringExtra("idLoaiMonAn")!=null){
             String id=i.getStringExtra("idLoaiMonAn");
-            List<String> conditions = new LoaiMonAnAdapter(context,intent).getCondition();
+            List<String> conditions = loaiMonAnAdapter.getCondition();
             conditions.add(id+"");
             MonAnAdapter monAnAdapter = getAdapter();
             int check = monAnAdapter.filter("", conditions);
@@ -100,7 +103,7 @@ public class Fragment_MonAn extends Fragment implements FoodFillterInterface {
         // hàm tìm kiếm từ phía trang chủ -----------------------
         if(i.getStringExtra("timkiem")!=null){
             String timkiem=i.getStringExtra("timkiem");
-            List<String> conditions = new LoaiMonAnAdapter(context).getCondition();
+            List<String> conditions = loaiMonAnAdapter.getCondition();
             MonAnAdapter monAnAdapter = getAdapter();
             int check = monAnAdapter.filter(timkiem, conditions);
         }

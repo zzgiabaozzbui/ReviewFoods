@@ -17,16 +17,20 @@ import com.edu.baogia.introducefood.presenter.FoodPresenterIm;
 
 public class ReviewFragment extends Fragment implements ReviewFragmentView {
     TextView txtReview;
-
+    private int idmonAn;
     FoodPresenter foodPresenter;
+
+    public ReviewFragment(int idmonAn) {
+        this.idmonAn = idmonAn;
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         ViewGroup root = (ViewGroup) inflater.inflate(R.layout.fragment_review,container,false);
         innit(root);
-        int id =2;
         foodPresenter = new FoodPresenterIm(this);
-        foodPresenter.loadDesFood(id);
+        foodPresenter.loadDesFood(idmonAn);
         return root;
     }
 
