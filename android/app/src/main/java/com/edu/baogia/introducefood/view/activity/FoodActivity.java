@@ -176,6 +176,7 @@ public class FoodActivity extends AppCompatActivity implements FoodView{
         btnBinhLuan = findViewById(R.id.btnBinhLuan);
         btnCreateQr = findViewById(R.id.btnCreateQr);
 
+        ckoMonAn_DM = findViewById(R.id.ckoMonAn_DM);
         ratingFood = findViewById(R.id.ratingFood);
         txtRate = findViewById(R.id.txtRate);
         txtCountRate = findViewById(R.id.txtCountRate);
