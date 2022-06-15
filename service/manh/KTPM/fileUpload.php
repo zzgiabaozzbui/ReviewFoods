@@ -6,7 +6,7 @@ $api_version = 1.0;
 
 $start = microtime(true);
 
-$dir = $_SERVER['DOCUMENT_ROOT']."/Webservice/KTPM/Images/";
+$dir = $_SERVER['DOCUMENT_ROOT']."/ReviewFoods/service/manh/KTPM/Images/";
 
 
 
