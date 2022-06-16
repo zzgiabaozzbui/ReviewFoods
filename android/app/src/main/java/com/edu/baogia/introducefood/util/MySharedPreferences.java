@@ -4,7 +4,10 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.edu.baogia.introducefood.model.object.AccountRemember;
+import com.edu.baogia.introducefood.model.object.LoaiMonAn;
 import com.edu.baogia.introducefood.model.object.Users;
+
+import org.json.JSONObject;
 
 
 public class MySharedPreferences {
@@ -70,4 +73,12 @@ public class MySharedPreferences {
         AccountRemember accountRemember = new AccountRemember(username,password,idnguoidung,remember);
         return accountRemember;
     }
+    public void saveCate(Context context, String listcate){
+//      sharedPref được lưu tại DATA/data/[application package name]/shared_prefs/shared_preferences_name.xml
+        SharedPreferences sharedPref =  context.getSharedPreferences("Cate",Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putString("list", ""+listcate);
+        editor.commit();
+    }
+
 }

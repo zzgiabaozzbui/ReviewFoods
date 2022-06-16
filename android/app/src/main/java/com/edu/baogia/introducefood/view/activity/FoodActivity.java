@@ -217,7 +217,8 @@ public class FoodActivity extends AppCompatActivity implements FoodView{
     public void getFood(Food food) {
         fd = food;
         txtName.setText(""+food.getName());
-        txtCate.setText(""+food.getCate());
+//        txtCate.setText(""+food.getCate());
+        new idwifi().getnamecate(txtCate,food.getCate(),this);
 
         Picasso.get().load(new idwifi().urlThang+food.getImg()).into(imgAnh);
         Picasso.get().load(new idwifi().urlThang+food.getImg()).into(imgAnh2);

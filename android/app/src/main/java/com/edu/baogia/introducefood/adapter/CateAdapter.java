@@ -80,6 +80,7 @@ public class CateAdapter extends RecyclerView.Adapter<CateAdapter.ViewHolder> {
         return list.size();
     }
     class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener,View.OnLongClickListener{
+
         TextView  txtNameCate,txtid;
         ImageView imgcAnh;
         LinearLayout lnfoood;
