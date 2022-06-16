@@ -106,6 +106,10 @@ public class SplashActivity extends AppCompatActivity {
         if (accountRemember.getUsername()==null || accountRemember.getUsername().equals("null")|| accountRemember.getUsername().equals("")){
             Intent intent = new Intent(SplashActivity.this,LoginActivity.class);
             startActivity(intent);
+        }else if (accountRemember.getCheck()==false){
+            new MySharedPreferences().rememberPass(this,new AccountRemember());
+            Intent intent = new Intent(SplashActivity.this,LoginActivity.class);
+            startActivity(intent);
         }else {
             Intent intent = new Intent(SplashActivity.this,MainActivity.class);
             startActivity(intent);

@@ -82,7 +82,9 @@ public class FragmentAcc extends Fragment  implements FragmentAccView{
                     //Đăng xuất face book
                     signOutFace();
 
-                    new MySharedPreferences().rememberPass(getContext(),new AccountRemember());
+                    if (new MySharedPreferences().getRememberAcc(getActivity()).getCheck()==false){
+                        new MySharedPreferences().rememberPass(getContext(),new AccountRemember());
+                    }
 
                     Intent intent = new Intent(getActivity(),LoginActivity.class);
                     startActivity(intent);

@@ -2,6 +2,7 @@ package com.edu.baogia.introducefood.view.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,14 +40,14 @@ public class SignInFragment extends Fragment  implements SignInView {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         ViewGroup root = (ViewGroup) inflater.inflate(R.layout.fragment_sign_in,container,false);
         innit(root);
-        checkRemember(root);
+        checkRemember();
         animation(root);
 
         click();
         return root;
     }
 
-    private void checkRemember(ViewGroup root) {
+    private void checkRemember() {
         AccountRemember accountRemember2 = new MySharedPreferences().getRememberAcc(getContext());
         if (accountRemember2.getCheck()==true){
             edtNumberPhone.setText(""+accountRemember2.getUsername());
@@ -82,6 +83,7 @@ public class SignInFragment extends Fragment  implements SignInView {
 
                 }else  {
                     Account account = new Account(edtNumberPhone.getText().toString(),edtPass.getText().toString(),0,0);
+                    Log.d("AAA", "onClick:check "+remember.isChecked());
                     loginPresenter.checkAccount(account,remember.isChecked());
                 }
 
