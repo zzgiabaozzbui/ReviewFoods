@@ -1,11 +1,14 @@
 package com.edu.baogia.introducefood.view.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Adapter;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -41,7 +44,19 @@ public class DanhDauView extends AppCompatActivity implements DanhDauInterface {
         listView.setAdapter(danhDauAdapter);
         addData();
         setReturnHome();
+        setOnclick();
 
+    }
+
+    private void setOnclick() {
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent intent=new Intent(view.getContext(), FoodActivity.class);
+                intent.putExtra("idFood",monAnList.get(i).getId());
+                view.getContext().startActivity(intent);
+            }
+        });
     }
 
     private void setReturnHome() {
