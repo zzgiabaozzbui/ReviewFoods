@@ -32,6 +32,7 @@ import com.edu.baogia.introducefood.model.object.Food;
 import com.edu.baogia.introducefood.model.object.LoaiMonAn;
 import com.edu.baogia.introducefood.presenter.HomePresenter;
 import com.edu.baogia.introducefood.presenter.HomePresenterIm;
+import com.edu.baogia.introducefood.util.idwifi;
 import com.edu.baogia.introducefood.view.activity.FoodActivity;
 import com.edu.baogia.introducefood.view.activity.SearchMainActivity;
 import com.edu.baogia.introducefood.view.activity.SimpleScannerActivity;
@@ -161,8 +162,8 @@ public class HomeFragment extends Fragment implements HomeFragmentView{
         txtCateNew.setText(""+listDemo.get(0).getCate());
         txtNameNew.setText(""+listDemo.get(0).getName());
         txtDesNew.setText(""+listDemo.get(0).getDes());
-        Picasso.get().load(""+listDemo.get(0).getImg()).into(imgNew);
-        Picasso.get().load(""+listDemo.get(0).getImg()).into(imageAlpha);
+        Picasso.get().load(new idwifi().urlThang+listDemo.get(0).getImg()).into(imgNew);
+        Picasso.get().load(new idwifi().urlThang+listDemo.get(0).getImg()).into(imageAlpha);
     }
 
 
