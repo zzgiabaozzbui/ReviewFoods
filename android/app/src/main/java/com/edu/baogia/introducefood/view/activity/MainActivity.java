@@ -40,16 +40,12 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
-                case R.id.navigation_home:
-                    fragment = new HomeFragment();
-                    loadFragment(fragment);
-                    return true;
-                case R.id.navigation_tick:
-                    fragment = new HomeFragment();
-                    loadFragment(fragment);
-                    return true;
                 case R.id.navigation_news:
                     fragment = new FragmentNews();
+                    loadFragment(fragment);
+                    return true;
+                case R.id.navigation_home:
+                    fragment = new HomeFragment();
                     loadFragment(fragment);
                     return true;
                 case R.id.navigation_account:
