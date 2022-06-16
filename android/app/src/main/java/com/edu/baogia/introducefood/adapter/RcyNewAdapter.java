@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.edu.baogia.introducefood.R;
 import com.edu.baogia.introducefood.model.object.Food;
+import com.edu.baogia.introducefood.util.idwifi;
 import com.edu.baogia.introducefood.view.fragment.HomeFragment;
 import com.squareup.picasso.Picasso;
 
@@ -42,7 +43,7 @@ public class RcyNewAdapter extends RecyclerView.Adapter<RcyNewAdapter.ViewHolder
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
-        Picasso.get().load(""+list.get(position).getImg()).into(holder.imgNew);
+        Picasso.get().load(new idwifi().urlThang+list.get(position).getImg()).into(holder.imgNew);
 
         holder.setItemClickListener(new ItemClickListener() {
             @Override
@@ -62,8 +63,8 @@ public class RcyNewAdapter extends RecyclerView.Adapter<RcyNewAdapter.ViewHolder
                     homeFragment.getTxtidNew().setText(""+list.get(position).getId());
                     Log.d("AAA", "onClick: "+list.get(position).getCate());
 
-                    Picasso.get().load(""+list.get(position).getImg()).into(homeFragment.getImgNew());
-                    Picasso.get().load(""+list.get(position).getImg()).into(homeFragment.getImageAlpha());
+                    Picasso.get().load(new idwifi().urlThang+list.get(position).getImg()).into(homeFragment.getImgNew());
+                    Picasso.get().load(new idwifi().urlThang+list.get(position).getImg()).into(homeFragment.getImageAlpha());
 
                 }
 
