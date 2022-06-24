@@ -7,6 +7,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.edu.baogia.introducefood.util.UrlVolley;
 import com.edu.baogia.introducefood.util.idwifi;
@@ -120,26 +121,29 @@ public class MonAn {
 
     public void getListFoodDanhMuc(CallBackFood callBackFood, Context context){
         List<MonAn> monAnList = new ArrayList<>();
-        String urlGetFood = new idwifi().urlThang + "getAllFood.php";
+        String urlGetFood = new idwifi().urlThang+"LoadAllMonAn";
         RequestQueue requestQueue = Volley.newRequestQueue(context);
-        JsonArrayRequest jsonArrayRequest =new JsonArrayRequest(Request.Method.GET, urlGetFood, null, new Response.Listener<JSONArray>() {
+        JsonObjectRequest jsonObjectRequest=new JsonObjectRequest(Request.Method.GET,urlGetFood, null, new Response.Listener<JSONObject>() {
             @Override
-            public void onResponse(JSONArray response) {
-                JSONObject jsonObject;
-                for (int i = 0; i < response.length(); i++) {
-                    try {
-                        jsonObject = response.getJSONObject(i);
+            public void onResponse(JSONObject response) {
+                JSONArray jsonArray=null;
+                try {
+                    jsonArray=response.getJSONArray("Data");
+                    JSONObject jsonObject;
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        jsonObject = jsonArray.getJSONObject(i);
                         int id = jsonObject.getInt("id");
                         int idTypeFood = jsonObject.getInt("idloaimonan");
                         String tenMonAn = jsonObject.getString("tenmonan");
                         String anh = jsonObject.getString("anh");
                         String moTa = jsonObject.getString("mota");
                         monAnList.add(new MonAn(id, tenMonAn, anh,"",moTa,"","",idTypeFood));
-                    } catch (JSONException e) {
-                        e.printStackTrace();
                     }
+                    callBackFood.onSuccessFood(monAnList);
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
-                callBackFood.onSuccessFood(monAnList);
+
             }
         }, new Response.ErrorListener() {
             @Override
@@ -147,6 +151,7 @@ public class MonAn {
                 callBackFood.onFailFood(error.toString());
             }
         });
-        requestQueue.add(jsonArrayRequest);
+
+        requestQueue.add(jsonObjectRequest);
     }
 }

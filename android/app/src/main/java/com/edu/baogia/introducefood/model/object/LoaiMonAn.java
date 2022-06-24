@@ -8,6 +8,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
 import com.edu.baogia.introducefood.util.UrlVolley;
@@ -74,35 +75,38 @@ public class LoaiMonAn {
         List<LoaiMonAn> loaiMonAns = new ArrayList<>();
 
 
+        String urlGetTypeFood = new idwifi().urlThang + "LoadLoaiMonAn";
 
-        String urlGetTypeFood = new idwifi().urlThang + "getAllTypeFood.php";
 
         RequestQueue requestQueue = Volley.newRequestQueue(context);
-        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, urlGetTypeFood, null, new Response.Listener<JSONArray>() {
+        JsonObjectRequest jsonObjectRequest=new JsonObjectRequest(Request.Method.GET,urlGetTypeFood, null, new Response.Listener<JSONObject>() {
             @Override
-            public void onResponse(JSONArray response) {
-                JSONObject jsonObject;
-                for (int i = 0; i < response.length(); i++) {
-                    try {
-                        jsonObject = response.getJSONObject(i);
-                        int id = jsonObject.getInt("id");
+            public void onResponse(JSONObject response) {
+                JSONArray jsonArray=null;
+                try {
+                    jsonArray=response.getJSONArray("Data");
+                    JSONObject jsonObject;
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        jsonObject = jsonArray.getJSONObject(i);
+                        int id = jsonObject.getInt("idloaimonan");
                         String tenLoaiMonAn = jsonObject.getString("tenloai");
                         String anh = jsonObject.getString("anh");
                         loaiMonAns.add(new LoaiMonAn(id, tenLoaiMonAn, anh));
-                    } catch (JSONException e) {
-                        e.printStackTrace();
                     }
+                    callBackTypeFood.onSuccessTypeFood(loaiMonAns);
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
-                callBackTypeFood.onSuccessTypeFood(loaiMonAns);
+
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.d("pdt", "onErrorResponse: " + error.toString());
                 callBackTypeFood.onFailTypeFood(error.toString());
             }
         });
-        requestQueue.add(jsonArrayRequest);
+
+        requestQueue.add(jsonObjectRequest);
     }
     public interface CallBackTypeFood {
         void onSuccessTypeFood(List<LoaiMonAn> callBackTypeFood);

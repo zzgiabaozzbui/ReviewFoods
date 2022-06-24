@@ -12,6 +12,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.edu.baogia.introducefood.util.UrlVolley;
@@ -59,31 +60,35 @@ public class DanhDau {
         if(idMonAn<0 || tenTaiKhoan==null){
             return;
         }
-        String urlThem= new idwifi().urlThang+"themDanhDau.php";
+        String urlThem= new idwifi().urlThang+"InsertDanhDau";
+        JSONObject praObject = new JSONObject();
+        try {
+            praObject.put("idFood",idMonAn+"" );
+            praObject.put("tentaikhoan",tenTaiKhoan);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         RequestQueue requestQueue= Volley.newRequestQueue(context);
-        StringRequest stringRequest=new StringRequest(Request.Method.POST, urlThem, new Response.Listener<String>() {
+        JsonObjectRequest jsonObjectRequest=new JsonObjectRequest(Request.Method.POST, urlThem, praObject, new Response.Listener<JSONObject>() {
             @Override
-            public void onResponse(String response) {
-                if (response.equalsIgnoreCase("Thêm thành công")){
+            public void onResponse(JSONObject response) {
+                try {
+                    String data=response.getString("Data");
+                    if(data.equalsIgnoreCase("true"))
                     Toast.makeText(context, "Bạn đã thêm sản phẩm vào danh sách yêu thích", Toast.LENGTH_SHORT).show();
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.d("error", "error thêm đánh dấu: "+error.toString());
+
             }
-        }){
-            @Nullable
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String,String> map=new HashMap<>();
-                map.put("idFood",idMonAn+"");
-                map.put("tentaikhoan",tenTaiKhoan);
-                return map;
-            }
-        };
-        requestQueue.add(stringRequest);
+        });
+
+
+        requestQueue.add(jsonObjectRequest);
     }
 
     public void xoaDanhdau(Context context) {
@@ -91,30 +96,36 @@ public class DanhDau {
                 return;
             }
         String urlXoa= new idwifi().urlThang+"xoaDanhDau.php";
+        JSONObject praObject = new JSONObject();
+        try {
+            praObject.put("idFood",idMonAn+"" );
+            praObject.put("tentaikhoan",tenTaiKhoan);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         RequestQueue requestQueue= Volley.newRequestQueue(context);
-        StringRequest stringRequest=new StringRequest(Request.Method.POST, urlXoa, new Response.Listener<String>() {
+        JsonObjectRequest jsonObjectRequest=new JsonObjectRequest(Request.Method.POST, urlXoa, praObject, new Response.Listener<JSONObject>() {
             @Override
-            public void onResponse(String response) {
-                if (response.equalsIgnoreCase("Xóa thành công")){
-                    Toast.makeText(context, "Bạn đã xóa sản phẩm trong danh sách yêu thích", Toast.LENGTH_SHORT).show();
+            public void onResponse(JSONObject response) {
+                try {
+                    if(response.getString("Data").equalsIgnoreCase("true")){
+                        Toast.makeText(context, "Bạn đã xóa sản phẩm vào danh sách yêu thích", Toast.LENGTH_SHORT).show();
+
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.d("error", "error xóa đánh dấu: "+error.toString());
+
             }
-        }){
-            @Nullable
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String,String> map=new HashMap<>();
-                map.put("idFood",idMonAn+"");
-                map.put("tentaikhoan",tenTaiKhoan);
-                return map;
-            }
-        };
-        requestQueue.add(stringRequest);
+        });
+
+
+
+        requestQueue.add(jsonObjectRequest);
     }
     public void getFoodDanhDau(CallBackGetFoodDanhDau callBackGetFoodDanhDau,Context context){
         List<MonAn> danhDauList = new ArrayList<>();
@@ -158,40 +169,42 @@ public class DanhDau {
     public void getCheckedFood(CallBackCheckedFood callBackCheckedFood, Context context){
         List<DanhDau> danhDauList = new ArrayList<>();
 
-        String urlGetCheckedFood = new idwifi().urlThang + "getCheckedDanhDau.php";
+        String urlGetCheckedFood = new idwifi().urlThang + "LoadCheckedDanhDau";
+        JSONObject praObject = new JSONObject();
+        try {
+            praObject.put("idFood",idMonAn+"" );
+            praObject.put("tentaikhoan",tenTaiKhoan);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         RequestQueue requestQueue = Volley.newRequestQueue(context);
-        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, urlGetCheckedFood, null, new Response.Listener<JSONArray>() {
+        JsonObjectRequest jsonObjectRequest=new JsonObjectRequest(Request.Method.GET, urlGetCheckedFood, praObject, new Response.Listener<JSONObject>() {
             @Override
-            public void onResponse(JSONArray response) {
-                JSONObject jsonObject;
-                for (int i = 0; i <= response.length(); i++) {
-                    try {
-                        jsonObject = response.getJSONObject(i);
+            public void onResponse(JSONObject response) {
+                JSONArray jsonArray=null;
+                try {
+                    jsonArray=response.getJSONArray("Data");
+                    JSONObject jsonObject;
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        jsonObject = jsonArray.getJSONObject(i);
                         int id = jsonObject.getInt("idmonan");
-                        String tenTaiKhoan =jsonObject.getString("tentaikhoan");
-                        danhDauList.add(new DanhDau(id,tenTaiKhoan));
-                    } catch (JSONException e) {
-                        e.printStackTrace();
+                        String tenTaiKhoan = jsonObject.getString("tentaikhoan");
+                        danhDauList.add(new DanhDau(id, tenTaiKhoan));
                     }
+                    callBackCheckedFood.onSuccessCheckedFood(danhDauList);
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
-                callBackCheckedFood.onSuccessCheckedFood(danhDauList);
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.d("pdt", "onErrorResponse: " + error.toString());
                 callBackCheckedFood.onErrorCheckedFood(error.toString());
             }
-        }){
-            @Nullable
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String,String> map=new HashMap<>();
-                map.put("tentaikhoan",tenTaiKhoan);
-                return map;
-            }
-        };
-        requestQueue.add(jsonArrayRequest);
+        });
+
+
+        requestQueue.add(jsonObjectRequest);
     }
     public interface CallBackCheckedFood{
         void onSuccessCheckedFood(List<DanhDau> danhDauList);

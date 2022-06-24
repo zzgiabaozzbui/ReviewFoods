@@ -17,10 +17,10 @@ import org.json.JSONObject;
 
 public class idwifi {
 
-    public static String ipWifi = "192.168.43.61";
+    public static String ipWifi = "192.168.0.106";
 
 
-    public String urlThang="http://"+ipWifi+"/ReviewFoods/service/thang/";
+    public String urlThang="http://"+ipWifi+"/api/Dictionary/";
     public String urlNinh="http://"+ipWifi+"/ReviewFoods/service/ninh/";
     public  void getnamecate(TextView txt, int id1, Context context){
         RequestQueue requestQueue = Volley.newRequestQueue(context);

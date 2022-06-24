@@ -14,6 +14,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.edu.baogia.introducefood.util.UrlVolley;
@@ -121,15 +122,23 @@ public class NguoiDung {
     public void getNguoiDung(Context context,CallBackHoSo callBackHoSo,String tenTK){
         NguoiDung nguoiDung=new NguoiDung();
 
-        String urlGetTypeFood = new idwifi().urlThang + "getHoSo.php";
+        String urlGetHoso = new idwifi().urlThang + "LoadHoSo";
+        JSONObject praObject = new JSONObject();
+        try {
+
+            praObject.put("tentaikhoan",tenTK);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         RequestQueue requestQueue = Volley.newRequestQueue(context);
-        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.POST, urlGetTypeFood, null, new Response.Listener<JSONArray>() {
+        JsonObjectRequest jsonObjectRequest=new JsonObjectRequest(Request.Method.POST, urlGetHoso, praObject, new Response.Listener<JSONObject>() {
             @Override
-            public void onResponse(JSONArray response) {
-                JSONObject jsonObject;
-                for (int i = 0; i < response.length(); i++) {
-                    try {
-                        jsonObject = response.getJSONObject(i);
+            public void onResponse(JSONObject response) {
+                try {
+                    JSONObject jsonObject;
+                    JSONArray jsonArray=response.getJSONArray("Data");
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        jsonObject = jsonArray.getJSONObject(i);
                         nguoiDung.setId(jsonObject.getInt("id"));
                         nguoiDung.setTenDayDu(jsonObject.getString("tendaydu"));
                         nguoiDung.setAnhDaiDien(jsonObject.getString("anhdaidien"));
@@ -138,63 +147,57 @@ public class NguoiDung {
                         nguoiDung.setEmail(jsonObject.getString("email"));
                         nguoiDung.setGioiTinh(jsonObject.getInt("gioitinh"));
                         nguoiDung.setSdt(jsonObject.getString("sdt"));
-                    } catch (JSONException e) {
-                        e.printStackTrace();
                     }
+                    callBackHoSo.onSuccessHoSo(nguoiDung);
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
-                callBackHoSo.onSuccessHoSo(nguoiDung);
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.d("pdt", "onErrorResponse: " + error.toString());
                 callBackHoSo.onErrorHoSo(error.toString());
             }
-        }){
-            @Nullable
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String,String> map=new HashMap<>();
-                map.put("tentaikhoan",tenTK);
-                return map;
-            }
-        };
-        requestQueue.add(jsonArrayRequest);
+        });
+
+
+        requestQueue.add(jsonObjectRequest);
     }
     public void updateHoSo(Context context, NguoiDung nd, Bitmap isCheckBitMap){
-        String urlUpdate= new idwifi().urlThang+"updateHoSo.php";
+        String urlUpdate= new idwifi().urlThang+"updateHoSo";
         RequestQueue requestQueue= Volley.newRequestQueue(context);
-        StringRequest stringRequest=new StringRequest(Request.Method.POST, urlUpdate, new Response.Listener<String>() {
+        JSONObject praObject = new JSONObject();
+        try {
+            praObject.put("id",nd.getId()+"");
+            praObject.put("tendaydu",nd.getTenDayDu());
+
+            praObject.put("ngaysinh",nd.getNgaySinh());
+            praObject.put("email",nd.getEmail());
+
+            praObject.put("gioitinh",nd.getGioiTinh()+"");
+            praObject.put("sdt",nd.getSdt());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        JsonObjectRequest jsonObjectRequest=new JsonObjectRequest(Request.Method.POST, urlUpdate, praObject, new Response.Listener<JSONObject>() {
             @Override
-            public void onResponse(String response) {
-                if (response.equalsIgnoreCase("Sửa thành công")){
-                    Toast.makeText(context, "Bạn đã sửa thông tin thành công", Toast.LENGTH_SHORT).show();
+            public void onResponse(JSONObject response) {
+                try {
+                    String data=response.getString("Data");
+                    if(data.equalsIgnoreCase("true"))
+                        Toast.makeText(context, "Bạn đã sửa thông tin thành công", Toast.LENGTH_SHORT).show();
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.d("error", "error sửa thông tin: "+error.toString());
-            }
-        }){
-            @Nullable
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String,String> map=new HashMap<>();
-                map.put("id",nd.getId()+"");
-                map.put("tendaydu",nd.getTenDayDu());
 
-                map.put("ngaysinh",nd.getNgaySinh());
-                map.put("email",nd.getEmail());
-                if(isCheckBitMap!=null){
-                    map.put("anhdaidien",imageToString(isCheckBitMap));
-                }
-                map.put("gioitinh",nd.getGioiTinh()+"");
-                map.put("sdt",nd.getSdt());
-                return map;
             }
-        };
-        requestQueue.add(stringRequest);
+        });
+
+        requestQueue.add(jsonObjectRequest);
     }
 
     private String imageToString(Bitmap bm){
