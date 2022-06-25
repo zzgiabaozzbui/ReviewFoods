@@ -93,7 +93,7 @@ public class AccountModel {
                     @Override
                     public void onResponse(JSONObject response) {
                         try {
-                            JSONObject object = (JSONObject) response.getJSONArray("Data").get(0);
+                            JSONObject object = new JSONArray(response).getJSONObject(0);
                             accountRemember.setUsername(object.getString("tentaikhoan"));
                             accountRemember.setPassword(object.getString("matkhau"));
                             accountRemember.setIduser(object.getInt("idnguoidung"));
@@ -181,14 +181,21 @@ public class AccountModel {
     //Xử lý tạo dữ liệu
     public void registerAcc(AccountRemember account){
         RequestQueue requestQueue = Volley.newRequestQueue(fragment.getContext());
-        String url = "http://" + ipWifi + "/ReviewFoods/service/bao/registerAcc.php";
+        String url = urlAPI+"RegisterAcc";
 
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
-                new Response.Listener<String>() {
+        JSONObject jsonRequest = new JSONObject();
+        try {
+            jsonRequest.put("username", ""+account.getUsername());
+            jsonRequest.put("pass", ""+account.getPassword());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        JsonObjectRequest jsonObjectRequest=new JsonObjectRequest(Request.Method.POST, url, jsonRequest,
+                new Response.Listener<JSONObject>() {
                     @Override
-                    public void onResponse(String response) {
+                    public void onResponse(JSONObject response) {
                         try {
-                            JSONObject object = new JSONArray(response).getJSONObject(0);
+                            JSONObject object = response.getJSONObject("Data");
                             account.setUsername(object.getString("tentaikhoan"));
                             account.setPassword(object.getString("matkhau"));
                             account.setIduser(object.getInt("idnguoidung"));
@@ -202,30 +209,29 @@ public class AccountModel {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                     }
-                }){
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                HashMap<String, String> params = new HashMap<String, String>();
-                params.put("username", ""+account.getUsername());
-                params.put("pass", ""+account.getPassword());
-                return params;
-            }
-        };
+                });
 
-        requestQueue.add(stringRequest);
+        requestQueue.add(jsonObjectRequest);
     }
 
     //Xử lý tạo dữ liệu
     public void registerAccContext(AccountRemember account){
-        RequestQueue requestQueue = Volley.newRequestQueue(context);
-        String url = "http://" + ipWifi + "/ReviewFoods/service/bao/registerAcc.php";
+        RequestQueue requestQueue = Volley.newRequestQueue(fragment.getContext());
+        String url = urlAPI+"RegisterAcc";
 
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
-                new Response.Listener<String>() {
+        JSONObject jsonRequest = new JSONObject();
+        try {
+            jsonRequest.put("username", ""+account.getUsername());
+            jsonRequest.put("pass", ""+account.getPassword());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        JsonObjectRequest jsonObjectRequest=new JsonObjectRequest(Request.Method.POST, url, jsonRequest,
+                new Response.Listener<JSONObject>() {
                     @Override
-                    public void onResponse(String response) {
+                    public void onResponse(JSONObject response) {
                         try {
-                            JSONObject object = new JSONArray(response).getJSONObject(0);
+                            JSONObject object = response.getJSONObject("Data");
                             account.setUsername(object.getString("tentaikhoan"));
                             account.setPassword(object.getString("matkhau"));
                             account.setIduser(object.getInt("idnguoidung"));
@@ -239,17 +245,9 @@ public class AccountModel {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                     }
-                }){
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                HashMap<String, String> params = new HashMap<String, String>();
-                params.put("username", ""+account.getUsername());
-                params.put("pass", ""+account.getPassword());
-                return params;
-            }
-        };
+                });
 
-        requestQueue.add(stringRequest);
+        requestQueue.add(jsonObjectRequest);
     }
 
     //Xử lý tạo dữ liệu
