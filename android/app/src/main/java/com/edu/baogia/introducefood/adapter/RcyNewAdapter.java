@@ -1,5 +1,7 @@
 package com.edu.baogia.introducefood.adapter;
 
+import static com.edu.baogia.introducefood.util.idwifi.urlImage;
+
 import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -43,7 +45,7 @@ public class RcyNewAdapter extends RecyclerView.Adapter<RcyNewAdapter.ViewHolder
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
-        Picasso.get().load(new idwifi().urlThang+list.get(position).getImg()).into(holder.imgNew);
+        Picasso.get().load(urlImage+list.get(position).getImg()).into(holder.imgNew);
 
         holder.setItemClickListener(new ItemClickListener() {
             @Override
@@ -63,8 +65,8 @@ public class RcyNewAdapter extends RecyclerView.Adapter<RcyNewAdapter.ViewHolder
                     homeFragment.getTxtidNew().setText(""+list.get(position).getId());
                     Log.d("AAA", "onClick: "+list.get(position).getCate());
 
-                    Picasso.get().load(new idwifi().urlThang+list.get(position).getImg()).into(homeFragment.getImgNew());
-                    Picasso.get().load(new idwifi().urlThang+list.get(position).getImg()).into(homeFragment.getImageAlpha());
+                    Picasso.get().load(urlImage+list.get(position).getImg()).into(homeFragment.getImgNew());
+                    Picasso.get().load(urlImage+list.get(position).getImg()).into(homeFragment.getImageAlpha());
 
                 }
 

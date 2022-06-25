@@ -2,6 +2,7 @@ package com.edu.baogia.introducefood.model.mySQL;
 
 
 import static com.edu.baogia.introducefood.util.idwifi.ipWifi;
+import static com.edu.baogia.introducefood.util.idwifi.urlAPI;
 
 import android.content.Context;
 import android.util.Log;
@@ -13,6 +14,7 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.edu.baogia.introducefood.model.object.Account;
@@ -41,14 +43,19 @@ public class AccModel {
     //Xử lý tạo dữ liệu
     public void getAcc(String account){
         RequestQueue requestQueue = Volley.newRequestQueue(fragment.getContext());
-        String url = "http://" + ipWifi + "/ReviewFoods/service/bao/selectUser.php";
-
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
-                new Response.Listener<String>() {
+        String url = urlAPI+"GetUserID";
+        JSONObject jsonRequest = new JSONObject();
+        try {
+            jsonRequest.put("username", ""+account);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        JsonObjectRequest jsonObjectRequest=new JsonObjectRequest(Request.Method.POST, url, jsonRequest,
+                new Response.Listener<JSONObject>() {
                     @Override
-                    public void onResponse(String response) {
+                    public void onResponse(JSONObject response) {
                         try {
-                            JSONObject object = new JSONArray(response).getJSONObject(0);
+                            JSONObject object = response.getJSONArray("Data").getJSONObject(0);
 //                            Log.d("AAA", "onResponse: "+object.getString("id"));
 //                            Log.d("AAA", "onResponse: "+object.getString("tenDayDu"));
 //                            Log.d("AAA", "onResponse: "+object.getString("anhDaiDien"));
@@ -57,11 +64,11 @@ public class AccModel {
 //                            Log.d("AAA", "onResponse: "+object.getString("gioiTinh"));
 //                            Log.d("AAA", "onResponse: "+object.getString("sdt"));
                             Users users =new Users(object.getString("id"),
-                                                    object.getString("tenDayDu"),
-                                                    object.getString("anhDaiDien"),
-                                                    object.getString("ngaySinh"),
+                                                    object.getString("tendaydu"),
+                                                    object.getString("anhdaidien"),
+                                                    object.getString("ngaysinh"),
                                                     object.getString("email"),
-                                                    object.getInt("gioiTinh"),
+                                                    object.getInt("gioitinh"),
                                                     object.getString("sdt")
                                                     );
                             listener.getAccount(users);
@@ -73,18 +80,11 @@ public class AccModel {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Log.d("AAA", "onResponse: "+error.toString());
-                    }
-                }){
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                HashMap<String, String> params = new HashMap<String, String>();
-                params.put("username", ""+account);
-                return params;
-            }
-        };
+                        Log.d("AAA", "onResponse: " + error.toString());
+                }}
+            );
 
-        requestQueue.add(stringRequest);
+        requestQueue.add(jsonObjectRequest);
     }
 
 }

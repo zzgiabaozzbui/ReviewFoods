@@ -1,5 +1,7 @@
 package com.edu.baogia.introducefood.adapter;
 
+import static com.edu.baogia.introducefood.util.idwifi.urlImage;
+
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
@@ -48,7 +50,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
         holder.txtCate.setText("Loại: "+book.getCate());
         holder.txtDes.setText("Mô tả: "+book.getDes());
 
-        Picasso.get().load(new idwifi().urlThang+""+book.getImg()).into(holder.imgAnh);
+        Picasso.get().load(urlImage+""+book.getImg()).into(holder.imgAnh);
 
         holder.setItemClickListener(new ItemClickListener() {
             @Override

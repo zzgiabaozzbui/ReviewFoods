@@ -1,6 +1,7 @@
 package com.edu.baogia.introducefood.adapter;
 
 import static com.edu.baogia.introducefood.util.idwifi.ipWifi;
+import static com.edu.baogia.introducefood.util.idwifi.urlImage;
 
 import android.content.Context;
 import android.content.Intent;
@@ -54,7 +55,7 @@ public class CateAdapter extends RecyclerView.Adapter<CateAdapter.ViewHolder> {
         if (book.getImage().equals("null")){
 
         }else {
-            Picasso.get().load(new idwifi().urlThang+book.getImage()).into(holder.imgcAnh);
+            Picasso.get().load(urlImage+book.getImage()).into(holder.imgcAnh);
         }
 
         holder.setItemClickListener(new ItemClickListener() {

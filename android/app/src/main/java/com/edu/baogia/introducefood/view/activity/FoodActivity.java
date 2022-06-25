@@ -1,11 +1,14 @@
 package com.edu.baogia.introducefood.view.activity;
 
+import static com.edu.baogia.introducefood.util.idwifi.urlImage;
+
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
@@ -220,12 +223,13 @@ public class FoodActivity extends AppCompatActivity implements FoodView{
 //        txtCate.setText(""+food.getCate());
         new idwifi().getnamecate(txtCate,food.getCate(),this);
 
-        Picasso.get().load(new idwifi().urlThang+food.getImg()).into(imgAnh);
-        Picasso.get().load(new idwifi().urlThang+food.getImg()).into(imgAnh2);
+        Picasso.get().load(urlImage+food.getImg()).into(imgAnh);
+        Picasso.get().load(urlImage+food.getImg()).into(imgAnh2);
     }
 
     @Override
     public void setRate(Float rate, String countRate) {
+        Log.d("AAA", "setRate232: "+rate);
         ratingFood.setRating(rate);
         txtRate.setText(String.valueOf(rate));
         txtCountRate.setText("("+countRate+" đánh giá)");

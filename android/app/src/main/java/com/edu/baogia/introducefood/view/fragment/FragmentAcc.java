@@ -1,6 +1,7 @@
 package com.edu.baogia.introducefood.view.fragment;
 
 import static com.edu.baogia.introducefood.util.idwifi.ipWifi;
+import static com.edu.baogia.introducefood.util.idwifi.urlImage;
 import static com.facebook.FacebookSdk.getApplicationContext;
 
 import android.content.Intent;
@@ -173,8 +174,8 @@ public class FragmentAcc extends Fragment  implements FragmentAccView{
             imgTop.setImageResource(R.drawable.food);
             imgBottom.setImageResource(R.drawable.food);
         }else {
-            Picasso.get().load(new idwifi().urlThang+users.getAnhDaiDien()).into(imgTop);
-            Picasso.get().load(new idwifi().urlThang+users.getAnhDaiDien()).into(imgBottom);
+            Picasso.get().load(urlImage+users.getAnhDaiDien()).into(imgTop);
+            Picasso.get().load(urlImage+users.getAnhDaiDien()).into(imgBottom);
         }
         if(users.getTenDayDu()==null||users.getTenDayDu().equals("null")){
 

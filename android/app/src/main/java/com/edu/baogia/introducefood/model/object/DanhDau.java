@@ -130,8 +130,6 @@ public class DanhDau {
     }
     public void getFoodDanhDau(CallBackGetFoodDanhDau callBackGetFoodDanhDau,Context context){
         List<MonAn> danhDauList = new ArrayList<>();
-
-
         String urlGetDanhDau= new idwifi().urlThang+"LoadAllDanhDau";
         JSONObject praObject = new JSONObject();
         try {

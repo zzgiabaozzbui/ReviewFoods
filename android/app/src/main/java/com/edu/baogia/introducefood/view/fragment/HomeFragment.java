@@ -1,6 +1,7 @@
 package com.edu.baogia.introducefood.view.fragment;
 
 import static com.edu.baogia.introducefood.util.idwifi.ipWifi;
+import static com.edu.baogia.introducefood.util.idwifi.urlImage;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -171,48 +172,13 @@ public class HomeFragment extends Fragment implements HomeFragmentView{
         rcyAdapter.notifyDataSetChanged();
         txtidNew.setText(""+listDemo.get(0).getId());
 //        txtCateNew.setText(""+listDemo.get(0).getCate());
-        getnamecate(txtCateNew,listDemo.get(0).getCate());
+        new idwifi().getnamecate(txtCateNew,listDemo.get(0).getCate(),getContext());
         txtNameNew.setText(""+listDemo.get(0).getName());
         txtDesNew.setText(""+listDemo.get(0).getDes());
-        Picasso.get().load(new idwifi().urlThang+listDemo.get(0).getImg()).into(imgNew);
-        Picasso.get().load(new idwifi().urlThang+listDemo.get(0).getImg()).into(imageAlpha);
+        Picasso.get().load(urlImage+listDemo.get(0).getImg()).into(imgNew);
+        Picasso.get().load(urlImage+listDemo.get(0).getImg()).into(imageAlpha);
     }
 
-    public  void getnamecate(TextView txt,int id1){
-        RequestQueue requestQueue = Volley.newRequestQueue(getContext());
-        String url = "http://" + ipWifi + "/ReviewFoods/service/bao/selectCate.php";
-        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null,
-                new Response.Listener<JSONArray>() {
-                    @Override
-                    public void onResponse(JSONArray response) {
-                        try {
-                            JSONObject object;
-                            LoaiMonAn us;
-                            int id;
-                            String tenloai;
-                            String anh;
-                            for (int i = 0; i < response.length(); i++) {
-                                object = response.getJSONObject(i);
-                                id = object.getInt("id");
-                                if(id == id1){
-                                    txt.setText(object.getString("tenloai"));
-                                }
-
-                            }
-
-                        } catch (Exception e) {
-                        }
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.d("AAA", "onErrorResponse65: "+error.toString());
-
-                    }
-                });
-        requestQueue.add(jsonArrayRequest);
-    }
 
     @Override
     public void listRcy(List<Food> listDemo) {

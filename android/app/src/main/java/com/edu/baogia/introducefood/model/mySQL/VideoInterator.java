@@ -1,6 +1,7 @@
 package com.edu.baogia.introducefood.model.mySQL;
 
 import static com.edu.baogia.introducefood.util.idwifi.ipWifi;
+import static com.edu.baogia.introducefood.util.idwifi.urlAPI;
 
 import android.content.Context;
 import android.util.Log;
@@ -14,11 +15,13 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.edu.baogia.introducefood.model.object.Food;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -38,18 +41,24 @@ public class VideoInterator {
     }
 
     public void getVideoFood(int id) {
-        List<Food> listFood = new ArrayList<>();
         RequestQueue requestQueue = Volley.newRequestQueue(fragment.getContext());
-        String url = "http://" + ipWifi + "/ReviewFoods/service/bao/selectFood.php";
-        StringRequest jsonArrayRequest = new StringRequest(Request.Method.POST, url,
-                new Response.Listener<String>() {
+        String url =urlAPI+ "GetFoodID";
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("id", ""+id);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        JsonObjectRequest jsonObjectRequest=new JsonObjectRequest(Request.Method.POST, url, jsonObject,
+                new Response.Listener<JSONObject>() {
                     @Override
-                    public void onResponse(String response) {
+                    public void onResponse(JSONObject response) {
                         try {
-                            JSONObject object = new JSONObject(response);
-                            String des = object.getString("des");
+                            JSONObject object = (JSONObject) response.getJSONArray("Data").get(0);
                             String video;
+                            String des;
                             video = object.getString("video");
+                            des = object.getString("mota");
 
                             listener.onLoadVideo(video,des);
                         } catch (Exception e) {
@@ -59,32 +68,30 @@ public class VideoInterator {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Log.d("AAA", "onErrorResponse65: " + error.toString());
+                        Log.d("AAA", "onErrorResponsevideo71: "+error.toString());
 
                     }
-                }) {
-            @Nullable
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("id", "" + id);
-                return params;
-            }
-        };
+                });
 
-        requestQueue.add(jsonArrayRequest);
+        requestQueue.add(jsonObjectRequest);
+
     }
 
     public void getDesFood(int id) {
-        List<Food> listFood = new ArrayList<>();
         RequestQueue requestQueue = Volley.newRequestQueue(fragment.getContext());
-        String url = "http://" + ipWifi + "/ReviewFoods/service/bao/selectFood.php";
-        StringRequest jsonArrayRequest = new StringRequest(Request.Method.POST, url,
-                new Response.Listener<String>() {
+        String url =urlAPI+ "GetFoodID";
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("id", ""+id);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        JsonObjectRequest jsonObjectRequest=new JsonObjectRequest(Request.Method.POST, url, jsonObject,
+                new Response.Listener<JSONObject>() {
                     @Override
-                    public void onResponse(String response) {
+                    public void onResponse(JSONObject response) {
                         try {
-                            JSONObject object = new JSONObject(response);
+                            JSONObject object = (JSONObject) response.getJSONArray("Data").get(0);
                             String name = "";
                             Food us = null;
                             int id;
@@ -97,15 +104,15 @@ public class VideoInterator {
                             int cateid;
 
                             id = object.getInt("id");
-                            name = object.getString("name");
-                            avatar = object.getString("img");
+                            name = object.getString("tenmonan");
+                            avatar = object.getString("anh");
                             video = object.getString("video");
-                            des = object.getString("des");
-                            permiss = object.getString("permiss");
-                            location = object.getString("location");
-                            cateid = object.getInt("idcate");
+                            des = object.getString("mota");
+                            permiss = object.getString("cachlam");
+                            location = object.getString("noiban");
+                            cateid = object.getInt("idloaimonan");
 
-                            us = new Food(id, name, avatar, video, des, permiss, location, cateid);
+                            us = new Food(id, name, avatar,video, des,permiss,location, cateid);
 
 
                             listener.onLoadDesFoodSuccess(us);
@@ -116,32 +123,29 @@ public class VideoInterator {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Log.d("AAA", "onErrorResponse65: " + error.toString());
-
-
+                        Log.d("AAA", "onErrorResponsevideo126: "+error.toString());
                     }
-                }) {
-            @Nullable
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("id", "" + id);
-                return params;
-            }
-        };
-        requestQueue.add(jsonArrayRequest);
+                });
+
+        requestQueue.add(jsonObjectRequest);
+
     }
 
     public void getFood(int id){
-        List<Food> listFood = new ArrayList<>();
         RequestQueue requestQueue = Volley.newRequestQueue(context);
-        String url = "http://" + ipWifi + "/ReviewFoods/service/bao/selectFood.php";
-        StringRequest jsonArrayRequest = new StringRequest(Request.Method.POST,url,
-                new Response.Listener<String>() {
+        String url =urlAPI+ "GetFoodID";
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("id", ""+id);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        JsonObjectRequest jsonObjectRequest=new JsonObjectRequest(Request.Method.POST, url, jsonObject,
+                new Response.Listener<JSONObject>() {
                     @Override
-                    public void onResponse(String response) {
+                    public void onResponse(JSONObject response) {
                         try {
-                            JSONObject object = new JSONObject(response);
+                            JSONObject object = (JSONObject) response.getJSONArray("Data").get(0);
                             String name = "";
                             Food us = null;
                             int id;
@@ -154,13 +158,13 @@ public class VideoInterator {
                             int cateid;
 
                             id = object.getInt("id");
-                            name = object.getString("name");
-                            avatar = object.getString("img");
+                            name = object.getString("tenmonan");
+                            avatar = object.getString("anh");
                             video = object.getString("video");
-                            des = object.getString("des");
-                            permiss = object.getString("permiss");
-                            location = object.getString("location");
-                            cateid = object.getInt("idcate");
+                            des = object.getString("mota");
+                            permiss = object.getString("cachlam");
+                            location = object.getString("noiban");
+                            cateid = object.getInt("idloaimonan");
 
                             us = new Food(id, name, avatar,video, des,permiss,location, cateid);
 
@@ -173,20 +177,11 @@ public class VideoInterator {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Log.d("AAA", "onErrorResponse65: "+error.toString());
-
+                        Log.d("AAA", "onErrorResponsevideo180: "+error.toString());
 
                     }
-                }){
-            @Nullable
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String,String> params = new HashMap<String, String>();
-                params.put("id", ""+id);
-                return params;
-            }
-        };
+                });
 
-        requestQueue.add(jsonArrayRequest);
+        requestQueue.add(jsonObjectRequest);
     }
 }

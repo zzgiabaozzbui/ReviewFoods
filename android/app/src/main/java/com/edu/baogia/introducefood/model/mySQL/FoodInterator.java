@@ -1,6 +1,7 @@
 package com.edu.baogia.introducefood.model.mySQL;
 
 import static com.edu.baogia.introducefood.util.idwifi.ipWifi;
+import static com.edu.baogia.introducefood.util.idwifi.urlAPI;
 
 import android.content.Context;
 import android.util.Log;
@@ -15,6 +16,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.edu.baogia.introducefood.model.object.Food;
@@ -22,6 +24,7 @@ import com.edu.baogia.introducefood.model.object.LoaiMonAn;
 import com.edu.baogia.introducefood.util.idwifi;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -48,12 +51,13 @@ public class FoodInterator {
     public void createListData(){
         List<Food> listFood = new ArrayList<>();
         RequestQueue requestQueue = Volley.newRequestQueue(fragment.getContext());
-        String url = "http://" + ipWifi + "/ReviewFoods/service/bao/select.php";
-        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null,
-                new Response.Listener<JSONArray>() {
+        String url = urlAPI+"LoadMonAn";
+        JsonObjectRequest jsonObjectRequest=new JsonObjectRequest(Request.Method.GET, url, null,
+                new Response.Listener<JSONObject>() {
                     @Override
-                    public void onResponse(JSONArray response) {
+                    public void onResponse(JSONObject response) {
                         try {
+                            JSONArray jsonArray = response.getJSONArray("Data");
                             JSONObject object;
                             String name = "";
                             Food us;
@@ -65,16 +69,16 @@ public class FoodInterator {
                             String permiss;
                             String location;
                             int cateid;
-                            for (int i = 0; i < response.length(); i++) {
-                                object = response.getJSONObject(i);
+                            for (int i = 0; i < jsonArray.length(); i++) {
+                                object = jsonArray.getJSONObject(i);
                                 id = object.getInt("id");
-                                name = object.getString("name");
-                                avatar = object.getString("img");
+                                name = object.getString("tenmonan");
+                                avatar = object.getString("anh");
                                 video = object.getString("video");
-                                des = object.getString("des");
-                                permiss = object.getString("permiss");
-                                location = object.getString("location");
-                                cateid = object.getInt("idcate");
+                                des = object.getString("mota");
+                                permiss = object.getString("cachlam");
+                                location = object.getString("noiban");
+                                cateid = object.getInt("idloaimonan");
 
                                 us = new Food(id, name, avatar,video, des,permiss,location, cateid);
                                 listFood.add(us);
@@ -88,33 +92,34 @@ public class FoodInterator {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Log.d("AAA", "onErrorResponse65: "+error.toString());
+                        Log.d("AAA", "onErrorResponse95: "+error.toString());
 
                         listener.onLoadFoodFailure(error.toString());
                     }
                 });
 
-        requestQueue.add(jsonArrayRequest);
+        requestQueue.add(jsonObjectRequest);
     }
 
     //Xử lý tạo dữ liệu
     public void createListCate(){
         List<LoaiMonAn> listFood = new ArrayList<>();
         RequestQueue requestQueue = Volley.newRequestQueue(fragment.getContext());
-        String url = "http://" + ipWifi + "/ReviewFoods/service/bao/selectCate.php";
-        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null,
-                new Response.Listener<JSONArray>() {
+        String url = urlAPI+"LoadLoaiMonAn";
+        JsonObjectRequest jsonObjectRequest=new JsonObjectRequest(Request.Method.GET, url, null,
+                new Response.Listener<JSONObject>() {
                     @Override
-                    public void onResponse(JSONArray response) {
+                    public void onResponse(JSONObject response) {
                         try {
+                            JSONArray jsonArray = response.getJSONArray("Data");
                             JSONObject object;
                             LoaiMonAn us;
                             int id;
                             String tenloai;
                             String anh;
-                            for (int i = 0; i < response.length(); i++) {
-                                object = response.getJSONObject(i);
-                                id = object.getInt("id");
+                            for (int i = 0; i < jsonArray.length(); i++) {
+                                object = jsonArray.getJSONObject(i);
+                                id = object.getInt("idloaimonan");
                                 tenloai = object.getString("tenloai");
                                 anh = object.getString("anh");
 
@@ -130,24 +135,29 @@ public class FoodInterator {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Log.d("AAA", "onErrorResponse65: "+error.toString());
+                        Log.d("AAA", "onErrorResponse138: "+error.toString());
 
                         listener.onLoadFoodFailure(error.toString());
                     }
                 });
 
-        requestQueue.add(jsonArrayRequest);
+        requestQueue.add(jsonObjectRequest);
     }
     public void getFood(int id){
-        List<Food> listFood = new ArrayList<>();
         RequestQueue requestQueue = Volley.newRequestQueue(context);
-        String url = "http://" + ipWifi + "/ReviewFoods/service/bao/selectFood.php";
-        StringRequest jsonArrayRequest = new StringRequest(Request.Method.POST,url,
-                new Response.Listener<String>() {
+        String url =urlAPI+ "GetFoodID";
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("id", ""+id);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        JsonObjectRequest jsonObjectRequest=new JsonObjectRequest(Request.Method.POST, url, jsonObject,
+                new Response.Listener<JSONObject>() {
                     @Override
-                    public void onResponse(String response) {
+                    public void onResponse(JSONObject response) {
                         try {
-                            JSONObject object = new JSONObject(response);
+                            JSONObject object = (JSONObject) response.getJSONArray("Data").get(0);
                             String name = "";
                             Food us = null;
                             int id;
@@ -160,13 +170,13 @@ public class FoodInterator {
                             int cateid;
 
                             id = object.getInt("id");
-                            name = object.getString("name");
-                            avatar = object.getString("img");
+                            name = object.getString("tenmonan");
+                            avatar = object.getString("anh");
                             video = object.getString("video");
-                            des = object.getString("des");
-                            permiss = object.getString("permiss");
-                            location = object.getString("location");
-                            cateid = object.getInt("idcate");
+                            des = object.getString("mota");
+                            permiss = object.getString("cachlam");
+                            location = object.getString("noiban");
+                            cateid = object.getInt("idloaimonan");
 
                             us = new Food(id, name, avatar,video, des,permiss,location, cateid);
 
@@ -179,35 +189,41 @@ public class FoodInterator {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Log.d("AAA", "onErrorResponse65: "+error.toString());
+                        Log.d("AAA", "onErrorResponse192: "+error.toString());
 
                         listener.onLoadFoodFailure(error.toString());
                     }
-                }){
-                @Nullable
-                @Override
-                protected Map<String, String> getParams() throws AuthFailureError {
-                    Map<String,String> params = new HashMap<String, String>();
-                    params.put("id", ""+id);
-                    return params;
-                }
-            };
+                });
 
-        requestQueue.add(jsonArrayRequest);
+        requestQueue.add(jsonObjectRequest);
     }
 
     public void getRate(int id){
         RequestQueue requestQueue = Volley.newRequestQueue(context);
-        String url = "http://" + ipWifi + "/ReviewFoods/service/bao/selectAllRate.php";
-        StringRequest jsonArrayRequest = new StringRequest(Request.Method.POST,url,
-                new Response.Listener<String>() {
+        String url = urlAPI+"GetAllRate";
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("id", ""+id);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        JsonObjectRequest jsonObjectRequest=new JsonObjectRequest(Request.Method.POST, url, jsonObject,
+                new Response.Listener<JSONObject>() {
                     @Override
-                    public void onResponse(String response) {
-                        try {
-                            JSONObject object = new JSONObject(response);
+                    public void onResponse(JSONObject response) {
 
-                            Float rate = Float.parseFloat(object.getString("rate"));
+                        try {
+                            JSONObject object = (JSONObject) response.getJSONArray("Data").get(0);
+
                             String count = object.getString("count");
+
+                            Float rate;
+                            if (count.equals("0")){
+                                rate = Float.parseFloat("5.0");
+                            }else {
+                                rate = Float.parseFloat(object.getString("rates"));
+                            }
+                            Log.d("AAA", "onResponsefood226: "+rate);
                             listener.onLoadRateSuccess(rate,count);
                         } catch (Exception e) {
                         }
@@ -216,32 +232,29 @@ public class FoodInterator {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Log.d("AAA", "onErrorResponse65: "+error.toString());
+                        Log.d("AAA", "onErrorResponse234: "+error.toString());
 
                         listener.onLoadFoodFailure(error.toString());
                     }
-                }){
-            @Nullable
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String,String> params = new HashMap<String, String>();
-                params.put("id", ""+id);
-                return params;
-            }
-        };
+                });
 
-        requestQueue.add(jsonArrayRequest);
+        requestQueue.add(jsonObjectRequest);
     }
     public void getDesFood(int id){
-        List<Food> listFood = new ArrayList<>();
         RequestQueue requestQueue = Volley.newRequestQueue(fragment.getContext());
-        String url = "http://" + ipWifi + "/ReviewFoods/service/bao/selectFood.php";
-        StringRequest jsonArrayRequest = new StringRequest(Request.Method.POST,url,
-                new Response.Listener<String>() {
+        String url =urlAPI+ "GetFoodID";
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("id", ""+id);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        JsonObjectRequest jsonObjectRequest=new JsonObjectRequest(Request.Method.POST, url, jsonObject,
+                new Response.Listener<JSONObject>() {
                     @Override
-                    public void onResponse(String response) {
+                    public void onResponse(JSONObject response) {
                         try {
-                            JSONObject object = new JSONObject(response);
+                            JSONObject object = (JSONObject) response.getJSONArray("Data").get(0);
                             String name = "";
                             Food us = null;
                             int id;
@@ -254,13 +267,13 @@ public class FoodInterator {
                             int cateid;
 
                             id = object.getInt("id");
-                            name = object.getString("name");
-                            avatar = object.getString("img");
+                            name = object.getString("tenmonan");
+                            avatar = object.getString("anh");
                             video = object.getString("video");
-                            des = object.getString("des");
-                            permiss = object.getString("permiss");
-                            location = object.getString("location");
-                            cateid = object.getInt("idcate");
+                            des = object.getString("mota");
+                            permiss = object.getString("cachlam");
+                            location = object.getString("noiban");
+                            cateid = object.getInt("idloaimonan");
 
                             us = new Food(id, name, avatar,video, des,permiss,location, cateid);
 
@@ -273,76 +286,85 @@ public class FoodInterator {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Log.d("AAA", "onErrorResponse65: "+error.toString());
+                        Log.d("AAA", "onErrorResponse288: "+error.toString());
 
                         listener.onLoadFoodFailure(error.toString());
                     }
-                }){
-            @Nullable
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String,String> params = new HashMap<String, String>();
-                params.put("id", ""+id);
-                return params;
-            }
-        };
+                });
 
-        requestQueue.add(jsonArrayRequest);
+        requestQueue.add(jsonObjectRequest);
+
     }
 
     public void insertDanhdau(int idMonAn,String tenTaiKhoan){
-        String urlThem= new idwifi().urlThang+"themDanhDau.php";
+        if(idMonAn<0 || tenTaiKhoan==null){
+            return;
+        }
+        String urlThem= new idwifi().urlThang+"InsertDanhDau";
+        JSONObject praObject = new JSONObject();
+        try {
+            praObject.put("idFood",idMonAn+"" );
+            praObject.put("tentaikhoan",tenTaiKhoan);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         RequestQueue requestQueue= Volley.newRequestQueue(context);
-        StringRequest stringRequest=new StringRequest(Request.Method.POST, urlThem, new Response.Listener<String>() {
+        JsonObjectRequest jsonObjectRequest=new JsonObjectRequest(Request.Method.POST, urlThem, praObject, new Response.Listener<JSONObject>() {
             @Override
-            public void onResponse(String response) {
-                if (response.equalsIgnoreCase("Thêm thành công")){
-                    Toast.makeText(context, "Bạn đã thêm sản phẩm vào danh sách yêu thích", Toast.LENGTH_SHORT).show();
+            public void onResponse(JSONObject response) {
+                try {
+                    String data=response.getString("Data");
+                    if(data.equalsIgnoreCase("true"))
+                        Toast.makeText(context, "Bạn đã thêm sản phẩm vào danh sách yêu thích", Toast.LENGTH_SHORT).show();
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.d("error", "error thêm đánh dấu: "+error.toString());
+
             }
-        }){
-            @Nullable
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String,String> map=new HashMap<>();
-                map.put("idFood",idMonAn+"");
-                map.put("tentaikhoan",tenTaiKhoan);
-                return map;
-            }
-        };
-        requestQueue.add(stringRequest);
+        });
+
+
+        requestQueue.add(jsonObjectRequest);
     }
 
     public void deleteDanhdau(int idMonAn,String tenTaiKhoan) {
-        String urlXoa= new idwifi().urlThang+"xoaDanhDau.php";
+        if(idMonAn<0 || tenTaiKhoan==null){
+            return;
+        }
+        String urlXoa= new idwifi().urlThang+"DeleteDanhDau";
+        JSONObject praObject = new JSONObject();
+        try {
+            praObject.put("idFood",idMonAn+"" );
+            praObject.put("tentaikhoan",tenTaiKhoan);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         RequestQueue requestQueue= Volley.newRequestQueue(context);
-        StringRequest stringRequest=new StringRequest(Request.Method.POST, urlXoa, new Response.Listener<String>() {
+        JsonObjectRequest jsonObjectRequest=new JsonObjectRequest(Request.Method.POST, urlXoa, praObject, new Response.Listener<JSONObject>() {
             @Override
-            public void onResponse(String response) {
-                if (response.equalsIgnoreCase("Xóa thành công")){
-                    Toast.makeText(context, "Bạn đã xóa sản phẩm trong danh sách yêu thích", Toast.LENGTH_SHORT).show();
+            public void onResponse(JSONObject response) {
+                try {
+                    if(response.getString("Data").equalsIgnoreCase("true")){
+                        Toast.makeText(context, "Bạn đã xóa sản phẩm vào danh sách yêu thích", Toast.LENGTH_SHORT).show();
+
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.d("error", "error xóa đánh dấu: "+error.toString());
+
             }
-        }){
-            @Nullable
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String,String> map=new HashMap<>();
-                map.put("idFood",idMonAn+"");
-                map.put("tentaikhoan",tenTaiKhoan);
-                return map;
-            }
-        };
-        requestQueue.add(stringRequest);
+        });
+
+
+
+        requestQueue.add(jsonObjectRequest);
     }
 }
