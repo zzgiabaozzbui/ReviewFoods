@@ -61,7 +61,7 @@ public class MonAnAdapter extends RecyclerView.Adapter<MonAnAdapter.MonAnViewHol
         if (monAn == null) {
             return;
         }
-        Picasso.get().load(new idwifi().urlThang+monAn.getAnh()).into(holder.imgMonAn_DM);
+        Picasso.get().load(new idwifi().getUrlThangImage+monAn.getAnh()).into(holder.imgMonAn_DM);
 
         holder.txtTenMonAn_DM.setText(monAn.getTenMonAn());
         holder.txtMoTaMonAn_DM.setText(monAn.getMoTa());

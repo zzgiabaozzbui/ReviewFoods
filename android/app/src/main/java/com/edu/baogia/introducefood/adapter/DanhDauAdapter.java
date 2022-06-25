@@ -74,8 +74,9 @@ public class DanhDauAdapter extends BaseAdapter {
             }
         });
 
-        Picasso.get().load(new idwifi().urlThang+monandanhdau.getAnh()).into(imgFood);
+        Picasso.get().load(new idwifi().getUrlThangImage+monandanhdau.getAnh()).into(imgFood);
         txtNameFood.setText(monandanhdau.getTenMonAn());
+        Log.d("namefood", "getView:"+monandanhdau.getTenMonAn());
         return convertView;
     }
 }

@@ -21,6 +21,7 @@ public class idwifi {
 
 
     public String urlThang="http://"+ipWifi+"/api/Dictionary/";
+    public String getUrlThangImage="http://"+ipWifi+":81";
     public String urlNinh="http://"+ipWifi+"/ReviewFoods/service/ninh/";
     public  void getnamecate(TextView txt, int id1, Context context){
         RequestQueue requestQueue = Volley.newRequestQueue(context);

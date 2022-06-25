@@ -96,6 +96,7 @@ public class DanhDauView extends AppCompatActivity implements DanhDauInterface {
     @Override
     public void getFoodDanhDau(DanhDau.CallBackGetFoodDanhDau callBackGetFoodDanhDau) {
         DanhDau danhDau=new DanhDau();
+        danhDau.setTenTaiKhoan(tenTK);
         danhDau.getFoodDanhDau(callBackGetFoodDanhDau,DanhDauView.this);
     }
 }

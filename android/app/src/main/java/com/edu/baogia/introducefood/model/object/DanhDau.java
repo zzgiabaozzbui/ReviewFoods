@@ -22,6 +22,7 @@ import com.edu.baogia.introducefood.util.idwifi;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.jsoup.Connection;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -95,7 +96,7 @@ public class DanhDau {
             if(idMonAn<0 || tenTaiKhoan==null){
                 return;
             }
-        String urlXoa= new idwifi().urlThang+"xoaDanhDau.php";
+        String urlXoa= new idwifi().urlThang+"DeleteDanhDau";
         JSONObject praObject = new JSONObject();
         try {
             praObject.put("idFood",idMonAn+"" );
@@ -130,41 +131,44 @@ public class DanhDau {
     public void getFoodDanhDau(CallBackGetFoodDanhDau callBackGetFoodDanhDau,Context context){
         List<MonAn> danhDauList = new ArrayList<>();
 
-        String urlGetCheckedFood = new idwifi().urlNinh + "getFoodDanhDau.php";
+
+        String urlGetDanhDau= new idwifi().urlThang+"LoadAllDanhDau";
+        JSONObject praObject = new JSONObject();
+        try {
+            praObject.put("tentaikhoan",tenTaiKhoan);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         RequestQueue requestQueue = Volley.newRequestQueue(context);
-        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, urlGetCheckedFood, null, new Response.Listener<JSONArray>() {
+        JsonObjectRequest jsonObjectRequest=new JsonObjectRequest(Request.Method.POST, urlGetDanhDau, praObject, new Response.Listener<JSONObject>() {
             @Override
-            public void onResponse(JSONArray response) {
-                JSONObject jsonObject;
-                for (int i = 0; i <= response.length(); i++) {
-                    try {
-                        jsonObject = response.getJSONObject(i);
+            public void onResponse(JSONObject response) {
+                JSONArray jsonArray=null;
+                try {
+                    jsonArray=response.getJSONArray("Data");
+                    JSONObject jsonObject;
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        Log.d("bb", "onResponse: "+jsonArray.length() );
+                        jsonObject = jsonArray.getJSONObject(i);
                         int id = jsonObject.getInt("id");
-                        String tenMonAn =jsonObject.getString("tenmonan");
-                        String anh =jsonObject.getString("anh");
-                        danhDauList.add(new MonAn(id,tenMonAn,anh));
-                    } catch (JSONException e) {
-                        e.printStackTrace();
+                        String tenMonAn = jsonObject.getString("tenmonan");
+                        String anh = jsonObject.getString("anh");
+                        danhDauList.add(new MonAn(id, tenMonAn, anh));
                     }
+                    callBackGetFoodDanhDau.onSuccess(danhDauList);
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
-                callBackGetFoodDanhDau.onSuccess(danhDauList);
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.d("pdt", "onErrorResponse: " + error.toString());
                 callBackGetFoodDanhDau.onFail(error.toString());
             }
-        }){
-            @Nullable
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String,String> map=new HashMap<>();
-                map.put("tentaikhoan",tenTaiKhoan);
-                return map;
-            }
-        };
-        requestQueue.add(jsonArrayRequest);
+        });
+
+
+        requestQueue.add(jsonObjectRequest);
     }
     public void getCheckedFood(CallBackCheckedFood callBackCheckedFood, Context context){
         List<DanhDau> danhDauList = new ArrayList<>();

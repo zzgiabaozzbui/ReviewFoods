@@ -19,7 +19,6 @@ include 'DB.php';
         file_put_contents($target_dir,base64_decode($anhdaidien));
 
         
-
         $sqlUpdate="update nguoidung set tendaydu='$tendaydu', anhdaidien='$target_dir', ngaysinh='$ngaysinh', email='$email', gioitinh=$gioitinh, sdt='$sdt' where id=$id";
     }
     else{
