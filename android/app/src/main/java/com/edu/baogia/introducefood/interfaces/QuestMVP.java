@@ -24,6 +24,7 @@ public interface QuestMVP {
     }
     interface Model
     {
+        String getUid();
         void addQuest(Quest quest, BooleanCallback callback);
         void deleteQuest(Quest quest, BooleanCallback callback);
         void getListQuest(String keyUser, ListQuestCallback callback);

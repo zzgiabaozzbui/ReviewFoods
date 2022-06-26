@@ -12,6 +12,7 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.edu.baogia.introducefood.interfaces.BooleanCallback;
@@ -88,17 +89,33 @@ public class ReviewModel implements ReviewMVP.Model {
 
     @Override
     public void updateReview(Review review, BooleanCallback booleanCallback) {
-        String url= QuestModel.IP+QuestModel.FOLDER+"updateReview.php";
-        StringRequest stringRequest=new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+        String url= idwifi.urlAPI+"UpdateReview";
+
+        JSONObject praObject = new JSONObject();
+        try {
+            praObject.put("KeyReview",review.getKeyReview()+"");
+            praObject.put("Content",review.getText());
+            praObject.put("Img",review.getImg());
+
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        JsonObjectRequest stringRequest=new JsonObjectRequest(Request.Method.POST, url,praObject, new Response.Listener<JSONObject>() {
             @Override
-            public void onResponse(String response) {
-                if(response.trim().equals("Success"))
-                {
-                    booleanCallback.getBool(true);
-                }
-                else
-                {
-                    booleanCallback.getBool(false);
+            public void onResponse(JSONObject response) {
+                try {
+                    String data=response.getString("Data");
+                    if(data.trim().equals("true"))
+                    {
+                        booleanCallback.getBool(true);
+                    }
+                    else
+                    {
+                        booleanCallback.getBool(false);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
             }
         }, new Response.ErrorListener() {
@@ -107,35 +124,38 @@ public class ReviewModel implements ReviewMVP.Model {
                 Log.d("BBB",error.toString());
                 booleanCallback.getBool(false);
             }
-        }){
-            @Nullable
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String,String> map=new HashMap<>();
-                map.put("Desc",review.getText());
-                map.put("Img",review.getImg());
-                map.put("KeyReview",review.getKeyReview()+"");
-                return map;
-            }
-        };
+        });
         RequestQueue requestQueue= Volley.newRequestQueue(context);
         requestQueue.add(stringRequest);
     }
 
     @Override
     public void deleteReview(Review review, BooleanCallback booleanCallback) {
-        String url= QuestModel.IP+QuestModel.FOLDER+"deleteReview.php";
-        StringRequest stringRequest=new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+        String url= idwifi.urlAPI+"DeleteReview";
+
+        JSONObject praObject = new JSONObject();
+        try {
+            praObject.put("KeyReview",review.getKeyReview()+"");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        JsonObjectRequest stringRequest=new JsonObjectRequest(Request.Method.POST, url,praObject, new Response.Listener<JSONObject>() {
             @Override
-            public void onResponse(String response) {
-                if(response.trim().equals("Success"))
-                {
-                    booleanCallback.getBool(true);
+            public void onResponse(JSONObject response) {
+                try {
+                    String data=response.getString("Data");
+                    if(data.trim().equals("true"))
+                    {
+                        booleanCallback.getBool(true);
+                    }
+                    else
+                    {
+                        booleanCallback.getBool(false);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
-                else
-                {
-                    booleanCallback.getBool(false);
-                }
+
             }
         }, new Response.ErrorListener() {
             @Override
@@ -143,15 +163,7 @@ public class ReviewModel implements ReviewMVP.Model {
                 Log.d("BBB",error.toString());
                 booleanCallback.getBool(false);
             }
-        }){
-            @Nullable
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String,String> map=new HashMap<>();
-                map.put("KeyReview",review.getKeyReview()+"");
-                return map;
-            }
-        };
+        });
         RequestQueue requestQueue= Volley.newRequestQueue(context);
         requestQueue.add(stringRequest);
     }
@@ -165,14 +177,24 @@ public class ReviewModel implements ReviewMVP.Model {
     @Override
     public void getListReview(int key, ListReviewCallback callback) {
         RequestQueue requestQueue= Volley.newRequestQueue(context);
-        String url=QuestModel.IP+QuestModel.FOLDER+"selectReview.php";
+        String url=idwifi.urlAPI+"LoadAllReview";
         Log.d("AAA",url);
-        StringRequest stringRequest=new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+
+        JSONObject praObject = new JSONObject();
+        try {
+
+            praObject.put("Key",key);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        JsonObjectRequest stringRequest=new JsonObjectRequest(Request.Method.POST, url,praObject, new Response.Listener<JSONObject>() {
             @Override
-            public  void onResponse(String response) {
+            public  void onResponse(JSONObject response) {
                 Log.d("AAA",response.toString());
                 try {
-                JSONArray jsonArr = new JSONArray(response.trim());
+                JSONArray jsonArr = response.getJSONArray("Data");
+                    Log.d("AAA",jsonArr.toString());
                 List<Review> reviewList=new ArrayList<>();
                 for (int i = 0; i < jsonArr.length(); i++) {
                     Review review;
@@ -180,19 +202,21 @@ public class ReviewModel implements ReviewMVP.Model {
                         review=new Review();
                         review.setKeyReview(jsonObject.getInt("keyRV"));
                         review.setAccount(jsonObject.getString("account"));
-                        review.setName(jsonObject.getString("name"));
-                        review.setAva(new idwifi().urlThang+jsonObject.getString("avatar"));
+                        review.setName(jsonObject.getString("tendaydu"));
+                        review.setAva(new idwifi().urlThang+jsonObject.getString("anhdaidien"));
                         review.setKey(jsonObject.getInt("keyFood"));
                         review.setText(jsonObject.getString("content"));
                         review.setTime(jsonObject.getString("timeRV"));
                         review.setImg(jsonObject.getString("img"));
                         reviewList.add(review);
+                    Log.d("AAA",review.toString());
 
                     }
                     callback.getList(reviewList);
                 }
                 catch (Exception e)
                 {
+                    Log.d("AAA",e.toString());
                     callback.getList(null);
                 }
             }
@@ -202,16 +226,7 @@ public class ReviewModel implements ReviewMVP.Model {
                 Log.d("BBB",error.toString());
                 callback.getList(null);
             }
-        })
-        {
-            @Nullable
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String,String> map=new HashMap<>();
-                map.put("Key",key+"");
-                return map;
-            }
-        };
+        });
         requestQueue.add(stringRequest);
     }
 

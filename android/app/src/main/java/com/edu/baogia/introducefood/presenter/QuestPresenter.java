@@ -25,7 +25,7 @@ public class QuestPresenter implements QuestMVP.Presenter {
 
     @Override
     public String getKeyUser() {
-        return "null";
+        return model.getUid();
     }
 
     @Override

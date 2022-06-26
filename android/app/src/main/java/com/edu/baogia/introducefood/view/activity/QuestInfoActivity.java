@@ -33,7 +33,15 @@ public class QuestInfoActivity extends AppCompatActivity {
         if(quest!=null)
         {
             tvQuest.setText("Câu hỏi : "+quest.getQuest());
-            tvAnswer.setText("Câu trả lời : "+quest.getAnswer());
+            if(quest.getAnswer()!=null&&!quest.getAnswer().trim().equals("null"))
+            {
+                tvAnswer.setText("Câu trả lời : "+quest.getAnswer());
+            }
+            else
+            {
+                tvAnswer.setText("Chưa có câu trả lời");
+            }
+
             tvTime.setText("Thời gian : "+quest.getTime());
             if(quest.isCheck())
             {

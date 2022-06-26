@@ -13,12 +13,16 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.edu.baogia.introducefood.interfaces.BooleanCallback;
 import com.edu.baogia.introducefood.interfaces.ListQuestCallback;
 import com.edu.baogia.introducefood.interfaces.QuestMVP;
+import com.edu.baogia.introducefood.model.object.AccountRemember;
 import com.edu.baogia.introducefood.model.object.Quest;
+import com.edu.baogia.introducefood.util.MySharedPreferences;
+import com.edu.baogia.introducefood.util.idwifi;
 
 
 import org.json.JSONArray;
@@ -39,21 +43,40 @@ public class QuestModel implements QuestMVP.Model {
     }
 
     @Override
+    public String getUid() {
+        AccountRemember accountRemember=new MySharedPreferences().getRememberAcc(context);
+        return  accountRemember.getUsername();
+    }
+
+    @Override
     public void addQuest(Quest quest, BooleanCallback callback) {
 
-        String url=IP+FOLDER+"insertQuest.php";
-        StringRequest stringRequest=new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+        String url= idwifi.urlAPI+"InsertQuest";
+
+        JSONObject praObject = new JSONObject();
+        try {
+            praObject.put("Account",quest.getAccount());
+            praObject.put("Quest",quest.getQuest());
+            praObject.put("Time",quest.getTime());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        JsonObjectRequest stringRequest=new JsonObjectRequest(Request.Method.POST, url,praObject, new Response.Listener<JSONObject>() {
             @Override
-            public void onResponse(String response) {
-                if(response.trim().equals("Success"))
-                {
-                    callback.getBool(true);
+            public void onResponse(JSONObject response) {
+                try {
+                    String data=response.getString("Data");
+                    if(data.trim().equals("true"))
+                    {
+                        callback.getBool(true);
+                    }
+                    else
+                    {
+                        callback.getBool(false);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
-                else
-                {
-                    callback.getBool(false);
-                }
-                Log.d("BBB",response);
             }
         }, new Response.ErrorListener() {
             @Override
@@ -61,36 +84,36 @@ public class QuestModel implements QuestMVP.Model {
                 Log.d("BBB",error.toString());
                 callback.getBool(false);
             }
-        }){
-            @Nullable
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String,String> map=new HashMap<>();
-                map.put("Account",quest.getAccount());
-                map.put("Quest",quest.getQuest());
-                map.put("Time",quest.getTime());
-                return map;
-            }
-        };
+        });
         RequestQueue requestQueue= Volley.newRequestQueue(context);
         requestQueue.add(stringRequest);
     }
 
     @Override
     public void deleteQuest(Quest quest, BooleanCallback callback) {
-        String url=IP+FOLDER+"deleteQuest.php";
-        StringRequest stringRequest=new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+        String url=idwifi.urlAPI+"DeleteQuest";
+        JSONObject praObject = new JSONObject();
+        try {
+            praObject.put("KeyQuest",quest.getKey()+"");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        JsonObjectRequest stringRequest=new JsonObjectRequest(Request.Method.POST, url,praObject, new Response.Listener<JSONObject>() {
             @Override
-            public void onResponse(String response) {
-                if(response.trim().equals("Success"))
-                {
-                    callback.getBool(true);
+            public void onResponse(JSONObject response) {
+                try {
+                    String data=response.getString("Data");
+                    if(data.trim().equals("true"))
+                    {
+                        callback.getBool(true);
+                    }
+                    else
+                    {
+                        callback.getBool(false);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
-                else
-                {
-                    callback.getBool(false);
-                }
-                Log.d("BBB",response);
             }
         }, new Response.ErrorListener() {
             @Override
@@ -98,15 +121,7 @@ public class QuestModel implements QuestMVP.Model {
                 Log.d("BBB",error.toString());
                 callback.getBool(false);
             }
-        }){
-            @Nullable
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String,String> map=new HashMap<>();
-                map.put("KeyQuest",quest.getKey()+"");
-                return map;
-            }
-        };
+        });
         RequestQueue requestQueue= Volley.newRequestQueue(context);
         requestQueue.add(stringRequest);
     }
@@ -114,38 +129,46 @@ public class QuestModel implements QuestMVP.Model {
     @Override
     public void getListQuest(String keyUser, ListQuestCallback callback) {
         RequestQueue requestQueue= Volley.newRequestQueue(context);
-        String url=IP+FOLDER+"selectQuest.php";
+        String url=idwifi.urlAPI+"LoadQuestID";
+        JSONObject praObject = new JSONObject();
+        try {
+
+            praObject.put("Account",keyUser+"");
+            Log.d("AAA",keyUser);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         Log.d("AAA",url);
-        JsonArrayRequest jsonArrayRequest=new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
+        JsonObjectRequest jsonArrayRequest=new JsonObjectRequest(Request.Method.POST, url, praObject, new Response.Listener<JSONObject>() {
             @Override
-            public  void onResponse(JSONArray response) {
-               List<Quest> questList=new ArrayList<>();
-                for (int i = 0; i < response.length(); i++) {
-                    Quest quest;
-                    try {
-                        JSONObject jsonObject=response.getJSONObject(i);
-                        quest=new Quest();
+            public  void onResponse(JSONObject response) {
+                List<Quest> questList = new ArrayList<>();
+                try {
+                    JSONArray jsonArray = response.getJSONArray("Data");
+                    Log.d("AAA",jsonArray.toString());
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        Quest quest;
+                        JSONObject jsonObject = jsonArray.getJSONObject(i);
+                        quest = new Quest();
                         quest.setKey(jsonObject.getInt("keyQuest"));
                         quest.setAccount(jsonObject.getString("account"));
                         quest.setQuest(jsonObject.getString("quest"));
                         quest.setAnswer(jsonObject.getString("answer"));
                         quest.setTime(jsonObject.getString("timeQ"));
-                        if(jsonObject.getInt("checkQ")==1)
-                        {
+                        if (jsonObject.getInt("checkQ") == 1) {
                             quest.setCheck(true);
-                        }
-                        else
-                        {
+                        } else {
                             quest.setCheck(false);
                         }
                         questList.add(quest);
-
-                    } catch (JSONException e) {
+                    }
+                }
+                catch (JSONException e) {
                         e.printStackTrace();
                         Log.d("AAA",e.toString());
                     }
-                }
-                callback.getList(questList);
+                    callback.getList(questList);
+
             }
         }, new Response.ErrorListener() {
             @Override
@@ -153,16 +176,7 @@ public class QuestModel implements QuestMVP.Model {
                 Log.d("AAA",error.toString());
                 callback.getList(null);
             }
-        })
-        {
-            @Nullable
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String,String> map=new HashMap<>();
-                map.put("Account",keyUser+"");
-                return map;
-            }
-        };
+        });
         requestQueue.add(jsonArrayRequest);
     }
 }

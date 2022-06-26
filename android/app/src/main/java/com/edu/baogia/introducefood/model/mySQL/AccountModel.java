@@ -93,7 +93,8 @@ public class AccountModel {
                     @Override
                     public void onResponse(JSONObject response) {
                         try {
-                            JSONObject object = new JSONArray(response).getJSONObject(0);
+                            JSONObject object = response.getJSONArray("Data").getJSONObject(0);
+//                            Log.d("AAA", "onResponse: "+object.toString());
                             accountRemember.setUsername(object.getString("tentaikhoan"));
                             accountRemember.setPassword(object.getString("matkhau"));
                             accountRemember.setIduser(object.getInt("idnguoidung"));
