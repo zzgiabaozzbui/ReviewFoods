@@ -287,7 +287,6 @@ public class LoginActivity extends AppCompatActivity implements LoginView{
 
             }
 
-            Log.w("AAA", "signInResultok    " + acct.getAccount().toString());
             // Signed in successfully, show authenticated UI.
             updateUI(acct);
         } catch (ApiException e) {

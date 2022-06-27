@@ -41,25 +41,26 @@ public class UserModel {
 
     public void insertUser(Users users, String applk){
         RequestQueue requestQueue = Volley.newRequestQueue(context);
-
         String url = urlAPI+"InsertUserFacebook";
         JSONObject jsonRequest = new JSONObject();
         try {
             jsonRequest.put("id", ""+users.getId());
+            jsonRequest.put("applk", ""+applk);
             jsonRequest.put("name", ""+users.getTenDayDu());
             jsonRequest.put("email", ""+users.getEmail());
 //            jsonRequest.put("picture", ""+users.getAnhDaiDien());
-            jsonRequest.put("applk", ""+applk);
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        JsonObjectRequest jsonObjectRequest=new JsonObjectRequest(Request.Method.POST, url, jsonRequest,
+        Log.d("AAA", "onResponsefaceok61: "+jsonRequest.toString());
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, jsonRequest,
                 new Response.Listener<JSONObject>() {
-
                     @Override
                     public void onResponse(JSONObject response) {
                         try {
+                            Log.d("AAA", "onResponsefaceok61: "+response.toString());
                             JSONObject object = response.getJSONArray("Data").getJSONObject(0);
+                            Log.d("AAA", "onResponsefaceok61: "+response.toString());
                             AccountRemember accountRemember = new AccountRemember();
                             accountRemember.setUsername(object.getString("tentaikhoan"));
 

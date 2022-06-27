@@ -50,6 +50,7 @@ public class LoginPresenterIml implements LoginPresenter, UserInterface {
     public void signInface(Users users, String applk) {
         new MySharedPreferences().signInAppLk(context,applk);
         userModel.insertUser(users,applk);
+        Log.w("AAA", "signInResultok    " + users.getId());
     }
 
     @Override

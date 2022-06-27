@@ -19,7 +19,7 @@ import org.json.JSONObject;
 
 public class idwifi {
 
-    public static String ipWifi = "192.168.0.106";
+    public static String ipWifi = "192.168.43.202";
     public static String urlImage="http://"+ipWifi+":81";
     public static String urlAPI="http://"+ipWifi+"/api/Dictionary/";
 
@@ -86,6 +86,6 @@ public class idwifi {
                     }
                 });
         requestQueue.add(jsonObjectRequest);
-        
+
     }
 }
