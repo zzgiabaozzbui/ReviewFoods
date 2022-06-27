@@ -35,6 +35,11 @@ public class FoodPresenterIm implements FoodPresenter, LoadFoodListener {
     }
 
     @Override
+    public void loadDDData(int id,String username) {
+        foodInterator.getFoodDanhDau((Context) foodView,id,username);
+    }
+
+    @Override
     public void loadRate(int id) {
         foodInterator.getRate(id);
     }
@@ -83,5 +88,11 @@ public class FoodPresenterIm implements FoodPresenter, LoadFoodListener {
     public void onLoadRateSuccess(Float rate, String countRate) {
         foodView.setRate(rate, countRate);
     }
+
+    @Override
+    public void onLoadDDSuccess(boolean a) {
+        foodView.setDD(a);
+    }
+
 
 }

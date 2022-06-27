@@ -1,5 +1,7 @@
 package com.edu.baogia.introducefood.util;
 
+import static com.edu.baogia.introducefood.model.mySQL.FoodInterator.monAnList;
+
 import android.content.Context;
 import android.util.Log;
 import android.widget.TextView;
@@ -27,65 +29,22 @@ public class idwifi {
     public String getUrlThangImage="http://"+ipWifi+":81";
     public String urlNinh="http://"+ipWifi+"/ReviewFoods/service/ninh/";
     public  void getnamecate(TextView txt, int id1, Context context){
-        RequestQueue requestQueue = Volley.newRequestQueue(context);
-        String url = urlAPI + "LoadMonAnID";
-        JSONObject jsonObject = new JSONObject();
-        try {
-            jsonObject.put("id", ""+id1);
-        } catch (JSONException e) {
-            e.printStackTrace();
+        String name ="Đang cập nhật";
+        for (int i =0;i < monAnList.size();i++){
+            if (id1==monAnList.get(i).getId()){
+                name= monAnList.get(i).getNameCategory().toString();
+            }
         }
-        JsonObjectRequest jsonObjectRequest=new JsonObjectRequest(Request.Method.POST, url, jsonObject,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        try {
-                            JSONObject object = (JSONObject) response.getJSONArray("Data").get(0);
-
-                            txt.setText(object.getString("tenloai"));
-
-                        } catch (Exception e) {
-                        }
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.d("AAA", "onErrorResponseidwifi56: "+error.toString());
-
-                    }
-                });
-        requestQueue.add(jsonObjectRequest);
+        txt.setText(name);
     }
     public  void getnamecate2(TextView txt, int id1, Context context){
-        RequestQueue requestQueue = Volley.newRequestQueue(context);
-        String url = urlAPI + "LoadMonAnID";
-        JSONObject jsonObject = new JSONObject();
-        try {
-            jsonObject.put("id", ""+id1);
-        } catch (JSONException e) {
-            e.printStackTrace();
+        String name ="Loại: "+"Đang cập nhật";
+        for (int i =0;i < monAnList.size();i++){
+            if (id1==monAnList.get(i).getId()){
+                name= "Loại: "+monAnList.get(i).getNameCategory().toString();
+            }
         }
-        JsonObjectRequest jsonObjectRequest=new JsonObjectRequest(Request.Method.POST, url, jsonObject,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        try {
-                            JSONObject object = (JSONObject) response.getJSONArray("Data").get(0);
-                            txt.setText("Loại: "+object.getString("tenloai"));
-
-                        } catch (Exception e) {
-                        }
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.d("AAA", "onErrorResponseidwifi56: "+error.toString());
-
-                    }
-                });
-        requestQueue.add(jsonObjectRequest);
+        txt.setText(name);
 
     }
 }

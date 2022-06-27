@@ -19,8 +19,10 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.edu.baogia.introducefood.model.object.DanhDau;
 import com.edu.baogia.introducefood.model.object.Food;
 import com.edu.baogia.introducefood.model.object.LoaiMonAn;
+import com.edu.baogia.introducefood.model.object.MonAn;
 import com.edu.baogia.introducefood.util.idwifi;
 
 import org.json.JSONArray;
@@ -34,6 +36,7 @@ import java.util.Map;
 
 //lớp này là lớp xử lý, dữ liệu đẩy vào callback để đưa qua lớp presenter
 public class FoodInterator {
+    public static List<LoaiMonAn> monAnList = new ArrayList<>();
     private LoadFoodListener listener;
     Context context;
     Fragment fragment;
@@ -128,6 +131,7 @@ public class FoodInterator {
                             }
 
                             listener.onLoadListCate(listFood);
+                            monAnList = listFood;
                         } catch (Exception e) {
                         }
                     }
@@ -140,6 +144,48 @@ public class FoodInterator {
                         listener.onLoadFoodFailure(error.toString());
                     }
                 });
+
+        requestQueue.add(jsonObjectRequest);
+    }
+    public void getFoodDanhDau( Context context,int id, String tenTaiKhoan){
+        String urlGetDanhDau= new idwifi().urlThang+"LoadAllDanhDau";
+        JSONObject praObject = new JSONObject();
+        try {
+            praObject.put("tentaikhoan",tenTaiKhoan);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        RequestQueue requestQueue = Volley.newRequestQueue(context);
+        JsonObjectRequest jsonObjectRequest=new JsonObjectRequest(Request.Method.POST, urlGetDanhDau, praObject, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                JSONArray jsonArray=null;
+                try {
+                    jsonArray=response.getJSONArray("Data");
+                    JSONObject jsonObject;
+                    boolean b = false;
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        Log.d("bb", "onResponse: "+jsonArray.length() );
+                        jsonObject = jsonArray.getJSONObject(i);
+                        int id1 = jsonObject.getInt("id");
+                        if (id1 ==id){
+                            b=true;
+                        }else {
+                            b=false;
+                        }
+
+                    }
+                    listener.onLoadDDSuccess(b);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+            }
+        });
+
 
         requestQueue.add(jsonObjectRequest);
     }

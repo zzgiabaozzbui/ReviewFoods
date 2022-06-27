@@ -7,5 +7,6 @@ public interface FoodView {
     void getFood(Food food);
     void setRate(Float rate, String countRate);
     void ReRate();
+    void setDD(boolean a);
 
 }

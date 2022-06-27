@@ -74,6 +74,11 @@ public class FoodActivity extends AppCompatActivity implements FoodView{
         foodPresenter = new FoodPresenterIm(this);
         loadFood(id);
         loadrate(id);
+        loadrate(id,new MySharedPreferences().getRememberAcc(this).getUsername());
+    }
+
+    private void loadrate(int id, String username) {
+        foodPresenter.loadDDData(id,username);
     }
 
     private void loadFood(int id) {
@@ -238,6 +243,15 @@ public class FoodActivity extends AppCompatActivity implements FoodView{
     @Override
     public void ReRate() {
         loadrate(id);
+    }
+
+    @Override
+    public void setDD(boolean a) {
+        if (a) {
+            ckoMonAn_DM.setButtonDrawable(R.drawable.ic_tim);
+        }else{
+            ckoMonAn_DM.setButtonDrawable(R.drawable.ic_kh_tim);
+        }
     }
 
 

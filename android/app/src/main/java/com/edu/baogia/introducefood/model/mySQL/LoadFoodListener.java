@@ -14,4 +14,5 @@ public interface LoadFoodListener {
     void onLoadDesFoodSuccess(Food food);
     void onLoadFoodFailure(String message);
     void onLoadRateSuccess(Float rate,String countRate);
+    void onLoadDDSuccess(boolean a);
 }

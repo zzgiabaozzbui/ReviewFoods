@@ -58,4 +58,10 @@ public class HomePresenterIm implements LoadFoodListener, HomePresenter {
     public void onLoadRateSuccess(Float rate, String countRate) {
 
     }
+
+    @Override
+    public void onLoadDDSuccess(boolean a) {
+
+    }
+
 }

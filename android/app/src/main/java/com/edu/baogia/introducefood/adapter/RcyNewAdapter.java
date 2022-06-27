@@ -56,7 +56,9 @@ public class RcyNewAdapter extends RecyclerView.Adapter<RcyNewAdapter.ViewHolder
                 }
                 else{
 //                    Toast.makeText(context, "Bạn vừa bấm "+list.get(position), Toast.LENGTH_SHORT).show();
-                    homeFragment.getTxtCateNew().setText(""+list.get(position).getCate());
+//                    homeFragment.getTxtCateNew().setText(""+list.get(position).getCate());
+
+                    new idwifi().getnamecate(homeFragment.getTxtCateNew(),list.get(position).getCate(),context);
                     homeFragment.getTxtNameNew().setText(""+list.get(position).getName());
                     homeFragment.getTxtDesNew().setText(""+list.get(position).getDes());
                     Log.d("AAA", "onClick: "+list.get(position).getCate());
