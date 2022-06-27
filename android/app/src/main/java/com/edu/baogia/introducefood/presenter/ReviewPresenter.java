@@ -1,6 +1,7 @@
 package com.edu.baogia.introducefood.presenter;
 
 import android.graphics.Bitmap;
+import android.util.Log;
 
 import com.edu.baogia.introducefood.interfaces.BooleanCallback;
 import com.edu.baogia.introducefood.interfaces.ListReviewCallback;
@@ -117,6 +118,7 @@ public class ReviewPresenter implements ReviewMVP.Presenter {
         review.setTime(timeStamp);
         if(bitmap==null)
         {
+            Log.d("AAA","NULL");
             model.addReview(review, new BooleanCallback() {
                 @Override
                 public void getBool(Boolean b) {
@@ -133,6 +135,7 @@ public class ReviewPresenter implements ReviewMVP.Presenter {
         }
         else
         {
+            Log.d("AAA","UPIMG");
                 model.uploadImg(bitmap, new StringCallback() {
                     @Override
                     public void getString(String s) {

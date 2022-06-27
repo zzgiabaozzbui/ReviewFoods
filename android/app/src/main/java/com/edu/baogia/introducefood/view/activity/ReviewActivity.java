@@ -8,6 +8,7 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -36,6 +37,7 @@ import com.edu.baogia.introducefood.model.mySQL.QuestModel;
 import com.edu.baogia.introducefood.model.mySQL.ReviewModel;
 import com.edu.baogia.introducefood.model.object.Review;
 import com.edu.baogia.introducefood.presenter.ReviewPresenter;
+import com.edu.baogia.introducefood.util.idwifi;
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.normal.TedPermission;
 
@@ -306,7 +308,7 @@ public class ReviewActivity extends AppCompatActivity implements ReviewMVP.View{
             imageViewUpdate=view.findViewById(R.id.imageView3);
             if(userReview.getImg()!=null||!userReview.getImg().trim().equals(""))
             {
-                Glide.with(this).load(QuestModel.IP+QuestModel.FOLDER+userReview.getImg()).into(imageViewUpdate);
+                Glide.with(this).load(idwifi.urlImage+QuestModel.FOLDER+userReview.getImg()).into(imageViewUpdate);
             }
             else
             {
@@ -364,10 +366,8 @@ public class ReviewActivity extends AppCompatActivity implements ReviewMVP.View{
                             Bitmap b = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
                             imageViewAdd.setImageBitmap(b);
                             imgAdd=b;
-                        } catch (FileNotFoundException e) {
-                            e.printStackTrace();
-                        } catch (IOException e) {
-                            e.printStackTrace();
+                        } catch (Exception e) {
+                           Log.d("AAA",e.toString());
                         }
 
                     }

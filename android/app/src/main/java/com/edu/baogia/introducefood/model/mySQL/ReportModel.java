@@ -12,6 +12,7 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.edu.baogia.introducefood.interfaces.BooleanCallback;
@@ -19,6 +20,7 @@ import com.edu.baogia.introducefood.interfaces.ReportMVP;
 import com.edu.baogia.introducefood.interfaces.StringCallback;
 import com.edu.baogia.introducefood.model.object.Report;
 import com.edu.baogia.introducefood.util.VolleyMultipartRequest;
+import com.edu.baogia.introducefood.util.idwifi;
 
 
 import org.json.JSONException;
@@ -38,19 +40,34 @@ public class ReportModel implements ReportMVP.Model {
 
     @Override
     public void addReport(Report report, BooleanCallback callback) {
-        String url= QuestModel.IP+QuestModel.FOLDER+"insertReport.php";
-        StringRequest stringRequest=new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+        String url= idwifi.urlAPI+"InsertRepost";
+        JSONObject praObject = new JSONObject();
+        try {
+
+            praObject.put("Title",report.getTitle());
+            praObject.put("Desc",report.getDesc());
+            praObject.put("Time",report.getTime());
+            praObject.put("Img",report.getImg());
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        JsonObjectRequest stringRequest=new JsonObjectRequest(Request.Method.POST, url,praObject, new Response.Listener<JSONObject>() {
             @Override
-            public void onResponse(String response) {
-                if(response.trim().equals("Success"))
-                {
-                    callback.getBool(true);
+            public void onResponse(JSONObject response) {
+                try {
+                    String data=response.getString("Data");
+                    if(data.trim().equals("true"))
+                    {
+                        callback.getBool(true);
+                    }
+                    else
+                    {
+                        callback.getBool(false);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
-                else
-                {
-                    callback.getBool(false);
-                }
-                Log.d("BBB",response.toString());
             }
         }, new Response.ErrorListener() {
             @Override
@@ -58,28 +75,15 @@ public class ReportModel implements ReportMVP.Model {
                 Log.d("BBB",error.toString());
                 callback.getBool(false);
             }
-        }){
-            @Nullable
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String,String> map=new HashMap<>();
-                map.put("Title",report.getTitle());
-                map.put("Desc",report.getDesc());
-                if(report.getImg()!=null)
-                {
-                    map.put("Img",report.getImg());
-                }
-                map.put("Time",report.getTime());
-                return map;
-            }
-        };
+        });
         RequestQueue requestQueue= Volley.newRequestQueue(context);
         requestQueue.add(stringRequest);
     }
 
     @Override
     public void uploadImg(Bitmap filePath, StringCallback callback) {
-        String url=QuestModel.IP+QuestModel.FOLDER+"fileUpload.php";
+        String url=idwifi.urlImage+QuestModel.FOLDER+"fileUpload.php";
+        Log.d("AAA",url);
         VolleyMultipartRequest volleyMultipartRequest = new VolleyMultipartRequest(Request.Method.POST, url,
                 new Response.Listener<NetworkResponse>() {
                     @Override

@@ -47,19 +47,39 @@ public class ReviewModel implements ReviewMVP.Model {
 
     @Override
     public void addReview(Review review, BooleanCallback callback) {
-        String url= QuestModel.IP+QuestModel.FOLDER+"insertReview.php";
-        StringRequest stringRequest=new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+        String url= idwifi.urlAPI+"InsertReview";
+        JSONObject praObject = new JSONObject();
+        try {
+            praObject.put("Account",review.getAccount());
+            praObject.put("Desc",review.getText());
+            praObject.put("Time",review.getTime());
+            praObject.put("Key",review.getKey()+"");
+            praObject.put("Img",review.getImg());
+
+            Log.d("AAA",praObject.toString());
+
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        JsonObjectRequest stringRequest=new JsonObjectRequest(Request.Method.POST, url,praObject, new Response.Listener<JSONObject>() {
             @Override
-            public void onResponse(String response) {
-                if(response.trim().equals("Success"))
-                {
-                    callback.getBool(true);
+            public void onResponse(JSONObject response) {
+                try {
+                    Log.d("AAA",response.toString());
+                    String data=response.getString("Data");
+                    if(data.trim().equals("true"))
+                    {
+                        callback.getBool(true);
+                    }
+                    else
+                    {
+                        callback.getBool(false);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    Log.d("AAA",e.toString());
                 }
-                else
-                {
-                    callback.getBool(false);
-                }
-                Log.d("BBB",response.toString());
             }
         }, new Response.ErrorListener() {
             @Override
@@ -67,22 +87,7 @@ public class ReviewModel implements ReviewMVP.Model {
                 Log.d("BBB",error.toString());
                 callback.getBool(false);
             }
-        }){
-            @Nullable
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String,String> map=new HashMap<>();
-                map.put("Account",review.getAccount());
-                map.put("Desc",review.getText());
-                map.put("Key",review.getKey()+"");
-                map.put("Time",review.getTime());
-                if(review.getImg()!=null)
-                {
-                    map.put("Img",review.getImg());
-                }
-                return map;
-            }
-        };
+        });
         RequestQueue requestQueue= Volley.newRequestQueue(context);
         requestQueue.add(stringRequest);
     }
@@ -203,7 +208,8 @@ public class ReviewModel implements ReviewMVP.Model {
                         review.setKeyReview(jsonObject.getInt("keyRV"));
                         review.setAccount(jsonObject.getString("account"));
                         review.setName(jsonObject.getString("tendaydu"));
-                        review.setAva(new idwifi().urlThang+jsonObject.getString("anhdaidien"));
+                        review.setAva(idwifi.urlImage+jsonObject.getString("anhdaidien"));
+                        Log.d("AAA",review.getAva());
                         review.setKey(jsonObject.getInt("keyFood"));
                         review.setText(jsonObject.getString("content"));
                         review.setTime(jsonObject.getString("timeRV"));
@@ -232,7 +238,8 @@ public class ReviewModel implements ReviewMVP.Model {
 
     @Override
     public void uploadImg(Bitmap filePath, StringCallback callback) {
-        String url=QuestModel.IP+QuestModel.FOLDER+"fileUpload.php";
+        String url=idwifi.urlImage+QuestModel.FOLDER+"fileUpload.php";
+        Log.d("AAA",url);
         VolleyMultipartRequest volleyMultipartRequest = new VolleyMultipartRequest(Request.Method.POST, url,
                 new Response.Listener<NetworkResponse>() {
                     @Override

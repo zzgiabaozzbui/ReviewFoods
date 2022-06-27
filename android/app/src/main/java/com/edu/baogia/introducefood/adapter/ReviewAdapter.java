@@ -16,6 +16,7 @@ import com.edu.baogia.introducefood.R;
 import com.edu.baogia.introducefood.interfaces.ItemClickListenerReview;
 import com.edu.baogia.introducefood.model.mySQL.QuestModel;
 import com.edu.baogia.introducefood.model.object.Review;
+import com.edu.baogia.introducefood.util.idwifi;
 
 
 import java.util.List;
@@ -57,8 +58,8 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ViewHolder
         Glide.with(this.mContext).load(mList.get(position).getAva()).into(holder.imageView);
         if(mList.get(position).getImg()!=null&&!mList.get(position).getImg().trim().equals(""))
         {
-            Log.d("AAA",QuestModel.IP+QuestModel.FOLDER+mList.get(position).getImg());
-            Glide.with(this.mContext).load(QuestModel.IP+QuestModel.FOLDER+"Images/"+mList.get(position).getImg()).into(holder.imgRV);
+            Log.d("AAA",idwifi.urlImage+QuestModel.FOLDER+"Images/"+mList.get(position).getImg());
+            Glide.with(this.mContext).load(idwifi.urlImage+QuestModel.FOLDER+"Images/"+mList.get(position).getImg()).into(holder.imgRV);
         }
         else
         {

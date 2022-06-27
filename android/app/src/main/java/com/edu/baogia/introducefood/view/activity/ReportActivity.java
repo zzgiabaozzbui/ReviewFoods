@@ -7,6 +7,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -143,6 +144,7 @@ public class ReportActivity extends AppCompatActivity implements ReportMVP.View 
                             bitmap=b;
 
                         } catch (FileNotFoundException e) {
+                            Log.d("AAA",e.toString());
                             e.printStackTrace();
                         }
 
