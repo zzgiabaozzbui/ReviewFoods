@@ -58,8 +58,8 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ViewHolder
         Glide.with(this.mContext).load(mList.get(position).getAva()).into(holder.imageView);
         if(mList.get(position).getImg()!=null&&!mList.get(position).getImg().trim().equals(""))
         {
-            Log.d("AAA",idwifi.urlImage+QuestModel.FOLDER+"Images/"+mList.get(position).getImg());
-            Glide.with(this.mContext).load(idwifi.urlImage+QuestModel.FOLDER+"Images/"+mList.get(position).getImg()).into(holder.imgRV);
+            Log.d("AAA","http://"+idwifi.ipWifi+":8080"+QuestModel.FOLDER+"Images/"+mList.get(position).getImg());
+            Glide.with(this.mContext).load("http://"+idwifi.ipWifi+":8080"+QuestModel.FOLDER+"Images/"+mList.get(position).getImg()).into(holder.imgRV);
         }
         else
         {

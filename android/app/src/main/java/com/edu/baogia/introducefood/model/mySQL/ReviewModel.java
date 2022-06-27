@@ -101,7 +101,7 @@ public class ReviewModel implements ReviewMVP.Model {
             praObject.put("KeyReview",review.getKeyReview()+"");
             praObject.put("Content",review.getText());
             praObject.put("Img",review.getImg());
-
+            Log.d("AAA",praObject.toString());
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -238,7 +238,7 @@ public class ReviewModel implements ReviewMVP.Model {
 
     @Override
     public void uploadImg(Bitmap filePath, StringCallback callback) {
-        String url=idwifi.urlImage+QuestModel.FOLDER+"fileUpload.php";
+        String url="http://"+idwifi.ipWifi+":8080"+QuestModel.FOLDER+"fileUpload.php";
         Log.d("AAA",url);
         VolleyMultipartRequest volleyMultipartRequest = new VolleyMultipartRequest(Request.Method.POST, url,
                 new Response.Listener<NetworkResponse>() {

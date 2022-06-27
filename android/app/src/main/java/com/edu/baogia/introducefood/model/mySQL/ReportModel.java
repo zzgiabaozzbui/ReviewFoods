@@ -82,7 +82,7 @@ public class ReportModel implements ReportMVP.Model {
 
     @Override
     public void uploadImg(Bitmap filePath, StringCallback callback) {
-        String url=idwifi.urlImage+QuestModel.FOLDER+"fileUpload.php";
+        String url="http://"+idwifi.ipWifi+":8080"+QuestModel.FOLDER+"fileUpload.php";
         Log.d("AAA",url);
         VolleyMultipartRequest volleyMultipartRequest = new VolleyMultipartRequest(Request.Method.POST, url,
                 new Response.Listener<NetworkResponse>() {

@@ -37,7 +37,7 @@ import java.util.Map;
 public class QuestModel implements QuestMVP.Model {
     Context context;
     public static final String IP="http://"+ipWifi;
-    public static final String FOLDER="/ReviewFoods/service/manh/KTPM/";
+    public static final String FOLDER="/QLMonAn/QLApp.Core.UI/wwwroot/KTPM/";
     public QuestModel(Context context) {
         this.context = context;
     }

@@ -45,11 +45,11 @@ public class QuestInfoActivity extends AppCompatActivity {
             tvTime.setText("Thời gian : "+quest.getTime());
             if(quest.isCheck())
             {
-                tvCheck.setText("Trạng thái : Đã đọc");
+                tvCheck.setText("Trạng thái : Chưa trả lời");
             }
             else
             {
-                tvCheck.setText("Trạng thái : Chưa đọc");
+                tvCheck.setText("Trạng thái : Chưa trả lời");
             }
 
         }

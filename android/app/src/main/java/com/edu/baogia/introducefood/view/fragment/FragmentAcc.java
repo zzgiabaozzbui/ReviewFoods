@@ -34,6 +34,8 @@ import com.edu.baogia.introducefood.util.idwifi;
 import com.edu.baogia.introducefood.view.activity.DanhDauView;
 import com.edu.baogia.introducefood.view.activity.HoSoView;
 import com.edu.baogia.introducefood.view.activity.LoginActivity;
+import com.edu.baogia.introducefood.view.activity.QuestActivity;
+import com.edu.baogia.introducefood.view.activity.ReportActivity;
 import com.edu.baogia.introducefood.view.activity.SplashActivity;
 import com.facebook.AccessToken;
 import com.facebook.FacebookSdk;
@@ -104,6 +106,20 @@ public class FragmentAcc extends Fragment  implements FragmentAccView{
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getActivity(), DanhDauView.class);
+                startActivity(intent);
+            }
+        });
+        btnLh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(getActivity(), ReportActivity.class);
+                startActivity(intent);
+            }
+        });
+        btnCauHoi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(getActivity(), QuestActivity.class);
                 startActivity(intent);
             }
         });

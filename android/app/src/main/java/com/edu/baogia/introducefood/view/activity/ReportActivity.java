@@ -140,7 +140,6 @@ public class ReportActivity extends AppCompatActivity implements ReportMVP.View 
                         try {
                             InputStream inputStream=getContentResolver().openInputStream(uri);
                             Bitmap b = BitmapFactory.decodeStream(inputStream);
-                            imageView.setImageBitmap(bitmap);
                             bitmap=b;
 
                         } catch (FileNotFoundException e) {

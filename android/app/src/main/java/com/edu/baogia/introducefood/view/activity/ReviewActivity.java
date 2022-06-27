@@ -308,7 +308,7 @@ public class ReviewActivity extends AppCompatActivity implements ReviewMVP.View{
             imageViewUpdate=view.findViewById(R.id.imageView3);
             if(userReview.getImg()!=null||!userReview.getImg().trim().equals(""))
             {
-                Glide.with(this).load(idwifi.urlImage+QuestModel.FOLDER+userReview.getImg()).into(imageViewUpdate);
+                Glide.with(this).load("http://"+idwifi.ipWifi+":8080"+QuestModel.FOLDER+"Images/"+userReview.getImg()).into(imageViewUpdate);
             }
             else
             {
