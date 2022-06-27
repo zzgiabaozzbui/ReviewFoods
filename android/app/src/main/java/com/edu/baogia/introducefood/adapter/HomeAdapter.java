@@ -47,7 +47,8 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
         Food book = list.get(position);
         holder.txtName.setText("Món ăn: "+book.getName());
 
-        holder.txtCate.setText("Loại: "+book.getCate());
+//        holder.txtCate.setText("Loại: "+book.getCate());
+        new idwifi().getnamecate2(holder.txtCate, book.getCate(), context);
         holder.txtDes.setText("Mô tả: "+book.getDes());
 
         Picasso.get().load(urlImage+""+book.getImg()).into(holder.imgAnh);

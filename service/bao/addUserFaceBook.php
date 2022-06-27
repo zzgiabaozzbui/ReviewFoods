@@ -1,8 +1,8 @@
 <?php
 
     include 'conect.php';
-    include 'dowImg.php';
     include 'Account.php';
+    include 'dowImg.php';
 
     
     $id = $_POST["id"];
@@ -17,15 +17,16 @@
 
 
     $name = $_POST["name"];
-    $email = $_POST["email"];;
+    $email = $_POST["email"];
 
-    $url = $_POST["picture"];;
-    $picture = saveimg($url,$tentaikhoan);
+    $url = $_POST["picture"];
 
-    $sql = "SELECT * FROM taikhoan WHERE tentaikhoan='$tentaikhoan'";
+    $sql = "SELECT * FROM taikhoan WHERE tentaikhoan='".$tentaikhoan."'";
     $result = $conn->query($sql);
 
     if ($result ->num_rows <= 0) {
+        //mạng quá yếu tải ảnh sẽ lâu -> gây lỗi cho volley
+        $picture = saveimg($url,$tentaikhoan);
 
         $sql = "INSERT INTO nguoidung VALUES (NULL,'$name','$picture','','$email',0,'')";
         $result = $conn->query($sql);
@@ -44,7 +45,7 @@
                 $result = $conn->query($sql);
                 
                 if ($result=== TRUE) {     
-                    $sql = "SELECT * FROM taikhoan WHERE tentaikhoan='$tentaikhoan' ";
+                    $sql = "SELECT * FROM taikhoan WHERE tentaikhoan='".$tentaikhoan."' ";
                     $result = $conn->query($sql);     
                     if ($result->num_rows > 0) {     
                         $arrayJson = [];

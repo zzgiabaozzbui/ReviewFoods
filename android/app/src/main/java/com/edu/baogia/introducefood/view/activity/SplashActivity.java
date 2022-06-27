@@ -35,7 +35,7 @@ public class SplashActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-        serviceInternet();
+//        serviceInternet();
 
         //Màu thanh pin
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {

@@ -10,6 +10,7 @@ import android.util.Log;
 import androidx.fragment.app.Fragment;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -40,6 +41,7 @@ public class UserModel {
 
     public void insertUser(Users users, String applk){
         RequestQueue requestQueue = Volley.newRequestQueue(context);
+
         String url = urlAPI+"InsertUserFacebook";
         JSONObject jsonRequest = new JSONObject();
         try {
@@ -53,15 +55,18 @@ public class UserModel {
         }
         JsonObjectRequest jsonObjectRequest=new JsonObjectRequest(Request.Method.POST, url, jsonRequest,
                 new Response.Listener<JSONObject>() {
+
                     @Override
                     public void onResponse(JSONObject response) {
                         try {
                             JSONObject object = response.getJSONArray("Data").getJSONObject(0);
                             AccountRemember accountRemember = new AccountRemember();
                             accountRemember.setUsername(object.getString("tentaikhoan"));
+
                             accountRemember.setPassword(object.getString("matkhau"));
                             accountRemember.setIduser(object.getInt("idnguoidung"));
                             listener.checkUserSuces(accountRemember);
+                            Log.d("AAA", "onResponseface: "+accountRemember.toString());
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -70,6 +75,7 @@ public class UserModel {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
+                        Log.d("AAA", "onErrorResponse: "+error.toString());
                     }
                 });
 

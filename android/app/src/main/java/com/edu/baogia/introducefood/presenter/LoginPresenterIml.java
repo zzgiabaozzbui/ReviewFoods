@@ -48,7 +48,6 @@ public class LoginPresenterIml implements LoginPresenter, UserInterface {
 
     @Override
     public void signInface(Users users, String applk) {
-        Log.d("AAA", "signInface: ");
         new MySharedPreferences().signInAppLk(context,applk);
         userModel.insertUser(users,applk);
     }
@@ -56,6 +55,7 @@ public class LoginPresenterIml implements LoginPresenter, UserInterface {
     @Override
     public void checkUserSuces(AccountRemember accountRemember) {
         accountRemember.setCheck(false);
+        Log.d("AAA", "checkUserSuces: "+accountRemember.toString());
         new MySharedPreferences().rememberPass(context,accountRemember);
         loginView.goHome();
     }

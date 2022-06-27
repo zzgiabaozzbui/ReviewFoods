@@ -12,7 +12,6 @@
         $arrayJson = [];
         // output data of each row
         while($row = $result->fetch_assoc()) {
-            //echo "id: " . $row["id"]. " - Name: " . $row["name"]. " - age " . $row["age"] . " - address " . $row["address"]. "<br>";
             $cate = new Cate($row["id"],$row["tenloai"],$row["anh"]);
             array_push($arrayJson,$cate);
         }

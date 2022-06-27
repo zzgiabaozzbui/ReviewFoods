@@ -6,7 +6,7 @@
     $id = $_POST["id"];
 
 
-    $sql = "SELECT*  FROM danhgia WHERE idmonan = ".$id." ";
+    $sql = "SELECT *  FROM danhgia WHERE idmonan = ".$id." ";
     $result = $conn->query($sql);
 
     if ($result->num_rows > 0) {

@@ -11,7 +11,7 @@
 
         
     if ($conn->query($sql) === TRUE) {
-        $sql = "SELECT * FROM taikhoan where tentaikhoan = '".$tentaikhoan."'";
+        $sql = "SELECT * FROM taikhoan where tentaikhoan = '".$tentaikhoan."' limit 1";
         $result = $conn->query($sql);
 
         if ($result->num_rows > 0) {

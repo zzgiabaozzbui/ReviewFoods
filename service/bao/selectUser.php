@@ -5,7 +5,7 @@
 
 
     $tentaikhoan = $_POST["username"];
-    $sql = "SELECT * FROM nguoidung where id = (SELECT idnguoidung FROM taikhoan where tentaikhoan = '".$tentaikhoan."') ";
+    $sql = "SELECT * FROM nguoidung where id in (SELECT idnguoidung FROM taikhoan where tentaikhoan = '".$tentaikhoan."') LIMIT 1 ";
     $result = $conn->query($sql);
 
     if ($result->num_rows > 0) {
