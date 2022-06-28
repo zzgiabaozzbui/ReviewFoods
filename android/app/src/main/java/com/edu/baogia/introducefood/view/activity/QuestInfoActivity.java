@@ -2,6 +2,7 @@ package com.edu.baogia.introducefood.view.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -43,9 +44,10 @@ public class QuestInfoActivity extends AppCompatActivity {
             }
 
             tvTime.setText("Thời gian : "+quest.getTime());
+            Log.d("AAA", String.valueOf(quest.isCheck()));
             if(quest.isCheck())
             {
-                tvCheck.setText("Trạng thái : Chưa trả lời");
+                tvCheck.setText("Trạng thái : Đã trả lời");
             }
             else
             {

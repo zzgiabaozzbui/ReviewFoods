@@ -155,6 +155,7 @@ public class QuestModel implements QuestMVP.Model {
                         quest.setQuest(jsonObject.getString("quest"));
                         quest.setAnswer(jsonObject.getString("answer"));
                         quest.setTime(jsonObject.getString("timeQ"));
+                        Log.d("AAA", String.valueOf(jsonObject.getInt("checkQ")==1));
                         if (jsonObject.getInt("checkQ") == 1) {
                             quest.setCheck(true);
                         } else {
