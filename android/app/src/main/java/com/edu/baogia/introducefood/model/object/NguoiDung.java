@@ -2,8 +2,10 @@ package com.edu.baogia.introducefood.model.object;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.text.TextUtils;
 import android.util.Base64;
 import android.util.Log;
+import android.util.Patterns;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -106,6 +108,11 @@ public class NguoiDung {
     public void setSdt(String sdt) {
         this.sdt = sdt;
     }
+
+    public boolean isValidEmail(){
+        return !TextUtils.isEmpty(email) && Patterns.EMAIL_ADDRESS.matcher(email).matches();
+    }
+
 
     @Override
     public String toString() {

@@ -1,6 +1,8 @@
 package com.edu.baogia.introducefood.presenter;
 
 
+import android.content.Context;
+
 import com.edu.baogia.introducefood.interfaces.FoodFillterInterface;
 import com.edu.baogia.introducefood.model.object.MonAn;
 
@@ -10,7 +12,7 @@ public class FoodFillterPresenter {
     public FoodFillterPresenter(FoodFillterInterface foodFillterInterface) {
         this.foodFillterInterface = foodFillterInterface;
     }
-    public void getFoodFillter(MonAn.CallBackFood callBackFood){
-        foodFillterInterface.getListFoodFillter(callBackFood);
+    public void getFoodFillter(MonAn.CallBackFood callBackFood, MonAn monAn, Context context){
+        monAn.getListFoodDanhMuc(callBackFood,context);
     }
 }

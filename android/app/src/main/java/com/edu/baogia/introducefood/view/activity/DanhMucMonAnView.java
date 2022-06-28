@@ -115,7 +115,7 @@ public class DanhMucMonAnView extends AppCompatActivity implements NavigationVie
             public void onFailTypeFood(String callBackTypeFood) {
 
             }
-        });
+        },new LoaiMonAn(),DanhMucMonAnView.this);
 
 
 
@@ -208,6 +208,6 @@ public class DanhMucMonAnView extends AppCompatActivity implements NavigationVie
 
     @Override
     public void getTypeFoodFillter(LoaiMonAn.CallBackTypeFood callBackTypeFood) {
-        new LoaiMonAn().getTypeFood(callBackTypeFood,DanhMucMonAnView.this);
+
     }
 }

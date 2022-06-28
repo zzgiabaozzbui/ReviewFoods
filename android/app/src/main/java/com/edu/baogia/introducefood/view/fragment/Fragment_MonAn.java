@@ -88,7 +88,7 @@ public class Fragment_MonAn extends Fragment implements FoodFillterInterface {
             public void onFailFood(String callBackFood) {
                 Toast.makeText(context, ""+callBackFood, Toast.LENGTH_SHORT).show();
             }
-        });
+        },new MonAn(),context);
         rcvDoanhMuc=view.findViewById(R.id.rcvDoanhMuc);
     }
     private void setIntent() {
@@ -111,7 +111,7 @@ public class Fragment_MonAn extends Fragment implements FoodFillterInterface {
 
     @Override
     public void getListFoodFillter(MonAn.CallBackFood callBackFood) {
-        new MonAn().getListFoodDanhMuc(callBackFood,getContext());
+
     }
     @Override
     public void hasNullFoodFillter() {

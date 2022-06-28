@@ -136,7 +136,23 @@ public class HoSoView extends AppCompatActivity implements HoSoInterface {
         btnAcceptHoSo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                hoSoPresenter.changeDataHoSo();
+                int gioiTinh=2;
+                if(txtGioiTinhHoSo.getText().toString().equalsIgnoreCase("Nam")){
+                    gioiTinh=0;
+                }else if(txtGioiTinhHoSo.getText().toString().equalsIgnoreCase("Nữ")){
+                    gioiTinh=1;
+                }
+                NguoiDung nguoiDung=new NguoiDung();
+                nguoiDung.setId(Integer.parseInt(txtIdHoSo.getText().toString()));
+                nguoiDung.setTenDayDu(txtTenDayDuHoSo.getText().toString());
+
+                nguoiDung.setNgaySinh(txtNgaySinhHoSo.getText().toString());
+                nguoiDung.setEmail(txtEmailHoSo.getText().toString());
+                nguoiDung.setSdt(txtSdtHoSo.getText().toString());
+                nguoiDung.setGioiTinh(gioiTinh);
+
+
+                hoSoPresenter.changeDataHoSo(HoSoView.this,nguoiDung,bitmap);
             }
         });
     }
@@ -153,7 +169,7 @@ public class HoSoView extends AppCompatActivity implements HoSoInterface {
                 txtIdHoSo.setText(nguoiDung.getId()+"");
                 txtTenDayDuHoSo.setText(nguoiDung.getTenDayDu());
 //                ảnh đại diện
-                txtNgaySinhHoSo.setText(nguoiDung.getNgaySinh().substring(0,10));
+                txtNgaySinhHoSo.setText(nguoiDung.getNgaySinh());
                 txtEmailHoSo.setText(nguoiDung.getEmail());
                 String gioiTinh="Nam";
                 if(nguoiDung.getGioiTinh()==1){
@@ -161,7 +177,7 @@ public class HoSoView extends AppCompatActivity implements HoSoInterface {
                 }else if(nguoiDung.getGioiTinh()==2){
                     gioiTinh="Khác";
                 }
-                Picasso.get().load(new idwifi().getUrlThangImage+nguoiDung.getAnhDaiDien()).error(R.drawable.meo_meo).into(imgAvatarHoSo);
+                Picasso.get().load(new idwifi().urlThang+nguoiDung.getAnhDaiDien()).error(R.drawable.meo_meo).into(imgAvatarHoSo);
                 txtGioiTinhHoSo.setText(gioiTinh);
                 txtSdtHoSo.setText(nguoiDung.getSdt());
             }
@@ -170,7 +186,7 @@ public class HoSoView extends AppCompatActivity implements HoSoInterface {
             public void onErrorHoSo(String error) {
 
             }
-        });
+        },HoSoView.this,tenTK);
     }
 
     private void seederTime() {
@@ -309,37 +325,19 @@ public class HoSoView extends AppCompatActivity implements HoSoInterface {
 
     @Override
     public void getHoSo(NguoiDung.CallBackHoSo callBackHoSo) {
-        NguoiDung nguoiDung=new NguoiDung();
-        if(tenTK.equalsIgnoreCase("")){
-            Intent intent=new Intent(HoSoView.this,LoginActivity.class);
-            startActivity(intent);
-        }
-        else
-            nguoiDung.getNguoiDung(HoSoView.this,callBackHoSo,tenTK);
+
     }
 
     @Override
-    public void updateHoSo() {
-        int gioiTinh=2;
-        if(txtGioiTinhHoSo.getText().toString().equalsIgnoreCase("Nam")){
-            gioiTinh=0;
-        }else if(txtGioiTinhHoSo.getText().toString().equalsIgnoreCase("Nữ")){
-            gioiTinh=1;
-        }
-        NguoiDung nguoiDung=new NguoiDung();
-        nguoiDung.setId(Integer.parseInt(txtIdHoSo.getText().toString()));
-        nguoiDung.setTenDayDu(txtTenDayDuHoSo.getText().toString());
-
-        nguoiDung.setNgaySinh(txtNgaySinhHoSo.getText().toString());
-        nguoiDung.setEmail(txtEmailHoSo.getText().toString());
-        nguoiDung.setSdt(txtSdtHoSo.getText().toString());
-        nguoiDung.setGioiTinh(gioiTinh);
-
-        new NguoiDung().updateHoSo(HoSoView.this,nguoiDung,bitmap);
-
-
-
+    public void updateHoSoSucess() {
+        Toast.makeText(HoSoView.this, "Bạn đã chỉnh sửa thông tin thành công", Toast.LENGTH_SHORT).show();
     }
+
+    @Override
+    public void updateHoSoError() {
+        Toast.makeText(HoSoView.this, "Bạn đã chỉnh sửa thông tin thất bại", Toast.LENGTH_SHORT).show();
+    }
+
 
 
 }
