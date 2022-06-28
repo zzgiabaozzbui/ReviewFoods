@@ -169,7 +169,7 @@ public class HoSoView extends AppCompatActivity implements HoSoInterface {
                 txtIdHoSo.setText(nguoiDung.getId()+"");
                 txtTenDayDuHoSo.setText(nguoiDung.getTenDayDu());
 //                ảnh đại diện
-                txtNgaySinhHoSo.setText(nguoiDung.getNgaySinh());
+                txtNgaySinhHoSo.setText(nguoiDung.getNgaySinh().substring(0,10));
                 txtEmailHoSo.setText(nguoiDung.getEmail());
                 String gioiTinh="Nam";
                 if(nguoiDung.getGioiTinh()==1){
@@ -177,7 +177,7 @@ public class HoSoView extends AppCompatActivity implements HoSoInterface {
                 }else if(nguoiDung.getGioiTinh()==2){
                     gioiTinh="Khác";
                 }
-                Picasso.get().load(new idwifi().urlThang+nguoiDung.getAnhDaiDien()).error(R.drawable.meo_meo).into(imgAvatarHoSo);
+                Picasso.get().load(new idwifi().getUrlThangImage+nguoiDung.getAnhDaiDien()).error(R.drawable.meo_meo).into(imgAvatarHoSo);
                 txtGioiTinhHoSo.setText(gioiTinh);
                 txtSdtHoSo.setText(nguoiDung.getSdt());
             }
