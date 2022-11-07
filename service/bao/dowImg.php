@@ -1,7 +1,7 @@
 
 <?php
     function saveimg($url,$id){
-        $saveUrl = 'img/'.$id.'.png';
+        $saveUrl = '..//thang/uploads/'.$id.'.png';
         file_put_contents($saveUrl, file_get_contents($url));
         return "//uploads/".$id.".png";
     }

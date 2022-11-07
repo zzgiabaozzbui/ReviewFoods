@@ -1,5 +1,6 @@
 package com.edu.baogia.introducefood.view.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -21,6 +22,8 @@ import com.edu.baogia.introducefood.presenter.FoodPresenterIm;
 import com.edu.baogia.introducefood.presenter.FoodRatingPresenter;
 import com.edu.baogia.introducefood.presenter.FoodRatingPresenterIm;
 import com.edu.baogia.introducefood.util.MySharedPreferences;
+import com.edu.baogia.introducefood.view.activity.LoginActivity;
+import com.edu.baogia.introducefood.view.activity.SplashActivity;
 
 
 public class FragmentRating extends Fragment  implements FragmentRatingView{
@@ -45,9 +48,13 @@ public class FragmentRating extends Fragment  implements FragmentRatingView{
         btnrate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                float getrating = rateFood.getRating();
-                Log.d("AAA", "onCreateView: " + getrating );
-                foodRatingPresenter.setRating(getrating,id,accountRemember.getUsername());
+                if (accountRemember.getUsername()==null || accountRemember.getUsername().equals("null")|| accountRemember.getUsername().equals("")){
+                    Toast.makeText(getContext(), "Bạn chưa đăng nhập", Toast.LENGTH_SHORT).show();
+                }else{
+                    float getrating = rateFood.getRating();
+                    Log.d("AAA", "onCreateView: " + getrating );
+                    foodRatingPresenter.setRating(getrating,id,accountRemember.getUsername());
+                }
             }
         });
         return root;

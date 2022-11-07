@@ -97,9 +97,15 @@ public class FoodActivity extends AppCompatActivity implements FoodView{
         btnBinhLuan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(FoodActivity.this,ReviewActivity.class);
-                intent.putExtra("idfood",id);
-                startActivity(intent);
+                AccountRemember accountRemember = new MySharedPreferences().getRememberAcc(FoodActivity.this);
+                if (accountRemember.getUsername()==null || accountRemember.getUsername().equals("null")|| accountRemember.getUsername().equals("")){
+                    Toast.makeText(FoodActivity.this, "Bạn chưa đăng nhập", Toast.LENGTH_SHORT).show();
+                }else{
+                    Intent intent = new Intent(FoodActivity.this,ReviewActivity.class);
+                    intent.putExtra("idfood",id);
+                    startActivity(intent);
+
+                }
             }
         });
         btnCreateQr.setOnClickListener(new View.OnClickListener() {

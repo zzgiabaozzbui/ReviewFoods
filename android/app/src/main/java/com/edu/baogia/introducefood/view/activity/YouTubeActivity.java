@@ -31,6 +31,9 @@ public class YouTubeActivity extends YouTubeBaseActivity {
 
         String des = getIntent().getStringExtra("desmaking");
         txtdes.setText(""+des);
+        if (link.equals("")){
+            Toast.makeText(this, "Video chưa được cập nhật! Vui lòng quay lại sau", Toast.LENGTH_SHORT).show();
+        }
 
         btnFinis.setOnClickListener(new View.OnClickListener() {
             @Override

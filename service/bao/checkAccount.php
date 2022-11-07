@@ -11,9 +11,10 @@
     if ($result->num_rows > 0) {
         $result1 = $conn->query($sql1);
         if ($result1->num_rows > 0) {
+            //tài khoản mật khẩu đúng
             echo "2";
         } else {
-            //Có tài khoản nhứng ai mật khẩu
+            //Có tài khoản nhưng không mật khẩu
             echo "1";
         }
     } else {

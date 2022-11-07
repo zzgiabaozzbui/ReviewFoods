@@ -35,7 +35,7 @@ public class SplashActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-//        serviceInternet();
+        serviceInternet();
 
         //Màu thanh pin
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -62,7 +62,7 @@ public class SplashActivity extends AppCompatActivity {
             @Override
             public void run() {
                 while (true){
-                    SystemClock.sleep(2000);
+                    SystemClock.sleep(10000);
                     handler.post(new Runnable() {
                         @Override
                         public void run() {

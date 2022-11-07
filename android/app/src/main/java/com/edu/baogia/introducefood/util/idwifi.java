@@ -21,13 +21,15 @@ import org.json.JSONObject;
 
 public class idwifi {
 
-    public static String ipWifi = "192.168.0.106";
+    public static String ipWifi = "192.168.43.207";
+
     public static String urlImage="http://"+ipWifi+":81";
     public static String urlAPI="http://"+ipWifi+"/api/Dictionary/";
 
     public String urlThang="http://"+ipWifi+"/api/Dictionary/";
     public String getUrlThangImage="http://"+ipWifi+":81";
     public String urlNinh="http://"+ipWifi+"/ReviewFoods/service/ninh/";
+
     public  void getnamecate(TextView txt, int id1, Context context){
         String name ="Đang cập nhật";
         for (int i =0;i < monAnList.size();i++){
